@@ -23,7 +23,6 @@ class admin extends CI_Controller
 		$this->load->model('Mmain');
 		
 		$this->fn->getheader();	
-		//$this->load->view('map/index');
 		$this->fn->getfooter();
 
 	

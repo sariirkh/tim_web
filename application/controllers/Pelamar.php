@@ -237,6 +237,7 @@ class Pelamar extends CI_Controller
 								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off id='txtTglDaftarPelamar' name=txt[] value='".$txtVal[1]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtNamaPelamar' name=txt[] value='".$txtVal[2]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off id='txtTglLahirPelamar' name=txt[] value='".$txtVal[3]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
+								
 								"<input type='text' class='form-control' autocomplete=off id='txtUmurPelamar' name=txt[] value='".$txtVal[4]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$cboJK,
 								"<input type='text' class='form-control' autocomplete=off id='txtAlamatPelamar' name=txt[] value='".$txtVal[6]."' required placeholder='Max. 70 karakter' maxlength='70'>",
