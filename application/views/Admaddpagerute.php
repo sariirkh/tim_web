@@ -29,6 +29,7 @@
 					<form  id="formfield" enctype="multipart/form-data" data-toggle="validator" role="form" method="POST" action="<?= site_url();?><?= $saveLink;?>" >
 					
                 <div class="card-body">
+				<div class="col-md-5">
 					<?php
 					if(!empty($formLabel))
 					{
@@ -38,7 +39,7 @@
 						foreach($formLabel as $row)
 						{
 						?> 
-						  <div class="form-group ">
+						  <div class="form-group " class="col-md-12">
 							<label for="inputEmail3" ><?= $row ?></label>
 							  <?= $formTxt[$i] ?>
 								<div class="help-block with-errors"></div>
@@ -47,6 +48,7 @@
 						$i++;
 						}
 						?>
+						
 					<?php
 					}
 					?>
@@ -61,7 +63,12 @@
 					  </div>
                 </div><!-- /.box-body -->
 					</form>
-			
+					<div class="card-body">
+					<div class="col-md-5">
+							<?php
+								//$this->load->view('map/tesmap');
+								?>
+							  </div>
 					<!-- modal -->
 					<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -92,4 +99,6 @@
           </div><!-- /.row -->
       </div><!-- /.container-fluid -->
         </section><!-- /.content -->
+
+		
       </div><!-- /.content-wrapper -->
