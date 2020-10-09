@@ -210,8 +210,8 @@ class Pelamar extends CI_Controller
 			//menambahkan foto
 			
 			$imgTemp="<h5><i>Click browse to change image</i></h5>
-			<img src='".base_url()."/assets/foto/".$txtVal[12]."' height='200px' width='auto' >
-			<input type='hidden' name='txtimg' value='".$txtVal[12]."'>";
+			<img src='".base_url()."/assets/foto/".$txtVal[13]."' height='200px' width='auto' >
+			<input type='hidden' name='txtimg' value='".$txtVal[13]."'>";
 
 		}
 		else
