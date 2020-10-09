@@ -152,7 +152,7 @@ class Pelamar extends CI_Controller
 		$renderTemp=$this->Mmain->qRead($this->tableQuery.$this->ordQuery,$this->fieldQuery,"");
 		foreach($renderTemp->result() as $row)
 		{
-			$row->Foto_pelamar="<img src='".base_url()."/assets/foto/".$row->Foto_pelamar."' height='auto' width='100px' >";
+			$row->Foto_pelamar="<img src='".base_url()."assets/foto/".$row->Foto_pelamar."' height='auto' width='100px' >";
 		}
 		$output['render']=$renderTemp;
 		//init view
