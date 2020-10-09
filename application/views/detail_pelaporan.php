@@ -139,8 +139,6 @@
                         <a href="<?= site_url(); ?>Profile" class="d-block">Intern</a>
                     </div>
                 </div>
-
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -222,26 +220,72 @@
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
-        </aside>
+        </aside><br>    <br>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
         <?php foreach($pelamar as $a) { ?>
-        <div class="card mb-3" style="max-width: 1540px; margin-left:10px; margin-right:10px;">
+        <div class="card md-5" style="max-width: 1540px; margin-left:10px">
   <div class="row no-gutters">
-    <div class="col-md-2">
-      <img style="width: 200px; height: 300px; margin-left: 20px; margin-bottom: 20px;" src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" class="card-img" alt="...">
+    <div class="col-md-3"><br>
+      <img style="width: 200px; height: 250px; margin-left: 60px; margin-bottom: 200px;" src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" >
     </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title"><?= $a->nama_pelamar ?></h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div class="col-md-6">
+          <!-- Box Comment -->
+          <div class="box box-success">
+            <div class="box-header">
+              <h3 class="box-title">Data Pelamar</h3>
+            </div><br>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <table class="table table-striped">
+                
+                <tr>
+                  
+                  <th>Nama Lengkap</th>
+                  <th> : </th>
+                  <td><?= $a->nama_pelamar ?></td>
+                </tr>
+                <tr><th>Tanggal Lahir</th>
+                  <th> : </th>
+                  <td><?= $a->tgllahir_pelamar ?></td></tr>
+                  <tr><th>Umur</th>
+                  <th> : </th>
+                  <td><?= $a->umur_pelamar ?></td></tr>
+                  <tr><th>Jenis Kelamin</th>
+                  <th> : </th>
+                  <td><?= $a->jk_pelamar ?></td></tr>
+                  <tr><th>Alamat</th>
+                  <th> : </th>
+                  <td><?= $a->alamat_pelamar ?></td></tr>
+                  <tr><th>Agama</th>
+                  <th> : </th>
+                  <td><?= $a->agama_pelamar ?></td></tr>
+                  <tr><th>No.Hp</th>
+                  <th> : </th>
+                  <td><?= $a->nohp_pelamar ?></td></tr>
+                  <tr><th>Status</th>
+                  <th> : </th>
+                  <td><?= $a->status_pelamar ?></td></tr>
+                  <tr><th>Pendidikan Terakhir</th>
+                  <th> : </th>
+                  <td><?= $a->pdkterakhir_pelamar ?></td></tr>
+                  <tr><th>Jurusan</th>
+                  <th> : </th>
+                  <td><?= $a->jurusan_pelamar ?></td></tr>
+                  <tr><th>Asal Sekolah</th>
+                  <th> : </th>
+                  <td><?= $a->asalsekolah_pelamar ?></td></tr>
+                  
+        </table><br>
+        <div class="clear">
+<a style="float: right;" class="btn btn-success" href="<?php echo base_url(). "Pelaporan/pelaporan" ?>">BACK <i class="fa fa-arrow-right"></i></button> </a></div><br><br><br></div>
       </div>
     </div>
   </div>
 </div>
         <?php } ?>
         </div>
+            
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
