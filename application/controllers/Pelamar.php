@@ -242,7 +242,7 @@ class Pelamar extends CI_Controller
 								$cboJK,
 								"<input type='text' class='form-control' autocomplete=off id='txtAlamatPelamar' name=txt[] value='".$txtVal[6]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$cboAgama,
-								"<input type='number' class='form-control' autocomplete=off id='txtNoHpPelamar' name=txt[] value='".$txtVal[8]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtNoHpPelamar' name=txt[] value='".$txtVal[8]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$cboStatus,
 								"<input type='text' class='form-control' autocomplete=off id='txtPdkPelamar' name=txt[] value='".$txtVal[10]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtJurusanPelamar' name=txt[] value='".$txtVal[11]."' required placeholder='Max. 70 karakter' maxlength='70'>",
