@@ -99,11 +99,12 @@ class Barangkeluar extends CI_Controller
 		{
 			$access=$row;
 		}
+
 		//$selfDept=$this->Mmain->qRead("tb_emp WHERE id_emp='".$this->session->userdata('idEmp')."'","id_div,id_loc","")->row();
-		
+		//echo $access->isadd . " cari";
 		//$output['isall']=$access->isadd;
 		$accessQuery="";
-		$access=$isAll;
+		//$access=$isAll;
 		/*
 		if($access->acc2<>1)
 		{
@@ -206,7 +207,7 @@ class Barangkeluar extends CI_Controller
 				    
 		$output['formTxt']=array(
 								"<input type='text' class='form-control' id='txtIdBarangKeluar' name=txt[] value='".$txtVal[0]."' required readonly placeholder='Max. karakter' maxlength='70'>",
-								"<input type='text' class='form-control dtp' data-date-format='dd-mm-yyyy' autocomplete=off  readonly id='txtTanggalKeluar' name=txt[] value='".$txtVal[1]."' required placeholder='' maxlength='70'>",
+								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off  readonly id='txtTanggalKeluar' name=txt[] value='".$txtVal[1]."' required placeholder='' maxlength='70'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtIdBarang' name=txt[] value='".$txtVal[2]."' required placeholder='Max. 7 karakter' maxlength='7'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtNamaBarang' name=txt[] value='".$txtVal[3]."' required placeholder='Max. 30 karakter' maxlength='50'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtJumlahBarang' name=txt[] value='".$txtVal[4]."' required placeholder=' ' maxlength='70'>",
