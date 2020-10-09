@@ -1,4 +1,4 @@
-	 <section class="content-header">
+<section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -172,6 +172,9 @@
 										$editLink=$saveLink;
 									}
 								?>
+
+										
+								
 								<a data-toggle="tooltip" title="Edit Data" href="<?= site_url();?><?= $editLink;?>/<?= $pid;?>">
 									<i class="fa fa-cogs fa-fw text-purple"></i>
 								</a>
@@ -186,6 +189,8 @@
 								<a data-toggle="modal" data-target="#confirm-delete" title="Delete Data" href="#" name="<?= $pid;?>" class="deleteBtn">
 									<i class="fa fa-trash fa-fw text-red"></i>
 								</a>
+
+								
 								<?php
 								}
 								?>
@@ -269,8 +274,7 @@
 				<div class="modal-header">
 					Sign & Close Order
 				</div>
-				<!---buat ttd digital-->
-				<div class="modal-body">   
+				<div class="modal-body">
 				<input type='hidden' class='form-control' id='txtsignId' name=txt[]  required >
 				<input type='hidden' class='form-control' id='txtsignpad' name=txt[]   required >
 					
