@@ -329,7 +329,6 @@ class Pelamar extends CI_Controller
 		 $savValTemp[]=$avauser;
 	
 		$this->Mmain->qUpd($this->mainTable,$this->mainPk,$savValTemp[0],$savValTemp);
-		
 		$this->session->set_flashdata('successNotification', '2');
 		//redirect to form
 		redirect($this->viewLink,'refresh');		
