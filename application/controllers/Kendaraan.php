@@ -289,7 +289,7 @@ class Kendaraan extends CI_Controller
 		// 	$avauser=$this->input->post('txtimg');
 		// }
 		
-		
+			
 		
 		
 		// $savValTemp[] = $savValUserTemp[0];
