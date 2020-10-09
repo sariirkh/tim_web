@@ -227,7 +227,7 @@
         <div class="card md-5" style="max-width: 1540px; margin-left:10px">
   <div class="row no-gutters">
     <div class="col-md-3"><br>
-      <img style="width: 200px; height: 250px; margin-left: 60px; margin-bottom: 200px;" src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" >
+      <img style="width: 200px; height: 250px; margin-left: 70px; margin-bottom: 200px;" src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" >
     </div>
     <div class="col-md-6">
           <!-- Box Comment -->
