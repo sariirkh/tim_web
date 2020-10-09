@@ -96,7 +96,6 @@
               </div>
                 
                 <div class="card-body">
-			
 				<table class="table table-hover table-striped  <?= $dt; ?>" id="tblView" width="100%">
 				
 				<?php
@@ -203,7 +202,6 @@
 								?>
 								
 								
-								
 								<?php
 								if((isset($customButton)))
 								{
@@ -271,7 +269,8 @@
 				<div class="modal-header">
 					Sign & Close Order
 				</div>
-				<div class="modal-body">
+				<!---buat ttd digital-->
+				<div class="modal-body">   
 				<input type='hidden' class='form-control' id='txtsignId' name=txt[]  required >
 				<input type='hidden' class='form-control' id='txtsignpad' name=txt[]   required >
 					
