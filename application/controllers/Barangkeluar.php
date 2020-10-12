@@ -31,20 +31,19 @@ class Barangkeluar extends CI_Controller
 	//query
 	var $ordQuery=" ORDER BY id_barang_keluar DESC ";
 	var $tableQuery=
-						"barang_keluar";
+						"barang_keluar AS a INNER JOIN tb_barang AS b ON a.id_barang_keluar = b.id_barang";
 	var $fieldQuery="
-						id_barang_keluar,
-						tanggal_keluar,
-						id_barang,
-						nama_barang,
-					    jumlah_keluar,
-						id_karyawan,
-						ttd
+						a.id_barang_keluar,
+						a.tanggal_keluar,
+						concat(b.id_barang, b.nama_barang),
+					    a.jumlah_keluar,
+						a.id_karyawan,
+						a.ttd
 						"; //leave blank to show all field
 						
 	var $primaryKey="id_barang_keluar";
 	//var $detKey="nik";
-	var $updateKey="id_barang_keluar";
+	var $updateKey="a.id_barang_keluar";
 	
 	//auto generate id
 	//sesuaikan panjangnya length di database
@@ -57,7 +56,6 @@ class Barangkeluar extends CI_Controller
 	var $viewFormTableHeader=array(
 									"No Transaksi",
 									"Tanggal Keluar",
-									"Id Barang",
 									"Nama Barang",
 									"Jumlah",
 									"Penerima",
@@ -69,7 +67,6 @@ class Barangkeluar extends CI_Controller
 	var $saveFormTableHeader=array(
 									"No Transaksi",
 									"Tanggal Keluar",
-									"Id Barang",
 									"Nama Barang",
 									"Jumlah",
 									"Penerima",
@@ -204,14 +201,15 @@ class Barangkeluar extends CI_Controller
 		}
 		
 		// $cboacc=$this->fn->createCbofromDb("tb_acc","id_acc as id,nm_acc as nm","",$txtVal[58],"","txtUser[]");
+		//Combobox gabungan
+		$cboID=$this->fn->createCbofromDb("tb_barang","id_barang as id, concat(id_barang ,' - ',nama_barang) as nm","",$txtVal[2],"","txt[]");
 				    
 		$output['formTxt']=array(
 								"<input type='text' class='form-control' id='txtIdBarangKeluar' name=txt[] value='".$txtVal[0]."' required readonly placeholder='Max. karakter' maxlength='70'>",
 								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off  readonly id='txtTanggalKeluar' name=txt[] value='".$txtVal[1]."' required placeholder='' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtIdBarang' name=txt[] value='".$txtVal[2]."' required placeholder='Max. 7 karakter' maxlength='7'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtNamaBarang' name=txt[] value='".$txtVal[3]."' required placeholder='Max. 30 karakter' maxlength='50'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtJumlahBarang' name=txt[] value='".$txtVal[4]."' required placeholder=' ' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtIdKaryawan' name=txt[] value='".$txtVal[5]."' required placeholder='Ex: Staff,Gudang etc.' maxlength='20'>",
+								$cboID,
+								"<input type='text' class='form-control' autocomplete=off id='txtJumlahBarang' name=txt[] value='".$txtVal[3]."' required placeholder=' ' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtIdKaryawan' name=txt[] value='".$txtVal[4]."' required placeholder='Ex: Staff,Gudang etc.' maxlength='20'>",
 								"
 								<input type='hidden' class='form-control' id='txtsignpad' name=txtTtd   required >
 									<br>
@@ -238,7 +236,7 @@ class Barangkeluar extends CI_Controller
 		echo implode("<br>",$savValTemp); //show value
 		//update stok keluar
 		$stokkeluar = $this->Mmain->qRead("tb_barang WHERE id_barang = '".$savValTemp[2]."' ","stok_barang","")->row_array()->stok_barang;
-		$stokbaru = $stokkeluar - $savValTemp[4];
+		$stokbaru = $stokkeluar - $savValTemp[3];
 
 		$this->Mmain->qUpdPart("tb_barang","id_barang",$savValTemp[2],Array("stok_barang"),Array($stokbaru));
 		
