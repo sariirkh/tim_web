@@ -11,7 +11,7 @@ class pelaporan extends CI_Controller
 
     function index()
     {
-        $this->load->view('excel_import');
+        $this->load->view('v_pelaporan');
     }
     public function pelaporan()
     {
