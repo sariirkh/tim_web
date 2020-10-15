@@ -39,7 +39,8 @@ class Barang extends CI_Controller
 						stok_barang,
 						satuan,
 						jenis,
-						id_loker
+						id_loker,
+						0 as aksi
 						"; //leave blank to show all field
 						
 	var $primaryKey="id_barang";
@@ -60,7 +61,8 @@ class Barang extends CI_Controller
 									"Stok",
 									"Satuan",
 									"Jenis",
-									"Loker"
+									"Loker",
+									"Aksi"
 									);
 	
 	//save
@@ -130,7 +132,7 @@ class Barang extends CI_Controller
 		$renderTemp=$this->Mmain->qRead($this->tableQuery.$this->ordQuery,$this->fieldQuery,"");
 		foreach($renderTemp->result() as $row)
 		{
-
+			$row->aksi = "<a href='".site_url()."Barang/tambahkeranjang' class='btn btn-primary'>Tambah</a>"; //menambah tombol tambah
 		}
 		$output['render']=$renderTemp;
 		//init view
@@ -292,7 +294,14 @@ class Barang extends CI_Controller
 		//redirect to form
 		redirect($this->viewLink,'refresh');		
 	}
-	
+	//fungsi kerangjang sementara
+	public function tambahkeranjang()
+	{
+		
+		$this->load->database();
+		$this->load->model('Mmain');
+
+	}
 	
 }
 
