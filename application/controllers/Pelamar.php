@@ -17,7 +17,7 @@ class Pelamar extends CI_Controller
 	
 	var $mainTable="tb_pelamar";
 	var $mainPk="id_pelamar";
-	var $viewLink="pelamar";
+	var $viewLink="Pelamar";
 	// var $viewLink2="Users";
 	//sub menu atau header
 	var $breadcrumbTitle="Data Pelamar";
@@ -46,8 +46,18 @@ class Pelamar extends CI_Controller
 						status_pelamar,
 						pdkterakhir_pelamar,
 						jurusan_pelamar,
+						nilai_pelamar,
 						asalsekolah_pelamar,
-						Foto_pelamar
+						prestasi_pelamar,
+						keahlian_pelamar,
+						pengalamankerja_pelamar,
+						loker_pelamar,
+						statuslowongan_pelamar as stat,
+						tahapan_pelamar as thp,
+						notes_pelamar,
+						Foto_pelamar,
+						file_pelamar
+						
 						"; //leave blank to show all field
 						
 	var $primaryKey="id_pelamar";
@@ -75,8 +85,18 @@ class Pelamar extends CI_Controller
 									"Status",
 									"Pendidikan Terakhir",
 									"Jurusan",
+									"Nilai",
 									"Asal Sekolah",
-									"Foto"
+									"Prestasi",
+									"Keahlian",
+									"Pengalaman Kerja",
+									"Loker",
+									"Status Lowongan",
+									"Tahapan",
+									"Notes",
+									"Foto",
+									"File"
+									
 									);
 	
 	//save
@@ -94,8 +114,17 @@ class Pelamar extends CI_Controller
 									"Status",
 									"Pendidikan Terakhir",
 									"Jurusan",
-									"Perguruan Tinggi",
-									"Foto"
+									"Nilai",
+									"Asal Sekolah",
+									"Prestasi",
+									"Keahlian",
+									"Pengalaman Kerja",
+									"Loker",
+									"Status Lowongan",
+									"Tahapan",
+									"Notes",
+									"Foto",
+									"File"
 									);
 	
 	//update
@@ -124,26 +153,7 @@ class Pelamar extends CI_Controller
 		
 		//$output['isall']=$access->isadd;
 		$accessQuery="";
-		/*
-		if($access->acc2<>1)
-		{
-			
-		$this->viewFormTableHeader=array(
-									"Avatar",
-									"Name",
-									"Workplace",
-									"NIK",
-									"Division",
-									"Departement",
-									"Sex",
-									"Phone",
-									"Address",
-									"E-Mail");
-									$this->tableQuery.=" WHERE a.show_emp=1 ";
-		}
-		*/
-			//$accessQuery="WHERE b.code_user ='".$this->session->userdata['codeUser']."'";
-			
+		
 		//foto
 		
 		//init view
@@ -153,8 +163,35 @@ class Pelamar extends CI_Controller
 		foreach($renderTemp->result() as $row)
 		{
 			$row->Foto_pelamar="<img src='".base_url()."assets/foto/".$row->Foto_pelamar."' height='auto' width='100px' >";
-		}
-		$output['render']=$renderTemp;
+			$row->file_pelamar="<a href='".base_url()."assets/file/".$row->file_pelamar."' >".$row->file_pelamar."</a>";
+		
+			//$row->thp = "<a href='' class='btn btn-primary'>Tahapan</a>";
+		
+			if($row->stat == "open")
+				$row->stat = "<a href='".site_url()."Pelamar/ubah/".$row->id_pelamar."/close' class='btn btn-danger'>Close</a>";
+				else
+				$row->stat = "<a href='".site_url()."Pelamar/ubah/".$row->id_pelamar."/open' class='btn btn-primary'>Open</a>";
+		
+
+
+			if($row->thp == "mendaftar")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/upload berkas' class='btn btn-primary'>upload berkas</a>";
+				else
+			if($row->thp == "interview 1")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview 2' class='btn btn-primary'>interview 2</a>";
+				else
+			if($row->thp == "tes excel")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/tes tulis' class='btn btn-primary'>tes Tulis</a>";
+				else
+			if($row->thp == "psikotes")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview 3' class='btn btn-primary'>interview 3</a>";
+				else	
+			if($row->thp == "diterima")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/gagal' class='btn btn-danger'>gagal</a>";
+
+				
+			}
+			$output['render']=$renderTemp;
 		//init view
 		$output['pageTitle']=$this->viewFormTitle;
 		$output['breadcrumbTitle']=$this->breadcrumbTitle;
@@ -190,6 +227,7 @@ class Pelamar extends CI_Controller
 		$output['formLabel']=$this->saveFormTableHeader;
 		
 		$imgTemp="";
+		$fileTemp="";
 		$codeTemp="";
 		$isRo="";
 		if(!empty($isEdit))
@@ -210,9 +248,14 @@ class Pelamar extends CI_Controller
 			//menambahkan foto
 			
 			$imgTemp="<h5><i>Click browse to change image</i></h5>
-			<img src='".base_url()."/assets/foto/".$txtVal[13]."' height='200px' width='auto' >
-			<input type='hidden' name='txtimg' value='".$txtVal[13]."'>";
+			<img src='".base_url()."/assets/foto/".$txtVal[21]."' height='200px' width='auto' >
+			<input type='hidden' name='txtfl' value='".$txtVal[21]."'>";
 
+			$fileTemp="<h5><i>Click browse to change file</i></h5>
+			<a href='".base_url()."/assets/file/".$txtVal[22]."'>
+			<input type='hidden' name='txtfd' value='".$txtVal[22]."'>";
+
+			
 		}
 		else
 		{	
@@ -224,20 +267,22 @@ class Pelamar extends CI_Controller
 				//generate id
 				$txtVal[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
 				
-	
+				
+			
 		}
 		//combobox dinamis dan statis
 		//$cboacc=$this->fn->createCbofromDb("tb_acc","id_acc as id,nm_acc as nm","",$txtVal[58],"","txtUser[]");
 	$cboJK=$this->fn->createCbo(array('Laki-laki','Perempuan'),array('Laki-laki','Perempuan'),$txtVal[5]);
 	$cboAgama=$this->fn->createCbo(array('Islam','Kristen','Katholik','Hindu','Budha','Kong Hu Chu'),array('Islam','Kristen','Katholik','Hindu','Budha','Kong Hu Chu'),$txtVal[7]);	
 	$cboStatus=$this->fn->createCbo(array('Single','Married'),array('Single','Married'),$txtVal[9]);
-
+	$cboStatusLowongan=$this->fn->createCbo(array('Open'),array('Open'),$txtVal[18]);
+	$cboTahapan=$this->fn->createCbo(array('Mendaftar'),array('Mendaftar'),$txtVal[19]);
+			
 		$output['formTxt']=array(
 								"<input type='text' class='form-control' id='txtIdPelamar' name=txt[] value='".$txtVal[0]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
 								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off id='txtTglDaftarPelamar' name=txt[] value='".$txtVal[1]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtNamaPelamar' name=txt[] value='".$txtVal[2]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off id='txtTglLahirPelamar' name=txt[] value='".$txtVal[3]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
-								
 								"<input type='text' class='form-control' autocomplete=off id='txtUmurPelamar' name=txt[] value='".$txtVal[4]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$cboJK,
 								"<input type='text' class='form-control' autocomplete=off id='txtAlamatPelamar' name=txt[] value='".$txtVal[6]."' required placeholder='Max. 70 karakter' maxlength='70'>",
@@ -246,8 +291,18 @@ class Pelamar extends CI_Controller
 								$cboStatus,
 								"<input type='text' class='form-control' autocomplete=off id='txtPdkPelamar' name=txt[] value='".$txtVal[10]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtJurusanPelamar' name=txt[] value='".$txtVal[11]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtPtPelamar' name=txt[] value='".$txtVal[12]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								$imgTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfl >"
+								"<input type='text' class='form-control' autocomplete=off id='txtNilaiPelamar' name=txt[] value='".$txtVal[12]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtAsalSekolahPelamar' name=txt[] value='".$txtVal[13]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtPrestasiPelamar' name=txt[] value='".$txtVal[14]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtKeahlianPelamar' name=txt[] value='".$txtVal[15]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtPengalamanKerjaPelamar' name=txt[] value='".$txtVal[16]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtLokerPelamar' name=txt[] value='".$txtVal[17]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								$cboStatusLowongan,
+								$cboTahapan,
+								"<input type='text' class='form-control' autocomplete=off id='txtNotesPelamar' name=txt[] value='".$txtVal[20]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								$imgTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfl >",
+								$fileTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfd >"
+								
 							);
 		
 							
@@ -282,6 +337,22 @@ class Pelamar extends CI_Controller
 		}
 		$savValTemp[]=$avauser;
 
+		if(!empty($_FILES['txtfd']['name']))
+		{
+			$flName=$_FILES['txtfd']['name'];
+			$flTmp=$_FILES['txtfd']['tmp_name'];
+			$fltype=$_FILES['txtfd']['type'];
+			move_uploaded_file($flTmp,"assets/file/".$flName);
+			$avauser=$flName;
+		}
+		else
+		{
+			$avauser="def.jpg";
+		}
+		$savValTemp[]=$avauser;
+		//echo implode("<br>",$savValTemp);
+		//foreach($savValTemp as $i=>$dt) echo ($i) . " " . $dt."<br>";
+
 		$this->Mmain->qIns($this->mainTable,$savValTemp);
 		
 		$this->session->set_flashdata('successNotification', '1');
@@ -311,6 +382,28 @@ class Pelamar extends CI_Controller
 		//save to database
 		$this->load->database();
 		$this->load->model('Mmain');
+		// $avauser="";
+		// if(!empty($_FILES['txtfl']['name']))
+		// {
+		// 	$flName=$_FILES['txtfl']['name'];
+		// 	$flTmp=$_FILES['txtfl']['tmp_name'];
+		// 	$fltype=$_FILES['txtfl']['type'];
+		// 	move_uploaded_file($flTmp,"assets/admin/img/avatar/thumb/".$flName);
+		// 	$avauser=$flName;
+		// }
+		// else
+		// {
+		// 	$avauser=$this->input->post('txtimg');
+		// }
+		
+		
+		
+		
+		// $savValTemp[] = $savValUserTemp[0];
+		
+		
+		// //foreach($savValTemp as $i => $row) echo ($i+1)." ".$row."<br>";
+		// //foreach($savValUserTemp as $i => $row) echo ($i+1)." ".$row."<br>";
 //update foto	
 		 $avauser="";
 		 if(!empty($_FILES['txtfl']['name']))
@@ -319,21 +412,62 @@ class Pelamar extends CI_Controller
 		 	$flTmp=$_FILES['txtfl']['tmp_name'];
 		 	$fltype=$_FILES['txtfl']['type'];
 		 	move_uploaded_file($flTmp,"assets/foto/".$flName); 
-		 	$avauser=$flName;
+			$avauser=$flName;
+			 
 		 }
 		 else
 		 {
-		 	$avauser=$this->input->post('txtimg');
+			 $avauser=$this->input->post('txtfl');
+		 }
+
+		 
+		if(!empty($_FILES['txtfd']['name']))
+		{
+
+			$flName=$_FILES['txtfd']['name'];
+			$flTmp=$_FILES['txtfd']['tmp_name'];
+			$fltype=$_FILES['txtfd']['type'];
+			move_uploaded_file($flTmp,"assets/file/".$flName); 
+			$avauser=$flName;
+		 }
+		 
+		else
+		{
+			 $avauser=$this->input->post('txtfd');
 		 }
 		
 		 $savValTemp[]=$avauser;
 	
 		$this->Mmain->qUpd($this->mainTable,$this->mainPk,$savValTemp[0],$savValTemp);
+		
 		$this->session->set_flashdata('successNotification', '2');
 		//redirect to form
 		redirect($this->viewLink,'refresh');		
 	}
 	
+	public function ubah($id, $status)
+	{
+	
+		//save to database
+		$this->load->database();
+		$this->load->model('Mmain');
+		
+		$this->Mmain->qUpdPart("tb_pelamar","id_pelamar",$id,Array("statuslowongan_pelamar"));
+		//redirect to form
+		redirect($this->viewLink,'refresh');	
+	}
+
+	public function ubahtahapan($id, $tahapan)
+	{
+	
+		//save to database
+		$this->load->database();
+		$this->load->model('Mmain');
+		
+		$this->Mmain->qUpdPart("tb_pelamar","id_pelamar",$id,Array("tahapan_pelamar"));
+		//redirect to form
+		redirect($this->viewLink,'refresh');	
+	}
 	
 }
 

@@ -205,7 +205,7 @@
                             <a href="<?= base_url('Pelaporan/pelaporan') ?>" class="nav-link">
                             <i class="nav-icon fas fa-user text-white"></i>
                                 <p>
-                                    Laporan
+                                    Laporan Pelamar
                                 </p>
                             </a>
                         </li>
@@ -224,12 +224,12 @@
             <!-- /.sidebar -->
         </aside>
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper"><br>
         <form action="<?php echo base_url(); ?>Pelaporan/pelaporan" method="POST" class="row">
-            <div class="col-md-2">
+            <div class="col-md-2" style="margin-left:10px; margin-right:10px">
                 <input class="form-control" name="tglawal" type="date">
             </div>
-            <div style="margin-top: 7px;">sampai</div>
+            <div style="margin-right: 7px; margin-top: 8px">sampai</div>
             <div class="col-md-2">
                 <input class="form-control" name="tglakhir" type="date">
             </div>
@@ -243,15 +243,18 @@
             <input style="margin-right: 10px;" name="submit" type="submit" value="Filter" class="btn btn-info" />
             <a class="btn btn-info" href="<?php echo base_url(); ?>Pelaporan/pelaporan">Reset</a>
         </form>
-            <div class="table-responsive">
+            <div class="table-responsive" style="margin-left:10px; margin-right:20px"><br>
                  <table id="userTable" class="table table-striped table-hover table-bordered  table-custom">
                     <thead>
-                        <tr>
+                        <tr align="center">
                             <th>No</th>
-                            <th>Id Pelamar</th>
+                            <th> Id Pelamar</th>
                             <th>Tanggal Daftar</th>
                             <th>Nama</th>
                             <th>Jenis Kelamin</th>
+                            <th>Foto</th>
+                            <th>Status Lowongan</th>
+                            <th>Tahapan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -259,14 +262,18 @@
                     <tbody>
                         <?php $no=1;
                         foreach($pelamar as $a) { ?>
-                        <tr>
+                        <tr align="center">
                         <td><?= $no++; ?></td>
                         <td><?= $a->id_pelamar  ?></td>
                         <td><?= $a->TglDaftar_pelamar  ?></td>
                         <td><?= $a->nama_pelamar  ?></td>
-                        <td><?= $a->jk_pelamar  ?></td>
-                        <td>
+                        <td ><?= $a->jk_pelamar  ?></td>
+                        <td align="center"><img src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" width='70' height='80'>
+                        <td><?= $a->statuslowongan_pelamar ?></td>
+                        <td><?= $a->tahapan_pelamar ?></td>
+                        <td align="center">
                             <a class="btn btn-info" href="<?= base_url('Pelaporan/detail/'.$a->id_pelamar);  ?>">Detail</a>
+                             <a class="btn btn-success" href="<?= base_url('Pelaporan/detailc/'.$a->id_pelamar);  ?>">Print</a>
                         </td>
                         </tr>
                         <?php } ?>

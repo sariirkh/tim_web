@@ -11,7 +11,7 @@ class pelaporan extends CI_Controller
 
     function index()
     {
-        $this->load->view('v_pelaporan');
+        $this->load->view('excel_import');
     }
     public function pelaporan()
     {
@@ -27,7 +27,6 @@ class pelaporan extends CI_Controller
         }else{
             $data['pelamar'] = $this->db->query("SELECT * FROM tb_pelamar WHERE jk_pelamar='$jk' AND TglDaftar_pelamar BETWEEN '$tglawal' AND '$tglakhir'")->result();
             $this->load->view("v_pelaporan", $data);
-
         }
     }
     public function detail()
@@ -35,6 +34,12 @@ class pelaporan extends CI_Controller
         $id = $this->uri->segment(3);
         $data['pelamar'] = $this->db->query("SELECT * FROM tb_pelamar WHERE id_pelamar='$id'")->result();
         $this->load->view("detail_pelaporan", $data);
+    }
+    public function detailc()
+    {
+        $id = $this->uri->segment(3);
+        $data['pelamar'] = $this->db->query("SELECT * FROM tb_pelamar WHERE id_pelamar='$id'")->result();
+        $this->load->view("v_cetak", $data);
     }
     public function laporanbukubesar()
     {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Okt 2020 pada 11.25
+-- Waktu pembuatan: 16 Okt 2020 pada 05.01
 -- Versi server: 10.1.32-MariaDB
 -- Versi PHP: 7.2.5
 
@@ -68,7 +68,31 @@ INSERT INTO `tb_accfrm` (`id_userfrm`, `id_acc`, `code_frm`, `is_add`, `is_edt`,
 ('UF00002', 'A99', 'FR002', 1, 1, 1, 1, 1),
 ('UF00004', 'A99', 'FR101', 1, 1, 1, 1, 1),
 ('UF00005', 'A99', 'FR102', 1, 1, 1, 1, 1),
-('UF00007', 'A99', 'FR100', 1, 1, 1, 1, 1);
+('UF00007', 'A99', 'FR100', 1, 1, 1, 1, 1),
+('UF00008', 'A99', 'FR103', 1, 1, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_cr`
+--
+
+CREATE TABLE `tb_cr` (
+  `id_cr` varchar(4) NOT NULL,
+  `title_cr` text NOT NULL,
+  `content_cr` text NOT NULL,
+  `img_cr` varchar(100) NOT NULL,
+  `order_cr` int(2) NOT NULL,
+  `status_cr` enum('Active','Inactive','','') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_cr`
+--
+
+INSERT INTO `tb_cr` (`id_cr`, `title_cr`, `content_cr`, `img_cr`, `order_cr`, `status_cr`) VALUES
+('CR01', 'Corporate Development Staff', '<p><b>Requirement</b></p><p>- Female / Male , With maximum age of 27 years old</p><p>- Good Looking</p><p>- Bachelo\'s degree in Technic Industry<i> ( priority )</i></p><p>- 2+ years experience for ISO 9001:2015</p><p>- Having experience about QHSE&nbsp;</p><p>- Ability to meet assigned deadlines</p><p>- Excellent communication skills, both written and verbal.</p><p>- Good communication in english</p><p>- Strong numeracy and analytical skills.</p><p>- Good problem-solving and time management skills.</p><p>- Highly organized and detail-oriented.</p><p>- Advanced skill in Ms. Excel is mandatory</p><p>- Ability to perform multiple assignments</p><p></p><p>- Confidentiality</p><p><br></p><p>Send your CV &amp; Application letter to&nbsp;</p><p><b><i>news@ptmdr.co.id</i></b></p><p><b><i><br></i></b></p><p><b><i><br></i></b></p><p><b><i><br></i></b></p><p><br></p>', 'web.png', 1, 'Inactive'),
+('CR02', 'Accounting Staff', '<div>Requirement<br></div><div><br></div><div><br></div><div style=\"text-align: justify;\">- Female/Male , with maximum age of 27 years old,</div><div style=\"text-align: justify;\">- Good Looking</div><div style=\"text-align: justify;\">- Bachelor\'s degree in Accounting</div><div style=\"text-align: justify;\">- 2+ years of accounting experience.</div><div style=\"text-align: justify;\">- Ability to meet assigned deadlines</div><div style=\"text-align: justify;\">- Excellent communication skills, both written and verbal.</div><div style=\"text-align: justify;\">- Good communication in english</div><div style=\"text-align: justify;\">- Strong numeracy and analytical skills.</div><div style=\"text-align: justify;\">- Good problem-solving and time management skills.</div><div style=\"text-align: justify;\">- Highly organized and detail-oriented.</div><div style=\"text-align: justify;\">- Advanced skill in Ms. Excel is mandatory</div><div style=\"text-align: justify;\">- Having experience using SAP system will be advantage</div><div style=\"text-align: justify;\">- Ability to perform multiple assignments</div><div style=\"text-align: justify; \">- Confidentiality</div><div style=\"text-align: justify; \"><br></div><div><div style=\"text-align: justify; \">Send your CV &amp; Application letter to</div><div style=\"text-align: justify; \">news@ptmdr.co.id</div></div><div><br></div>', 'web.png', 2, 'Inactive');
 
 -- --------------------------------------------------------
 
@@ -165,7 +189,8 @@ INSERT INTO `tb_frm` (`code_frm`, `id_frm`, `desc_frm`, `id_frmgroup`, `is_short
 ('FR002', 'Form', 'Daftar Form', 'FG05', 0, 0, 1),
 ('FR100', 'Pelamar', 'Form Pelamar', 'FG05', 0, 0, 1),
 ('FR101', 'Access', 'Hak Akses', 'FG99', 0, 1, 1),
-('FR102', 'Useraccess', 'Hak Akses', 'FG99', 0, 1, 1);
+('FR102', 'Useraccess', 'Hak Akses', 'FG99', 0, 1, 1),
+('FR103', 'HomePelamar', 'Dashboard Pelamar Kerja', 'FG05', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -186,7 +211,6 @@ CREATE TABLE `tb_frmgroup` (
 
 INSERT INTO `tb_frmgroup` (`id_frmgroup`, `nm_frmgroup`, `icon_frmgroup`, `iconcolor_frmgroup`) VALUES
 ('FG05', 'Others', 'fa-user', 'text-white'),
-('FG07', 'Report', 'fa-user', 'text-white'),
 ('FG99', 'Trial', 'fa-user', 'text-white');
 
 -- --------------------------------------------------------
@@ -230,25 +254,26 @@ CREATE TABLE `tb_pelamar` (
   `status_pelamar` enum('Single','Married') NOT NULL,
   `pdkterakhir_pelamar` varchar(80) NOT NULL,
   `jurusan_pelamar` varchar(50) NOT NULL,
+  `nilai_pelamar` double NOT NULL,
   `asalsekolah_pelamar` varchar(80) NOT NULL,
-  `Foto_pelamar` text NOT NULL
+  `prestasi_pelamar` varchar(100) NOT NULL,
+  `keahlian_pelamar` varchar(200) NOT NULL,
+  `pengalamankerja_pelamar` varchar(200) NOT NULL,
+  `loker_pelamar` varchar(100) NOT NULL,
+  `statuslowongan_pelamar` enum('open','close') NOT NULL,
+  `tahapan_pelamar` enum('mendaftar','upload berkas','interview 1','interview 2','tes excel','tes tulis','psikotes','interview 3','diterima','gagal') NOT NULL,
+  `notes_pelamar` varchar(500) NOT NULL,
+  `Foto_pelamar` text NOT NULL,
+  `file_pelamar` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tb_pelamar`
 --
 
-INSERT INTO `tb_pelamar` (`id_pelamar`, `TglDaftar_pelamar`, `nama_pelamar`, `tgllahir_pelamar`, `umur_pelamar`, `jk_pelamar`, `alamat_pelamar`, `agama_pelamar`, `nohp_pelamar`, `status_pelamar`, `pdkterakhir_pelamar`, `jurusan_pelamar`, `asalsekolah_pelamar`, `Foto_pelamar`) VALUES
-('PLM0001', '1903-01-03', 'Herlitsca Mayuri', '1997-08-27', '23', 'Perempuan', 'Jember', 'Islam', '085655905695', 'Single', 'SMK', 'TIK', 'SMK 6 Jember', 'naomi.jpg'),
-('PLM0002', '2020-10-06', 'Vivi Trisna Handini', '1996-09-19', '24', 'Laki-laki', 'Jember', 'Islam', '085334372032', 'Single', 'S1', 'Sarjana Pertanian', 'UNEJ', 'E00052.jpg'),
-('PLM0003', '1903-08-06', 'Yussabbitnih', '1992-11-15', '28', 'Perempuan', 'Jember', 'Islam', '085258246241', 'Married', 'S1', 'Sarjana Pertanian', 'MU Jember', 'yus.jpg'),
-('PLM0004', '2020-02-03', 'Muhammad Abdussyukur', '1996-03-17', '24', 'Perempuan', 'Jember', 'Islam', '081233518947', 'Single', 'S1', 'Sarjana Pertanian', 'UNEJ', 'E00032.jpg'),
-('PLM0006', '2020-10-01', 'Wulan Sari', '2018-12-02', '20', 'Perempuan', 'Jember', 'Hindu', '08927635325', 'Married', 'SMA', 'TKK', 'MU', 'ainung2.JPG'),
-('PLM0007', '2020-10-01', 'Danang', '2018-09-02', '25', 'Laki-laki', 'Jember', 'Kong Hu Chu', '08923533774', 'Single', 'S2', 'SMA', 'UNEJ', 'dani.JPG'),
-('PLM0008', '2020-10-09', 'Dinda Kirana', '2019-07-01', '30', 'Perempuan', 'Jember', 'Budha', '082435367', 'Married', 'SLTP', 'MUltimedia', 'SMK 5 Jember', 'E00090.png'),
-('PLM0009', '2020-10-14', 'Bastomi Matara', '2016-11-01', '24', 'Laki-laki', 'Jember', 'Kristen', '081246926713', 'Married', 'SMK', 'TIK', 'SMKN 08 Jember', 'A.jpg'),
-('PLM0010', '2020-10-01', 'Ririn', '2020-02-02', '12', 'Perempuan', 'Jember', 'Hindu', '098394768', 'Married', 'SMA', 'TIK', 'SMK 5 Jember', '4x6.jpg'),
-('PLM0011', '2020-10-08', 'sintadanjojo', '2019-09-06', '20', 'Perempuan', 'jember', 'Islam', '08983938878', 'Married', 'S3 kedokteran', 'Kedokteran', 'ITS', 'logo.png');
+INSERT INTO `tb_pelamar` (`id_pelamar`, `TglDaftar_pelamar`, `nama_pelamar`, `tgllahir_pelamar`, `umur_pelamar`, `jk_pelamar`, `alamat_pelamar`, `agama_pelamar`, `nohp_pelamar`, `status_pelamar`, `pdkterakhir_pelamar`, `jurusan_pelamar`, `nilai_pelamar`, `asalsekolah_pelamar`, `prestasi_pelamar`, `keahlian_pelamar`, `pengalamankerja_pelamar`, `loker_pelamar`, `statuslowongan_pelamar`, `tahapan_pelamar`, `notes_pelamar`, `Foto_pelamar`, `file_pelamar`) VALUES
+('PLM0001', '2020-10-15', 'nabila', '2020-02-01', '12', 'Perempuan', 'jember', 'Islam', '08947354367', 'Single', 'SMK', 'TIK', 35.5, 'smk 5 jember', 'desain', 'desain grafis', 'belum', 'belum tau', 'open', 'mendaftar', 'seleksi berkas', '3.jpg', ''),
+('PLM0002', '2020-10-15', 'azizah', '2020-02-01', '20', 'Perempuan', 'jember', 'Islam', '08973664246', 'Single', 'SMA', 'IPA', 25.5, 'SMA 2 JEMBER', 'Olimpiade Matematika', 'Matematika', 'belum pernah', 'belum tau', 'open', 'mendaftar', 'seleksi berkas', 'data.pdf', '');
 
 -- --------------------------------------------------------
 
@@ -319,6 +344,12 @@ ALTER TABLE `tb_acc`
 --
 ALTER TABLE `tb_accfrm`
   ADD PRIMARY KEY (`id_userfrm`);
+
+--
+-- Indeks untuk tabel `tb_cr`
+--
+ALTER TABLE `tb_cr`
+  ADD PRIMARY KEY (`id_cr`);
 
 --
 -- Indeks untuk tabel `tb_emp`

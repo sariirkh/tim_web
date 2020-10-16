@@ -139,6 +139,8 @@
                         <a href="<?= site_url(); ?>Profile" class="d-block">Intern</a>
                     </div>
                 </div>
+
+
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -203,7 +205,7 @@
                             <a href="<?= base_url('Pelaporan/pelaporan') ?>" class="nav-link">
                             <i class="nav-icon fas fa-user text-white"></i>
                                 <p>
-                                    Laporan
+                                    Laporan Pelamar
                                 </p>
                             </a>
                         </li>
@@ -220,20 +222,21 @@
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
-        </aside><br>    <br>
+        </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
         <?php foreach($pelamar as $a) { ?>
-        <div class="card md-5" style="max-width: 1540px; margin-left:10px">
+        <div class="card md-5" style="max-width: 1540px; margin-left:10px; margin-right:10px">
   <div class="row no-gutters">
-    <div class="col-md-3"><br>
-      <img style="width: 200px; height: 250px; margin-left: 70px; margin-bottom: 200px;" src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" >
+    <div class="col-md-3"><br><br><br><br><br><br>
+      <img style="width: 200px; height: 250px; margin-left: 60px; margin-bottom: 200px;" src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" >
     </div>
     <div class="col-md-6">
           <!-- Box Comment -->
           <div class="box box-success">
-            <div class="box-header">
-              <h3 class="box-title">Data Pelamar</h3>
+            <div class="box-header"><br>
+            <h3 class="box-title" align="center">DATA PELAMAR</h3>
+              <h3 class="box-title" align="center">PT MANGLI DJAYA RAYA</h3>
             </div><br>
             <!-- /.box-header -->
             <div class="box-body no-padding">
@@ -272,11 +275,26 @@
                   <tr><th>Jurusan</th>
                   <th> : </th>
                   <td><?= $a->jurusan_pelamar ?></td></tr>
+                  <tr><th>Nilai</th>
+                  <th> : </th>
+                  <td><?= $a->nilai_pelamar ?></td></tr>
                   <tr><th>Asal Sekolah</th>
                   <th> : </th>
                   <td><?= $a->asalsekolah_pelamar ?></td></tr>
-                  
-        </table><br>
+                  <tr><th>Prestasi</th>
+                  <th> : </th>
+                  <td><?= $a->prestasi_pelamar ?></td></tr>
+                  <tr><th>Keahlian</th>
+                  <th> : </th>
+                  <td><?= $a->keahlian_pelamar ?></td></tr>
+                  <tr><th>Pengalaman Kerja</th>
+                  <th> : </th>
+                  <td><?= $a->pengalamankerja_pelamar ?></td></tr>
+                  <tr><th>Loker</th>
+                  <th> : </th>
+                  <td><?= $a->loker_pelamar ?></td></tr>
+
+</table><br>
         <div class="clear">
 <a style="float: right;" class="btn btn-success" href="<?php echo base_url(). "Pelaporan/pelaporan" ?>">BACK <i class="fa fa-arrow-right"></i></button> </a></div><br><br><br></div>
       </div>
@@ -285,7 +303,6 @@
 </div>
         <?php } ?>
         </div>
-            
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
