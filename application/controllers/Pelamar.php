@@ -347,7 +347,7 @@ class Pelamar extends CI_Controller
 		}
 		else
 		{
-			$avauser="def.jpg";
+			$avauser="";
 		}
 		$savValTemp[]=$avauser;
 		//echo implode("<br>",$savValTemp);
