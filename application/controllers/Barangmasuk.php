@@ -248,11 +248,11 @@ class Barangmasuk extends CI_Controller
 		$this->load->database();
 		$this->load->model('Mmain');
 		
-		//echo implode("<br>",$savValTemp); //show data inputan.. tapi polos
+		echo implode("<br>",$savValTemp); //show data inputan.. tapi polos
 
 		//update stok
 		$stoklama = $this->Mmain->qRead("tb_barang WHERE id_barang = '".$savValTemp[1]."' ","stok_barang","")->row()->stok_barang;
-		$stokbaru = $stoklama + $savValTemp[2];
+		$stokbaru = $stoklama + $savValTemp[4];
 
 		$this->Mmain->qIns($this->mainTable,$savValTemp);
 		$this->Mmain->qUpdPart("tb_barang","id_barang",$savValTemp[1],Array("stok_barang"),Array($stokbaru));
