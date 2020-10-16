@@ -175,16 +175,16 @@ class Pelamar extends CI_Controller
 
 
 			if($row->thp == "mendaftar")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/upload berkas' class='btn btn-primary'>upload berkas</a>";
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/uploadberkas' class='btn btn-primary'>upload berkas</a>";
 				else
-			if($row->thp == "interview 1")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview 2' class='btn btn-primary'>interview 2</a>";
+			if($row->thp == "interview1")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview2' class='btn btn-primary'>interview 2</a>";
 				else
-			if($row->thp == "tes excel")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/tes tulis' class='btn btn-primary'>tes Tulis</a>";
+			if($row->thp == "tesexcel")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/testulis' class='btn btn-primary'>tes Tulis</a>";
 				else
 			if($row->thp == "psikotes")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview 3' class='btn btn-primary'>interview 3</a>";
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview3' class='btn btn-primary'>interview 3</a>";
 				else	
 			if($row->thp == "diterima")
 				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/gagal' class='btn btn-danger'>gagal</a>";
@@ -421,6 +421,7 @@ class Pelamar extends CI_Controller
 		 }
 
 		 
+		 $savValTemp[]=$avauser;
 		if(!empty($_FILES['txtfd']['name']))
 		{
 
@@ -452,7 +453,7 @@ class Pelamar extends CI_Controller
 		$this->load->database();
 		$this->load->model('Mmain');
 		
-		$this->Mmain->qUpdPart("tb_pelamar","id_pelamar",$id,Array("statuslowongan_pelamar"));
+		$this->Mmain->qUpdPart("tb_pelamar","id_pelamar",$id,Array("statuslowongan_pelamar"),Array($status));
 		//redirect to form
 		redirect($this->viewLink,'refresh');	
 	}
@@ -464,7 +465,7 @@ class Pelamar extends CI_Controller
 		$this->load->database();
 		$this->load->model('Mmain');
 		
-		$this->Mmain->qUpdPart("tb_pelamar","id_pelamar",$id,Array("tahapan_pelamar"));
+		$this->Mmain->qUpdPart("tb_pelamar","id_pelamar",$id,Array("tahapan_pelamar"),Array($tahapan));
 		//redirect to form
 		redirect($this->viewLink,'refresh');	
 	}
