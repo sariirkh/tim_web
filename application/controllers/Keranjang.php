@@ -213,9 +213,10 @@ class Keranjang extends CI_Controller
                                 "<input type='text' class='form-control' id='txtIdKeranjang' name=txt[] value='".$txtVal[0]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
                                 "<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off  readonly id='txtTanggalKeluar' name=txt[] value='".$txtVal[1]."' required placeholder='Max. karakter' maxlength='70'>",
                                 "<input type='text' class='form-control tp' 'name=txt[] autocomplete=off  readonly id='txtJam' name=txt[] value='".$txtVal[2]."' required placeholder='Max. karakter' maxlength='70'>",
-                                "<input type='text' class='form-control' id='txtIdBarang' name=txt[] value='".$txtVal[4]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' id='txtJumlah' name=txt[] value='".$txtVal[5]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$cboKaryawan,
+								"<input type='text' class='form-control' id='txtIdBarang' name=txt[] value='".$txtVal[4]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' id='txtJumlah' name=txt[] value='".$txtVal[5]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								
 								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[6]."' required placeholder='Max. 70 karakter' maxlength='70'>"
 								
 							);
