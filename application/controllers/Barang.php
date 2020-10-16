@@ -132,7 +132,7 @@ class Barang extends CI_Controller
 		$renderTemp=$this->Mmain->qRead($this->tableQuery.$this->ordQuery,$this->fieldQuery,"");
 		foreach($renderTemp->result() as $row)
 		{
-			$row->aksi = "<a href='".site_url()."Barang/tambahkeranjang' class='btn btn-primary'>Tambah</a>"; //menambah tombol tambah
+			$row->aksi = "<a href='".site_url()."Barang/tambahkeranjang/".$row->id_barang	."' class='btn btn-primary'>Tambah</a>"; //menambah tombol tambah
 		}
 		$output['render']=$renderTemp;
 		//init view
@@ -295,11 +295,29 @@ class Barang extends CI_Controller
 		redirect($this->viewLink,'refresh');		
 	}
 	//fungsi kerangjang sementara
-	public function tambahkeranjang()
+	public function tambahkeranjang($id)
 	{
 		
 		$this->load->database();
 		$this->load->model('Mmain');
+
+		//init view
+		
+		$this->Mmain->qIns("tb_keranjang",Array(
+			0,
+			date("Y-m-d"),
+			date("H:i:s"),
+			$id,
+			1,
+			"",
+			"catatan"
+
+
+		));
+		$this->Mmain->qUpdPart("tb_barang","id_barang",$savValTemp[3],Array("stok_barang"),Array($stokbaru));
+		
+			//redirect to form
+			redirect($this->viewLink,'refresh');		
 
 	}
 	
