@@ -177,17 +177,30 @@ class Pelamar extends CI_Controller
 			if($row->thp == "mendaftar")
 				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/uploadberkas' class='btn btn-primary'>upload berkas</a>";
 				else
+			if($row->thp == "uploadberkas")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview1' class='btn btn-primary'>interview 1</a>";
+				else
 			if($row->thp == "interview1")
 				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview2' class='btn btn-primary'>interview 2</a>";
 				else
+			if($row->thp == "interview2")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/tesexcel' class='btn btn-primary'>tesexcel</a>";
+				else	
 			if($row->thp == "tesexcel")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/testulis' class='btn btn-primary'>tes Tulis</a>";
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/testulis' class='btn btn-danger'>tes tulis</a>";
+				else
+			if($row->thp == "testulis")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/psikotes' class='btn btn-danger'>psikotes</a>";
 				else
 			if($row->thp == "psikotes")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview3' class='btn btn-primary'>interview 3</a>";
-				else	
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview3' class='btn btn-danger'>interview 3</a>";
+				else
+			if($row->thp == "interview3")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/diterima' class='btn btn-danger'>diterima</a>";
+				else
 			if($row->thp == "diterima")
 				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/gagal' class='btn btn-danger'>gagal</a>";
+	
 
 				
 			}
