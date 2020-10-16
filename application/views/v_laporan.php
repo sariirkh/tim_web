@@ -205,7 +205,7 @@
                             <a href="<?= base_url('Laporan/laporan') ?>" class="nav-link">
                             <i class="nav-icon fas fa-user text-white"></i>
                                 <p>
-                                    Laporan
+                                    Laporan Pelamar
                                 </p>
                             </a>
                         </li>
