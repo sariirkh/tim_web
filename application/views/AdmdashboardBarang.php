@@ -19,7 +19,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="Barang" ><?php echo $barang; ?>    </div>
           </div></a>
           <div class="col-auto">
-            <i class="fas fa fa-truck fa-2x text-gray-300"></i>
+            <i class="fas fa fa-cart-arrow-down fa-2x text-gray-300"></i>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="Barangmasuk"><?php echo $barangmasuk; ?></div>
           </div></a>
           <div class="col-auto">
-            <i class="fas fa fa-map-marker fa-2x text-gray-300"></i>
+            <i class="fas fa fa-download fa-2x text-gray-300"></i>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="Barangkeluar"><?php echo $barangkeluar; ?></div>
           </div></a>
           <div class="col-auto">
-            <i class="fas fa fa-chart-area fa-2x text-gray-300"></i>
+            <i class="fas fa fa-upload fa-2x text-gray-300"></i>
           </div>
         </div>
       </div>
