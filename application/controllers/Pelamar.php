@@ -187,20 +187,24 @@ class Pelamar extends CI_Controller
 				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/tesexcel' class='btn btn-primary'>tesexcel</a>";
 				else	
 			if($row->thp == "tesexcel")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/testulis' class='btn btn-danger'>tes tulis</a>";
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/testulis' class='btn btn-primary'>tes tulis</a>";
 				else
 			if($row->thp == "testulis")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/psikotes' class='btn btn-danger'>psikotes</a>";
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/psikotes' class='btn btn-primary'>psikotes</a>";
 				else
 			if($row->thp == "psikotes")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview3' class='btn btn-danger'>interview 3</a>";
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/interview3' class='btn btn-primary'>interview 3</a>";
 				else
 			if($row->thp == "interview3")
-				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/diterima' class='btn btn-danger'>diterima</a>";
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/diterima' class='btn btn-primary'>diterima</a>";
 				else
 			if($row->thp == "diterima")
 				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/gagal' class='btn btn-danger'>gagal</a>";
-	
+				else
+			if($row->thp == "gagal")
+				$row->thp = "<a href='".site_url()."Pelamar/ubahtahapan/".$row->id_pelamar."/mendaftar' class='btn btn-primary'>mendaftar</a>";
+		
+
 
 				
 			}
@@ -290,6 +294,9 @@ class Pelamar extends CI_Controller
 	$cboStatus=$this->fn->createCbo(array('Single','Married'),array('Single','Married'),$txtVal[9]);
 	$cboStatusLowongan=$this->fn->createCbo(array('Open'),array('Open'),$txtVal[18]);
 	$cboTahapan=$this->fn->createCbo(array('Mendaftar'),array('Mendaftar'),$txtVal[19]);
+
+	$cboLoker=$this->fn->createCbofromDb("tb_cr","id_cr as id, title_cr as nm","",$txtVal[17],"","txt[]");
+		
 			
 		$output['formTxt']=array(
 								"<input type='text' class='form-control' id='txtIdPelamar' name=txt[] value='".$txtVal[0]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
@@ -309,7 +316,7 @@ class Pelamar extends CI_Controller
 								"<input type='text' class='form-control' autocomplete=off id='txtPrestasiPelamar' name=txt[] value='".$txtVal[14]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtKeahlianPelamar' name=txt[] value='".$txtVal[15]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtPengalamanKerjaPelamar' name=txt[] value='".$txtVal[16]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtLokerPelamar' name=txt[] value='".$txtVal[17]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								$cboLoker,
 								$cboStatusLowongan,
 								$cboTahapan,
 								"<input type='text' class='form-control' autocomplete=off id='txtNotesPelamar' name=txt[] value='".$txtVal[20]."' required placeholder='Max. 70 karakter' maxlength='70'>",
