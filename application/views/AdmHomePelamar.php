@@ -15,9 +15,9 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="Pelamar" >Total Pelamar</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $Pelamar; ?>    </div>
-          </div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Pelamar</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="Pelamar" ><?php echo $Pelamar; ?>    </div>
+          </div></a>
           <div class="col-auto">
             <i class="fas fa fa-users fa-2x text-gray-300"></i>
           </div>
@@ -32,9 +32,9 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="Pelamar" >Pelamar Diterima</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php //echo $Pelamar; ?>    </div>
-          </div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pelamar Diterima</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="Pelamar" ><?php //echo $Pelamar; ?>    </div>
+          </div></a>
           <div class="col-auto">
             <i class="fas fa fa-users fa-2x text-gray-300"></i>
           </div>
@@ -49,9 +49,9 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="Pelamar" >Pelamar Ditolak</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php //echo $Pelamar; ?>    </div>
-          </div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pelamar Ditolak</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="Pelamar" ><?php //echo $Pelamar; ?>    </div>
+          </div></a>
           <div class="col-auto">
             <i class="fas fa fa-users fa-2x text-gray-300"></i>
           </div>
@@ -65,9 +65,9 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a href="History">Detail Laporan Pelamar</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php //echo $riwayat; ?></div>
-          </div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Detail Laporan Pelamar</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="History"><?php //echo $riwayat; ?></div>
+          </div></a>
           <div class="col-auto">
             <i class="fas fa fa-chart-area fa-2x text-gray-300"></i>
           </div>
