@@ -9,7 +9,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item active">Dashboard Tracking</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -26,14 +26,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3><?php echo $kendaraan; ?></h3>
 
-                <p>New Orders</p>
+                <p>Kendaraan</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-model-s"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="kendaraan" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -41,14 +41,14 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo $lokasi; ?></h3>
 
-                <p>Bounce Rate</p>
+                <p>Request Rute</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="ion ion-android-pin"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="request_rute" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -56,14 +56,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3><?php echo $riwayat; ?></h3>
 
-                <p>User Registrations</p>
+                <p>History Lokasi</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion ion-android-time"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="history" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -71,14 +71,14 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3><?php echo $pengguna_kendaraan; ?></h3>
 
-                <p>Unique Visitors</p>
+                <p>Pengguna</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="ion ion-android-people"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="kendaraan" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -93,7 +93,7 @@
             <!-- MAP & BOX PANE -->
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">US-Visitors Report</h3>
+                <h3 class="card-title">History Kendaraan</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -112,7 +112,7 @@
                   
                   <style>
                   #map { height: 500px;
-                      width: 1275px; 
+                      width: 100%; 
                       }
                       .address { cursor:pointer }
                   .address:hover { color:#AA0000;text-decoration:underline }
@@ -193,7 +193,7 @@
       <div class="col-6">
       <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Browser Usage</h3>
+                <h3 class="card-title">Kendaraan</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -264,7 +264,7 @@
        <div class="col-6">
       <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Condensed Full Width Table</h3>
+                <h3 class="card-title">History Lokasi Terakhir</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
@@ -332,5 +332,7 @@
           
      
     </section>
+                        </div>
+                        
   
  
