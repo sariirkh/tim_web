@@ -29,33 +29,8 @@ class M_HomePelamar extends CI_Model{
         }
     }
 
-    // public function jum_request(){   
-    //     $query = $this->db->get('tb_lokasi');
-    //     if($query->num_rows()>0)
-    //     {
-    //         return $query->num_rows();
-    //     }
-    //     else
-    //     {
-    //         return 0;
-    //     }
-    // }
-
-    // public function jum_update(){   
-    //     $query = $this->db->get('tb_riwayat');
-    //     if($query->num_rows()>0)
-    //     {
-    //         return $query->num_rows();
-    //     }
-    //     else
-    //     {
-    //         return 0;
-    //     }
-    // }
-
-    // public function jum_pengguna(){   
-    //     $query = $this->db->get('tb_kendaraan');
-    //     $this->db->where('pengguna_kendaraan');
+    // public function v_pelaporan(){   
+    //     $query = $this->db->get('tb_pelamar');
     //     if($query->num_rows()>0)
     //     {
     //         return $query->num_rows();
