@@ -255,6 +255,7 @@
                             <th>Foto</th>
                             <th>Status Lowongan</th>
                             <th>Tahapan</th>
+                            <th>Notes</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -271,6 +272,7 @@
                         <td align="center"><img src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" width='70' height='80'>
                         <td><?= $a->statuslowongan_pelamar ?></td>
                         <td><?= $a->tahapan_pelamar ?></td>
+                        <td><?= $a->notes_pelamar ?></td>
                         <td align="center">
                             <a class="btn btn-info" href="<?= base_url('Pelaporan/detail/'.$a->id_pelamar);  ?>">Detail</a>
                              <a class="btn btn-success" href="<?= base_url('Pelaporan/detailc/'.$a->id_pelamar);  ?>">Print</a>
