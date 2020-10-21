@@ -41,6 +41,7 @@ class Pelamar extends CI_Controller
 						umur_pelamar,
 						jk_pelamar,
 						alamat_pelamar,
+						kota_pelamar,
 						agama_pelamar,
 						nohp_pelamar,
 						status_pelamar,
@@ -80,6 +81,7 @@ class Pelamar extends CI_Controller
 									"Umur",
 									"Jenis Kelamin",
 									"Alamat",
+									"Kota",
 									"Agama",
 									"No.Hp",
 									"Status",
@@ -109,6 +111,7 @@ class Pelamar extends CI_Controller
 									"Umur",
 									"Jenis Kelamin",
 									"Alamat",
+									"Kota",
 									"Agama",
 									"No.Hp",
 									"Status",
@@ -265,12 +268,12 @@ class Pelamar extends CI_Controller
 			//menambahkan foto
 			
 			$imgTemp="<h5><i>Click browse to change image</i></h5>
-			<img src='".base_url()."/assets/foto/".$txtVal[21]."' height='200px' width='auto' >
-			<input type='hidden' name='txtfl' value='".$txtVal[21]."'>";
+			<img src='".base_url()."/assets/foto/".$txtVal[22]."' height='200px' width='auto' >
+			<input type='hidden' name='txtfl' value='".$txtVal[22]."'>";
 
 			$fileTemp="<h5><i>Click browse to change file</i></h5>
-			<a href='".base_url()."/assets/file/".$txtVal[22]."'>
-			<input type='hidden' name='txtfd' value='".$txtVal[22]."'>";
+			<a href='".base_url()."/assets/file/".$txtVal[23]."'>
+			<input type='hidden' name='txtfd' value='".$txtVal[23]."'>";
 
 			
 		}
@@ -290,12 +293,12 @@ class Pelamar extends CI_Controller
 		//combobox dinamis dan statis
 		//$cboacc=$this->fn->createCbofromDb("tb_acc","id_acc as id,nm_acc as nm","",$txtVal[58],"","txtUser[]");
 	$cboJK=$this->fn->createCbo(array('Laki-laki','Perempuan'),array('Laki-laki','Perempuan'),$txtVal[5]);
-	$cboAgama=$this->fn->createCbo(array('Islam','Kristen','Katholik','Hindu','Budha','Kong Hu Chu'),array('Islam','Kristen','Katholik','Hindu','Budha','Kong Hu Chu'),$txtVal[7]);	
-	$cboStatus=$this->fn->createCbo(array('Single','Married'),array('Single','Married'),$txtVal[9]);
-	$cboStatusLowongan=$this->fn->createCbo(array('Open'),array('Open'),$txtVal[18]);
-	$cboTahapan=$this->fn->createCbo(array('Mendaftar'),array('Mendaftar'),$txtVal[19]);
+	$cboAgama=$this->fn->createCbo(array('Islam','Kristen','Katholik','Hindu','Budha','Kong Hu Chu'),array('Islam','Kristen','Katholik','Hindu','Budha','Kong Hu Chu'),$txtVal[8]);	
+	$cboStatus=$this->fn->createCbo(array('Single','Married'),array('Single','Married'),$txtVal[10]);
+	$cboStatusLowongan=$this->fn->createCbo(array('Open'),array('Open'),$txtVal[19]);
+	$cboTahapan=$this->fn->createCbo(array('Mendaftar'),array('Mendaftar'),$txtVal[20]);
 
-	$cboLoker=$this->fn->createCbofromDb("tb_cr","id_cr as id, title_cr as nm","",$txtVal[17],"","txt[]");
+	$cboLoker=$this->fn->createCbofromDb("tb_cr","id_cr as id, title_cr as nm","",$txtVal[18],"","txt[]");
 		
 			
 		$output['formTxt']=array(
@@ -306,20 +309,21 @@ class Pelamar extends CI_Controller
 								"<input type='text' class='form-control' autocomplete=off id='txtUmurPelamar' name=txt[] value='".$txtVal[4]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$cboJK,
 								"<input type='text' class='form-control' autocomplete=off id='txtAlamatPelamar' name=txt[] value='".$txtVal[6]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtKotaPelamar' name=txt[] value='".$txtVal[7]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$cboAgama,
-								"<input type='text' class='form-control' autocomplete=off id='txtNoHpPelamar' name=txt[] value='".$txtVal[8]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtNoHpPelamar' name=txt[] value='".$txtVal[9]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$cboStatus,
-								"<input type='text' class='form-control' autocomplete=off id='txtPdkPelamar' name=txt[] value='".$txtVal[10]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtJurusanPelamar' name=txt[] value='".$txtVal[11]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtNilaiPelamar' name=txt[] value='".$txtVal[12]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtAsalSekolahPelamar' name=txt[] value='".$txtVal[13]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtPrestasiPelamar' name=txt[] value='".$txtVal[14]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtKeahlianPelamar' name=txt[] value='".$txtVal[15]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtPengalamanKerjaPelamar' name=txt[] value='".$txtVal[16]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtPdkPelamar' name=txt[] value='".$txtVal[11]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtJurusanPelamar' name=txt[] value='".$txtVal[12]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtNilaiPelamar' name=txt[] value='".$txtVal[13]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtAsalSekolahPelamar' name=txt[] value='".$txtVal[14]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtPrestasiPelamar' name=txt[] value='".$txtVal[15]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtKeahlianPelamar' name=txt[] value='".$txtVal[16]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtPengalamanKerjaPelamar' name=txt[] value='".$txtVal[17]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$cboLoker,
 								$cboStatusLowongan,
 								$cboTahapan,
-								"<input type='text' class='form-control' autocomplete=off id='txtNotesPelamar' name=txt[] value='".$txtVal[20]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtNotesPelamar' name=txt[] value='".$txtVal[21]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								$imgTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfl >",
 								$fileTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfd >"
 								
