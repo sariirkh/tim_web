@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboardtracking extends CI_Controller 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
         $this->load->library('Commonfunction','','fn');
@@ -23,7 +23,8 @@ class Dashboardtracking extends CI_Controller
         $data['kendaraan'] = $this->M_Dashboardtracking->jum_kendaraan();
         $data['lokasi'] = $this->M_Dashboardtracking->jum_request();
         $data['riwayat'] = $this->M_Dashboardtracking->jum_update();
-        $data['pengguna_kendaraan'] = $this->M_Dashboardtracking->jum_pengguna();
+		$data['pengguna_kendaraan'] = $this->M_Dashboardtracking->jum_pengguna();
+		$data['tempat'] = $this->M_Dashboardtracking->getHistory();
 		$this->load->view('Admdashboardtracking', $data);
         $this->fn->getfooter();
         
@@ -32,9 +33,9 @@ class Dashboardtracking extends CI_Controller
 	
 		
     }
-    public function map(){
-        $this->load->view('Admdashboardtracking');
-    }
+    // public function map(){
+    //     $this->load->view('Admdashboardtracking');
+    // }
 	
 	public function getJenisKendaraan()
 	{
@@ -60,7 +61,26 @@ class Dashboardtracking extends CI_Controller
 			echo $retVal;
 	}
    
-    
+	// public function history(){
+    //     // if($this->session->userdata('status') != "login"){
+    //     //     redirect(base_url('admin/login_admin'));
+    //     // }
+    //     $data['riwayat'] = $this->M_Dashboardtracking->getHistory();
+    //      $this->load->view('Admdashboardtracking', $data);
+    // }
+	
+	// public function getHistory()
+	// {
+	// 	$this->load->database();
+	// 	$this->load->model('Mmain');
+	// 	$retVal= "";
+		
+	// 	$render = $this->Mmain->qRead("
+	// 	tb_riwayat  a INNER JOIN tb_lokasi  b INNER JOIN tb_kendaraan  c ON a.id_lokasi = b.id_lokasi && b.id_kendaraan = c.id_kendaraan
+	// 	ORDER BY id_riwayat
+	// 							");
+
+	// }
 }
 ?>
 

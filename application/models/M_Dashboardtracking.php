@@ -1,14 +1,14 @@
 <?php
 class M_Dashboardtracking extends CI_Model{
     
-    function getAll(){
-        $this->db->select('*');
-        $this->db->from('tb_kendaraan'); 
-        //$this->db->select('*');
-        //$this->db->from('login_admin');
-        $query = $this->db->get();
-        return $query;
-    }
+    // function getAll(){
+    //     $this->db->select('*');
+    //     //$this->db->from('tb_kendaraan'); 
+    //     //$this->db->select('*');
+    //     //$this->db->from('login_admin');
+    //     $query = $this->db->get();
+    //     return $query;
+    // }
 
     function tampil_kendaraan(){
         $this->db->select('*');
@@ -69,6 +69,16 @@ class M_Dashboardtracking extends CI_Model{
             return 0;
         }
     }
+
+    public function getHistory()
+	{
+		$this->db->select('*');
+        $this->db->from('tb_riwayat');
+        $this->db->join('tb_lokasi', 'tb_riwayat.id_riwayat=tb_lokasi.id_lokasi');
+        $this->db->join('tb_kendaraan', 'tb_lokasi.id_lokasi=tb_kendaraan.id_kendaraan');
+        $query = $this->db->get();
+        return $query;
+	}
 
     /*function tampil_request(){
         $this->db->select('*');
