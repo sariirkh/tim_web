@@ -207,7 +207,7 @@
                 <div class="row">
                   <div class="col-md-8">
                     <div class="chart-responsive">
-                      <canvas id="pieChart" height="150"></canvas>
+                      <canvas id="pieChartJenis" height="150"></canvas>
                     </div>
                     <!-- ./chart-responsive -->
                   </div>

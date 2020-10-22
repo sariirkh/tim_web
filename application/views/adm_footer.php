@@ -884,27 +884,26 @@ $('.tp').clockpicker({
 	
 	 <script type="text/javascript">
 
-  if($("#pieChart"))
-	  pieChart();
+  if($("#pieChartJenis"))
+	  pieChartJenis();
   
-  function pieChart()
+  function pieChartJenis()
   {
 	  //alert();
-  //-------------
-  //- PIE CHART -
-  //-------------
-  // Get context with jQuery - using jQuery's .get() method.
-  
-  //alert();
-
-			
-			  
+	 // alert();
 	
+	//-------------
+	//- PIE CHART -
+	//-------------
+	// Get context with jQuery - using jQuery's .get() method.
+	
+  		//alert();
+
 		$.ajax({
-		url:"<?= site_url()?>Admin/getCategoryRecap/"+year,
+		url:"<?= site_url()?>Dashboardtracking/getJenisKendaraan",
 		success:function(s)
 		{
-			
+			//alert(s);
 			var pieValue=new Array();	
 			var pieColor = new Array();
 			var colorPallette=new Array(
@@ -918,7 +917,8 @@ $('.tp').clockpicker({
 									"#bbded6",
 									"#ff6464",
 									"#916dd5",
-									"#2c786c");
+									"#2c786c"
+									);
 			var pieLabel=new Array();
 			
 			var dataAll=s.split("||");
@@ -958,7 +958,7 @@ $('.tp').clockpicker({
 		}
 		};
 
-		var pie = document.getElementById('pieChart').getContext('2d');
+		var pie = document.getElementById('pieChartJenis').getContext('2d');
 		var myChart = new Chart(pie, {
 			type: 'doughnut',
 			data: {
@@ -971,7 +971,7 @@ $('.tp').clockpicker({
 			},
 			options: pieOptions
 		});
-		
+		/*
 		  
 		$("#pieChart").click( 
 			function(evt){
@@ -982,8 +982,12 @@ $('.tp').clockpicker({
 				//console.log(activePoints._view.label);
 			}
 		); 
+			*/
 			
-			
+		},
+		error: function(xhr, status, error) {
+		//var err = eval("(" + xhr.responseText + ")");
+		console.log(xhr.responseText);
 		}
 		});
 	}

@@ -35,7 +35,30 @@ class Dashboardtracking extends CI_Controller
     public function map(){
         $this->load->view('Admdashboardtracking');
     }
-    
+	
+	public function getJenisKendaraan()
+	{
+
+		
+		$this->load->database();
+		$this->load->model('Mmain');
+		$retVal= "";
+		
+		$render = $this->Mmain->qRead("
+								tb_lokasi a 
+								INNER JOIN tb_kendaraan b ON a.id_kendaraan = b.id_kendaraan 
+								GROUP BY b.jenis_kendaraan
+								",
+							"b.jenis_kendaraan as nama,COUNT(b.jenis_kendaraan) as jum");
+
+		if($render->num_rows() > 0 )
+		{
+			foreach($render->result() as $row)
+			$retVal .= $row->nama . "++" . $row->jum . "||";
+		}
+
+			echo $retVal;
+	}
    
     
 }
