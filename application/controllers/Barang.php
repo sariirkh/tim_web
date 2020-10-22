@@ -132,7 +132,7 @@ class Barang extends CI_Controller
 		$renderTemp=$this->Mmain->qRead($this->tableQuery.$this->ordQuery,$this->fieldQuery,"");
 		foreach($renderTemp->result() as $row)
 		{
-			$row->aksi = "<a href='".site_url()."Barang/tambahkeranjang/".$row->id_barang	."' class='btn btn-primary'>Tambah</a>"; //menambah tombol tambah
+			$row->aksi = "<a href='".site_url()."Barang/tambahkeranjang/".$row->id_barang	."' class='btn btn-primary'>Tambah Keranjang</a>"; //menambah tombol tambah
 		}
 		$output['render']=$renderTemp;
 		//init view
@@ -202,8 +202,6 @@ class Barang extends CI_Controller
 	
 		}
 		
-		//$cboacc=$this->fn->createCbofromDb("tb_acc","id_acc as id,nm_acc as nm","",$txtVal[58],"","txtUser[]");
-		//$cboBlood=$this->fn->createCbo(array('A','B','O','AB','-'),array('A','B','O','AB','-'),$txtVal[29]);
 		$cboSatuan=$this->fn->createCbo(array('Pcs','Box','Unit'),array('Pcs','Box','Unit'),$txtVal[3]);
 		$cboJenis=$this->fn->createCbo(array('Stok awal','Stok akhir'),array('Stok awal','Stok akhir'),$txtVal[3]);
 		
@@ -295,14 +293,14 @@ class Barang extends CI_Controller
 		redirect($this->viewLink,'refresh');		
 	}
 	//fungsi kerangjang sementara
-	public function tambahkeranjang($id)
+	public function tambahkeranjang($id )
 	{
 		
 		$this->load->database();
 		$this->load->model('Mmain');
 
 		//init view
-		
+	
 		$this->Mmain->qIns("tb_keranjang",Array(
 			0,
 			date("Y-m-d"),
@@ -311,11 +309,10 @@ class Barang extends CI_Controller
 			1,
 			"",
 			"catatan"
+			));
 
-
-		));
-		$this->Mmain->qUpdPart("tb_barang","id_barang",$savValTemp[3],Array("stok_barang"),Array($stokbaru));
-		
+		//$this->Mmain->qUpdPart("tb_barang","id_barang",$id,Array("stok_barang"),Array($stokbaru));
+		//$this->Mmain->qUpdPart("tb_keranjang","id_barang",$id,Array("jumlah"));
 			//redirect to form
 			redirect($this->viewLink,'refresh');		
 

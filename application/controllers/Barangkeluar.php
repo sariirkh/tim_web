@@ -32,18 +32,17 @@ class Barangkeluar extends CI_Controller
 	var $ordQuery=" ORDER BY id_barang_keluar DESC ";
 	var $tableQuery=
 						"tb_barangkeluar AS a 
-						INNER JOIN tb_barang AS b
-						INNER JOIN tb_detailkeluar AS c
-						INNER JOIN tb_karyawan AS d 
-						ON a.id_barang_keluar = b.id_barang && a.id_barang_keluar = c.id_barang_keluar && a.id_barang_keluar = d.id_karyawan
+						INNER JOIN tb_detailkeluar AS b ON a.id_barang_keluar = b.id_barang_keluar
+						INNER JOIN tb_barang AS c ON b.id_barang = c.id_barang
+						INNER JOIN tb_karyawan AS d ON a.id_karyawan = d.id_karyawan
 						";
 	var $fieldQuery="
 						a.id_barang_keluar,
 						a.tanggal_keluar,
-						c.jam,
-						concat(b.id_barang, b.nama_barang),
-					    c.jumlah_keluar,
-						concat(d.id_karyawan,d.nama_karyawan),
+						b.jam,
+						concat(c.id_barang, c.nama_barang),
+					    b.jumlah_keluar,
+						d.nama_karyawan,
 						a.bukti_terima,
 						a.ttd,
 						a.catatan
@@ -253,7 +252,7 @@ class Barangkeluar extends CI_Controller
 		$this->load->database();
 		$this->load->model('Mmain');
 
-		//echo implode("<br>",$savValTemp); //show value
+		//echo implode("<br>",$savValTemp); //show value tapi polos
 		//update stok keluar
 		
 		$stoklama = $this->Mmain->qRead("tb_barang WHERE id_barang = '".$savValTemp[3]."' ","stok_barang","")->row()->stok_barang;
@@ -261,7 +260,7 @@ class Barangkeluar extends CI_Controller
 		//echo $stokbaru;
 		$this->Mmain->qUpdPart("tb_barang", //tabel yang mau dirubah
 								"id_barang", //primary key
-								$savValTemp[3], //array ke berapa
+								$savValTemp[3], //array primary key yg ke berapa
 								Array("stok_barang"), //kolom yg mau dirubah
 								Array($stokbaru)); //kondisi baru
 		

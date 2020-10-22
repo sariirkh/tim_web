@@ -31,8 +31,9 @@ class Barangmasuk extends CI_Controller
 	//query
 	var $ordQuery=" ORDER BY id_barang_masuk DESC ";
 	var $tableQuery= 	"tb_barangmasuk AS a 
-						INNER JOIN tb_barang AS b
-						INNER JOIN tb_detailmasuk AS c ON a.id_barang_masuk = b.id_barang && a.id_barang_masuk = c.id_barang_masuk
+						INNER JOIN tb_detailmasuk AS c ON  a.id_barang_masuk = c.id_barang_masuk					
+						INNER JOIN tb_barang AS b ON b.id_barang = c.id_barang
+										
 						";
 	var $fieldQuery="
 						a.id_barang_masuk,
@@ -42,8 +43,8 @@ class Barangmasuk extends CI_Controller
 					    c.jumlah_masuk,
 						c.satuan,
 						c.jenis,
-						a.bukti_terima,
-						a.catatan
+						a.catatan,
+						a.bukti_terima
 						"; //leave blank to show all field
 						
 	var $primaryKey="id_barang_masuk";
@@ -65,10 +66,9 @@ class Barangmasuk extends CI_Controller
 									"Jam",
                                     "Jumlah",
 									"Satuan",
-									"Jenis",
-									"Penerima",
-									"Bukti Terima",
-									"Catatan"
+									"Jenis",																
+									"Catatan",
+									"Bukti Terima"
 									);
 	
 	//save
@@ -80,10 +80,9 @@ class Barangmasuk extends CI_Controller
 									"Jam",
 									"Jumlah",
 									"Satuan",
-									"Jenis",
-									"Penerima",
-									"Bukti Terima",
-									"Catatan"
+									"Jenis",																	
+									"Catatan",
+									"Bukti Terima"
 									);
 	
 	//update
@@ -140,6 +139,7 @@ class Barangmasuk extends CI_Controller
 		$renderTemp=$this->Mmain->qRead($this->tableQuery.$this->ordQuery,$this->fieldQuery,"");
 		foreach($renderTemp->result() as $row)
 		{
+			$row->bukti_terima="<img src='".base_url()."assets/poto/".$row->bukti_terima."' height='auto' width='100px' >";
 
 		}
 		$output['render']=$renderTemp;
@@ -195,6 +195,11 @@ class Barangmasuk extends CI_Controller
 					$txtVal[]= $col;
 				}
 			}
+
+			//menambahakan foto
+			$imgTemp="<h5><i>Click browse to change image</i></h5>
+			<img src='".base_url()."/assets/poto/".$txtVal[8]."' height='200px' width='auto'>
+			<input type='hidden' name='txtfl' value='".$txtVal[8]."'>";
 			
 		}
 		else
@@ -227,10 +232,10 @@ class Barangmasuk extends CI_Controller
 								"<input type='text' class='form-control' autocomplete=off id='txtJumlahBarang' name=txt[] value='".$txtVal[4]."' required placeholder='' maxlength='70'>",
 								$cboSatuan,
 								$cboJenis,
-								"<input type='text' class='form-control' id='txtIdKaryawane' name=txt[] value='".$txtVal[7]."' required>",
-								$imgTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfl >",
-								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[9]."' required placeholder='Ex: Nava cantik etc.' maxlength='20'>"
-								);
+								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[7]."' required placeholder='Ex: Nava cantik etc.' maxlength='20'>",
+								$imgTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfl >"
+									
+							);
 		
 		
 		//load view
@@ -248,14 +253,51 @@ class Barangmasuk extends CI_Controller
 		$this->load->database();
 		$this->load->model('Mmain');
 		
-		echo implode("<br>",$savValTemp); //show data inputan.. tapi polos
+		//echo implode("<br>",$savValTemp); //show data inputan.. tapi polos
 
 		//update stok
 		$stoklama = $this->Mmain->qRead("tb_barang WHERE id_barang = '".$savValTemp[1]."' ","stok_barang","")->row()->stok_barang;
 		$stokbaru = $stoklama + $savValTemp[4];
 
-		$this->Mmain->qIns($this->mainTable,$savValTemp);
+		//barang masuk di sesuaikan arraynya dengan di form barang masuk
+		$bahanSimpanMasuk = Array(
+										$savValTemp[0], //id brg masuk
+										$savValTemp[2], //tgl masuk																	
+										$savValTemp[7], //catatan
+										"", //bukti foto
+									);
+		$this->Mmain->qIns($this->mainTable,$bahanSimpanMasuk);
+									
+		//detail masuk sama di atas
+		$bahanSimpanMasukDetail = Array(
+			$savValTemp[0],		//id brg masuk
+			$savValTemp[1],		//id brg
+			$savValTemp[4],		//jumlah
+			$savValTemp[5],		//satuan
+			$savValTemp[6],		//jenis
+			$savValTemp[3]		//jam
+		);
+
+		$this->Mmain->qIns("tb_detailmasuk",$bahanSimpanMasukDetail);
+
+		//ubah stok
 		$this->Mmain->qUpdPart("tb_barang","id_barang",$savValTemp[1],Array("stok_barang"),Array($stokbaru));
+
+		//menampilkan foto
+		$avauser="";
+		if(!empty($_FILES['txtfl']['name']))
+		{
+			$flName=$_FILES['txtfl']['name'];
+			$flTmp=$_FILES['txtfl']['tmp_name'];
+			$fltype=$_FILES['txtfl']['type'];
+			move_uploaded_file($flTmp,"assets/poto/".$flName);
+			$avauser=$flName;
+		}
+		else
+		{
+			$avauser="def.jpg";
+		}
+
 
 		$this->session->set_flashdata('successNotification', '1');
 		//redirect to form
@@ -306,6 +348,22 @@ class Barangmasuk extends CI_Controller
 		
 		// //foreach($savValTemp as $i => $row) echo ($i+1)." ".$row."<br>";
 		// //foreach($savValUserTemp as $i => $row) echo ($i+1)." ".$row."<br>";
+
+		//update foto
+		$avauser="";
+		 if(!empty($_FILES['txtfl']['name']))
+		 {
+		 	$flName=$_FILES['txtfl']['name'];
+		 	$flTmp=$_FILES['txtfl']['tmp_name'];
+		 	$fltype=$_FILES['txtfl']['type'];
+		 	move_uploaded_file($flTmp,"assets/poto/".$flName); 
+			$avauser=$flName;
+			 
+		 }
+		 else
+		 {
+			 $avauser=$this->input->post('txtfl');
+		 }
 		
 		$this->Mmain->qUpd($this->mainTable,$this->mainPk,$savValTemp[0],$savValTemp);
 		

@@ -23,7 +23,7 @@ class Keranjang extends CI_Controller
 	var $breadcrumbTitle="Keranjang ATK Keluar";
 	//var $breadcrumbTitle2="User Access";
 	// buat tampilan view data
-	var $viewPage="Admviewpage";
+	var $viewPage="Admviewkeranjang";
 	//buat view tambah data
 	var $addPage="Admaddpage";
 	//var $detPage="Formdetpage";
@@ -32,15 +32,13 @@ class Keranjang extends CI_Controller
 	var $ordQuery=" ORDER BY id_keranjang DESC ";
 	var $tableQuery="
                         tb_keranjang AS a
-                        INNER JOIN tb_karyawan AS b
-                        INNER JOIN tb_barang AS c ON a.id_keranjang = b.id_karyawan && a.id_keranjang = c.id_barang
+                        INNER JOIN tb_barang AS c ON a.id_barang = c.id_barang
 						";
 	var $fieldQuery="
 						a.id_keranjang,
 						a.tanggal_keluar,
 						a.jam,
-						concat(b.id_karyawan,b.nama_karyawan),
-						c.id_barang,
+						c.nama_barang,
 						a.jumlah,
 						a.catatan
 						"; //leave blank to show all field
@@ -60,8 +58,7 @@ class Keranjang extends CI_Controller
 	var $viewFormTableHeader=array(
 									"Id Keranjang",
 									"Tanggal Keluar",
-									"Jam",
-									"Id Karyawan",
+									"Jam",								
 									"Id Barang",
 									"Jumlah",
 									"Catatan"
@@ -72,8 +69,7 @@ class Keranjang extends CI_Controller
 	var $saveFormTableHeader=array(
                                     "Id Keranjang",
                                     "Tanggal Keluar",
-                                    "Jam",
-                                    "Id Karyawan",
+                                    "Jam",                                  
                                     "Id Barang",
                                     "Jumlah",
                                     "Catatan"
@@ -98,7 +94,7 @@ class Keranjang extends CI_Controller
 		$isAll = $this->Mmain->qRead(
 										"tb_accfrm AS a INNER JOIN tb_frm AS b ON a.code_frm = b.code_frm 
 										WHERE a.id_acc ='".$this->session->userdata['accUser']."' AND b.id_frm='".$this->viewLink."'",
-										"a.is_add as isadd,a.is_edt as isedt,a.is_del as isdel,a.is_spec1 as acc1,a.is_spec2 as acc2","");
+										"a.is_edt as isedt,a.is_del as isdel,a.is_spec1 as acc1,a.is_spec2 as acc2","");
 		foreach($isAll ->result() as $row)
 		{
 			$access=$row;
@@ -152,7 +148,7 @@ class Keranjang extends CI_Controller
 		//render view
 		$this->fn->getheader();
 		$this->load->view($this->viewPage,$output);
-		$this->fn->getfooter();
+		//$this->fn->getfooter();
 	}
 	
 
@@ -207,17 +203,15 @@ class Keranjang extends CI_Controller
 		}
 		
 		//$cboacc=$this->fn->createCbofromDb("tb_acc","id_acc as id,nm_acc as nm","",$txtVal[58],"","txtUser[]");
-		$cboKaryawan=$this->fn->createCbofromDb("tb_karyawan","id_karyawan as id, concat(id_karyawan ,'- ',nama_karyawan) as nm","",$txtVal[1],"","txt[]");
 		
 		$output['formTxt']=array(
                                 "<input type='text' class='form-control' id='txtIdKeranjang' name=txt[] value='".$txtVal[0]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
                                 "<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off  readonly id='txtTanggalKeluar' name=txt[] value='".$txtVal[1]."' required placeholder='Max. karakter' maxlength='70'>",
                                 "<input type='text' class='form-control tp' 'name=txt[] autocomplete=off  readonly id='txtJam' name=txt[] value='".$txtVal[2]."' required placeholder='Max. karakter' maxlength='70'>",
-								$cboKaryawan,
-								"<input type='text' class='form-control' id='txtIdBarang' name=txt[] value='".$txtVal[4]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' id='txtJumlah' name=txt[] value='".$txtVal[5]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' id='txtIdBarang' name=txt[] value='".$txtVal[3]."' required placeholder='Max. 70 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' id='txtJumlah' name=txt[] value='".$txtVal[4]."' required placeholder='Max. 70 karakter' maxlength='70'>",
 								
-								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[6]."' required placeholder='Max. 70 karakter' maxlength='70'>"
+								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[5]."' required placeholder='Max. 70 karakter' maxlength='70'>"
 								
 							);
 		
@@ -298,8 +292,26 @@ class Keranjang extends CI_Controller
 		//redirect to form
 		redirect($this->viewLink,'refresh');		
 	}
+
+	public function checkout($id_keranjang )
+	{
+		$savValTemp=$this->input->post('txt');
+
+		$this->load->database();
+		$this->load->model('Mmain');
+
+		//init view
 	
+		$this->Mmain->qIns("tb_ba",Array(
+			0,
+			
+			));
+
+		redirect($this->viewLink,'refresh');		
+
 	}
+
+}
 	
 
 
