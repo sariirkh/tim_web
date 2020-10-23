@@ -1,7 +1,7 @@
        <!-- Content Wrapper. Contains page content -->
   
     <!-- Content Header (Page header) -->
-      <div class="container-fluid">
+    <div class="container-fluid">
         <div class="row ">
           <div class="col-sm-6">
             <h1 class="m-0 text-dark">Dashboard</h1>
@@ -197,7 +197,7 @@
      <!-- PIE CHART -->
      <div class="card card-danger">
               <div class="card-header">
-                <h3 class="card-title">Pie Chart</h3>
+                <h3 class="card-title">Kendaraan yang dipakai</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -231,6 +231,7 @@
                       <th style="width: 10px">No</th>
                       <th>Nama Kendaraan</th>
                       <th>Lokasi</th>
+                      <th>Waktu</th>
                       <th style="width: 40px">Status</th>
                     </tr>
                   </thead>
@@ -240,10 +241,9 @@
                   ?>
                   <tr>
                     <td><?php echo $no++;?></td>
-                    <td><?php echo $baris->jenis_kendaraan;?> - <?php echo $baris->nama_kendaraan;?> ( <?php echo $baris->nomor_kendaraan;?> )</td>
-                      
-                    <td><?php echo $baris->nama_lokasi;?></td>
-                      
+                    <td><?php echo $baris->jenis_kendaraan?> - <?php echo $baris->nama_kendaraan?> ( <?php echo $baris->nomor_kendaraan?> )</td>
+                    <td><?php echo $baris->nama_lokasi?></td>
+                    <td><?php echo $baris->r_waktu?></td>
                     <td>
                     <?php            
                     if($baris->status=='di jalan'){
@@ -256,10 +256,7 @@
                     ?>
                     <?php
                     }?>
-
                     </td>
-                      
-                
                   </tr>
                       <?php }?>
                   </tbody>
@@ -283,3 +280,4 @@
                         
   
  
+;

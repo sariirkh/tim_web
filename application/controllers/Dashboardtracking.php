@@ -24,14 +24,10 @@ class Dashboardtracking extends CI_Controller
         $data['lokasi'] = $this->M_Dashboardtracking->jum_request();
         $data['riwayat'] = $this->M_Dashboardtracking->jum_update();
 		$data['pengguna_kendaraan'] = $this->M_Dashboardtracking->jum_pengguna();
-		$data['tempat'] = $this->M_Dashboardtracking->getHistory();
+		$data['tempat'] = $this->M_Dashboardtracking->getHistory()->result();
 		$this->load->view('Admdashboardtracking', $data);
         $this->fn->getfooter();
         
-        
-
-	
-		
     }
     // public function map(){
     //     $this->load->view('Admdashboardtracking');
@@ -65,7 +61,7 @@ class Dashboardtracking extends CI_Controller
     //     // if($this->session->userdata('status') != "login"){
     //     //     redirect(base_url('admin/login_admin'));
     //     // }
-    //     $data['riwayat'] = $this->M_Dashboardtracking->getHistory();
+    //     $data['tempat'] = $this->M_Dashboardtracking->getHistory()->result();
     //      $this->load->view('Admdashboardtracking', $data);
     // }
 	
@@ -81,6 +77,7 @@ class Dashboardtracking extends CI_Controller
 	// 							");
 
 	// }
+	
 }
 ?>
 
