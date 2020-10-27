@@ -206,6 +206,9 @@
                 </div>
               </div>
               <div class="card-body">
+              <div>
+              <h5 align="center"> Kendaraan terakhir yang dipakai </h5>  
+              </div>
                 <canvas id="pieChartJenis" style="height:230px; min-height:230px"></canvas>
               </div>
               <!-- /.card-body -->
@@ -222,6 +225,11 @@
       <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">History Lokasi Terakhir</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
@@ -270,7 +278,35 @@
                         
         </div>
         
-      
+        <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card card-gray">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Data Request Rute Dalam 1 Tahun</h3>
+                  
+                  <div class="card-tools">
+                  <a href="Request_rute">View Report</a>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                </div>
+                </div>
+              </div>
+              <div class="card-body">
+                
+                <!-- /.d-flex -->
+
+                <div class="position-relative mb-4">
+                  <canvas id="lineChart" height="200"></canvas>
+                </div>
+
+                
+              </div>
+            </div>
 
      
           
@@ -280,4 +316,3 @@
                         
   
  
-;
