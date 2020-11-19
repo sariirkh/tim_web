@@ -63,7 +63,7 @@ $active_group = 'mdr';
 $query_builder = TRUE;
 
 $db['mdr'] = array(
-	'dsn'	=> '',
+	// 'dsn'	=> '',
 	// 'hostname' => 'localhost',
 	// 'username' => 'root',
 	// 'password' => '',

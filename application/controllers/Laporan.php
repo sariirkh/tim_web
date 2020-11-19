@@ -16,20 +16,34 @@ class Laporan extends CI_Controller
     public function laporan()
     {
         $jenis = $this->input->post("jenis");
+        $namabarang = $this->input->post("namabarang");
         $tglawal = $this->input->post("tglawal");
         $tglakhir = $this->input->post("tglakhir");
-        if($jenis == null || $tglawal == null || $tglakhir == null) {
-            $data['barang'] = $this->db->query("SELECT * FROM barang_masuk")->result();
+        if($jenis == null && $namabarang == null && $tglawal == null && $tglakhir == null) {
+            $data['barang'] = $this->db->query("SELECT * FROM tb_barangmasuk JOIN tb_detailmasuk ON tb_barangmasuk.id_barang_masuk=tb_detailmasuk.id_barang_masuk JOIN tb_barang ON tb_barang.id_barang=tb_detailmasuk.id_barang")->result();
+            $this->load->view("v_laporan", $data);
+        }else if($tglawal == null || $tglakhir == null){
+            $data['barang'] = $this->db->query("SELECT * FROM tb_barangmasuk JOIN tb_detailmasuk ON tb_barangmasuk.id_barang_masuk=tb_detailmasuk.id_barang_masuk JOIN tb_barang ON tb_barang.id_barang=tb_detailmasuk.id_barang WHERE tb_detailmasuk.jenis='$jenis'")->result();
             $this->load->view("v_laporan", $data);
         }else if($jenis == 'null'){
-            $data['barang'] = $this->db->query("SELECT * FROM barang_masuk WHERE tanggal_masuk BETWEEN '$tglawal' AND '$tglakhir'")->result();
+            $data['barang'] = $this->db->query("SELECT * FROM tb_barangmasuk JOIN tb_detailmasuk ON tb_barangmasuk.id_barang_masuk=tb_detailmasuk.id_barang_masuk JOIN tb_barang ON tb_barang.id_barang=tb_detailmasuk.id_barang WHERE tb_barangmasuk.tanggal_masuk BETWEEN '$tglawal' AND '$tglakhir'")->result();
             $this->load->view("v_laporan", $data);
         }else{
-            $data['barang'] = $this->db->query("SELECT * FROM barang_masuk WHERE jenis='$jenis' AND tanggal_masuk BETWEEN '$tglawal' AND '$tglakhir'")->result();
+            $data['barang'] = $this->db->query("SELECT * FROM tb_barangmasuk JOIN tb_detailmasuk ON tb_barangmasuk.id_barang_masuk=tb_detailmasuk.id_barang_masuk JOIN tb_barang ON tb_barang.id_barang=tb_detailmasuk.id_barang WHERE tb_detailmasuk.jenis='$jenis' AND tb_barangmasuk.tanggal_masuk BETWEEN '$tglawal' AND '$tglakhir'")->result();
             $this->load->view("v_laporan", $data);
 
         }
     }
+
+    public function cetakMasuk()
+    {
+        $id = $this->uri->segment(3);
+        $data['barang'] = $this->db->query("SELECT * FROM tb_barangmasuk
+        JOIN tb_detailmasuk ON tb_barangmasuk.id_barang_masuk=tb_detailmasuk.id_barang_masuk
+        JOIN tb_barang ON tb_barang.id_barang=tb_detailmasuk.id_barang")->result();
+        $this->load->view("v_cetakmasuk", $data);
+    }
+
     public function detail()
     {
         $id = $this->uri->segment(3);
@@ -89,3 +103,4 @@ class Laporan extends CI_Controller
 
 
 }
+

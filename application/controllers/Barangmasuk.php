@@ -20,7 +20,7 @@ class Barangmasuk extends CI_Controller
 	var $viewLink="Barangmasuk";
 	// var $viewLink2="Users";
 	//sub menu atau header
-	var $breadcrumbTitle="Daftar Barang ATK Masuk";
+	var $breadcrumbTitle="Daftar ATK Masuk";
 	//var $breadcrumbTitle2="User Access";
 	// buat tampilan view data
 	var $viewPage="Admviewpage";
@@ -31,18 +31,18 @@ class Barangmasuk extends CI_Controller
 	//query
 	var $ordQuery=" ORDER BY id_barang_masuk DESC ";
 	var $tableQuery= 	"tb_barangmasuk AS a 
-						INNER JOIN tb_detailmasuk AS c ON  a.id_barang_masuk = c.id_barang_masuk					
-						INNER JOIN tb_barang AS b ON b.id_barang = c.id_barang
+						INNER JOIN tb_detailmasuk AS b ON  b.id_barang_masuk = a.id_barang_masuk					
+						INNER JOIN tb_barang AS c ON c.id_barang = b.id_barang
 										
 						";
 	var $fieldQuery="
 						a.id_barang_masuk,
-						concat(b.id_barang,b.nama_barang),
+						c.nama_barang,
 						a.tanggal_masuk,
-						c.jam,
-					    c.jumlah_masuk,
-						c.satuan,
-						c.jenis,
+						b.jam,
+					    b.jumlah_masuk,
+						b.satuan,
+						b.jenis,
 						a.catatan,
 						a.bukti_terima
 						"; //leave blank to show all field
@@ -58,7 +58,7 @@ class Barangmasuk extends CI_Controller
 	var $suffix="0001";	
 	
 	//view
-	var $viewFormTitle="Daftar Barang ATK Masuk";
+	var $viewFormTitle="Data ATK Masuk";
 	var $viewFormTableHeader=array(
 									"No Transaksi",
 									"Nama Barang",
@@ -68,11 +68,11 @@ class Barangmasuk extends CI_Controller
 									"Satuan",
 									"Jenis",																
 									"Catatan",
-									"Bukti Terima"
+									"Bukti Barang"
 									);
 	
 	//save
-	var $saveFormTitle="Tambah Barang ATK Masuk";
+	var $saveFormTitle="Tambah ATK Masuk";
 	var $saveFormTableHeader=array(
 									"No Transaksi",							
 									"Nama barang",
@@ -82,11 +82,11 @@ class Barangmasuk extends CI_Controller
 									"Satuan",
 									"Jenis",																	
 									"Catatan",
-									"Bukti Terima"
+									"Bukti Barang"
 									);
 	
 	//update
-	var $editFormTitle="Ubah Data Barang Masuk";
+	var $editFormTitle="Ubah Data ATK Masuk";
 	
 	/*	
 		========================================================== General Function =========================================================
@@ -139,7 +139,7 @@ class Barangmasuk extends CI_Controller
 		$renderTemp=$this->Mmain->qRead($this->tableQuery.$this->ordQuery,$this->fieldQuery,"");
 		foreach($renderTemp->result() as $row)
 		{
-			$row->bukti_terima="<img src='".base_url()."assets/poto/".$row->bukti_terima."' height='auto' width='100px' >";
+			$row->bukti_terima="<img src='".base_url()."assets/img/".$row->bukti_terima."' height='auto' width='100px' >";
 
 		}
 		$output['render']=$renderTemp;
@@ -212,13 +212,14 @@ class Barangmasuk extends CI_Controller
 				//generate id
 				$txtVal[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
 				$txtVal[2] = date("Y-m-d");
-				$txtVal[3] = date("H:i:s");
+				$txtVal[3] = date("H:i:s", time()+(60*60*6));
+				$imgTemp="<input type='hidden' name='txt[]' value='".$txtVal[8]."'>";
 	
 		}
 		
 		// $cboacc=$this->fn->createCbofromDb("tb_acc","id_acc as id,nm_acc as nm","",$txtVal[58],"","txtUser[]");
 		// Combobox gabungan
-		$cboID=$this->fn->createCbofromDb("tb_barang","id_barang as id, concat(id_barang ,'- ',nama_barang) as nm","",$txtVal[1],"","txt[]");
+		$cboID=$this->fn->createCbofromDb("tb_barang","id_barang as id,nama_barang as nm","",$txtVal[1],"","txt[]");
 		
 		// combobox statis
 		$cboSatuan=$this->fn->createCbo(array('Pcs','Box','Unit'),array('Pcs','Box','Unit'),$txtVal[5]);
@@ -229,10 +230,10 @@ class Barangmasuk extends CI_Controller
 								$cboID,
 								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off  readonly id='txtTanggalMasuk' name=txt[] value='".$txtVal[2]."' required placeholder='Max. karakter' maxlength='70'>",
 								"<input type='text' class='form-control tp' 'name=txt[] autocomplete=off  readonly id='txtJam' name=txt[] value='".$txtVal[3]."' required placeholder='Max. karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtJumlahBarang' name=txt[] value='".$txtVal[4]."' required placeholder='' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtJumlahMasuk' name=txt[] value='".$txtVal[4]."' required placeholder='' maxlength='70'>",
 								$cboSatuan,
 								$cboJenis,
-								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[7]."' required placeholder='Ex: Nava cantik etc.' maxlength='20'>",
+								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[7]."' required placeholder='Ex: Masuk senin etc.' maxlength='20'>",
 								$imgTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfl >"
 									
 							);
@@ -248,7 +249,8 @@ class Barangmasuk extends CI_Controller
 	{
 		//retrieve values
 		$savValTemp=$this->input->post('txt');
-		
+		$imgTemp=$this->input->post('txtfl');
+
 		//save to database
 		$this->load->database();
 		$this->load->model('Mmain');
@@ -258,13 +260,31 @@ class Barangmasuk extends CI_Controller
 		//update stok
 		$stoklama = $this->Mmain->qRead("tb_barang WHERE id_barang = '".$savValTemp[1]."' ","stok_barang","")->row()->stok_barang;
 		$stokbaru = $stoklama + $savValTemp[4];
+		
+		//foto
+		$avauser="";
+		if(!empty($_FILES['txtfl']['name']))
+				{
+		$flName=$_FILES['txtfl']['name'];
+		$flTmp=$_FILES['txtfl']['tmp_name'];
+		$fltype=$_FILES['txtfl']['type'];
+		move_uploaded_file($flTmp,"assets/img/".$flName);
+		$avauser=$flName;
+				}
+		else
+				{
+						$avauser="def.jpg";
+				}
+		$savValTemp[8]=$avauser;
+		//$this->Mmain->qIns($this->mainTable,$savValTemp);
+		
 
 		//barang masuk di sesuaikan arraynya dengan di form barang masuk
 		$bahanSimpanMasuk = Array(
 										$savValTemp[0], //id brg masuk
 										$savValTemp[2], //tgl masuk																	
-										$savValTemp[7], //catatan
-										"", //bukti foto
+										$savValTemp[7], //catatan										
+										$savValTemp[8], //bukti foto
 									);
 		$this->Mmain->qIns($this->mainTable,$bahanSimpanMasuk);
 									
@@ -280,9 +300,7 @@ class Barangmasuk extends CI_Controller
 
 		$this->Mmain->qIns("tb_detailmasuk",$bahanSimpanMasukDetail);
 
-		//ubah stok
-		$this->Mmain->qUpdPart("tb_barang","id_barang",$savValTemp[1],Array("stok_barang"),Array($stokbaru));
-
+		
 		//menampilkan foto
 		$avauser="";
 		if(!empty($_FILES['txtfl']['name']))
@@ -290,13 +308,16 @@ class Barangmasuk extends CI_Controller
 			$flName=$_FILES['txtfl']['name'];
 			$flTmp=$_FILES['txtfl']['tmp_name'];
 			$fltype=$_FILES['txtfl']['type'];
-			move_uploaded_file($flTmp,"assets/poto/".$flName);
+			move_uploaded_file($flTmp,"assets/img/".$flName);
 			$avauser=$flName;
 		}
 		else
 		{
 			$avauser="def.jpg";
 		}
+		$savValTemp[]=$avauser;
+		//ubah stok
+		$this->Mmain->qUpdPart("tb_barang","id_barang",$savValTemp[1],Array("stok_barang"),Array($stokbaru));
 
 
 		$this->session->set_flashdata('successNotification', '1');
@@ -326,29 +347,7 @@ class Barangmasuk extends CI_Controller
 		//save to database
 		$this->load->database();
 		$this->load->model('Mmain');
-		// $avauser="";
-		// if(!empty($_FILES['txtfl']['name']))
-		// {
-		// 	$flName=$_FILES['txtfl']['name'];
-		// 	$flTmp=$_FILES['txtfl']['tmp_name'];
-		// 	$fltype=$_FILES['txtfl']['type'];
-		// 	move_uploaded_file($flTmp,"assets/admin/img/avatar/thumb/".$flName);
-		// 	$avauser=$flName;
-		// }
-		// else
-		// {
-		// 	$avauser=$this->input->post('txtimg');
-		// }
 		
-		
-		
-		
-		// $savValTemp[] = $savValUserTemp[0];
-		
-		
-		// //foreach($savValTemp as $i => $row) echo ($i+1)." ".$row."<br>";
-		// //foreach($savValUserTemp as $i => $row) echo ($i+1)." ".$row."<br>";
-
 		//update foto
 		$avauser="";
 		 if(!empty($_FILES['txtfl']['name']))
@@ -356,7 +355,7 @@ class Barangmasuk extends CI_Controller
 		 	$flName=$_FILES['txtfl']['name'];
 		 	$flTmp=$_FILES['txtfl']['tmp_name'];
 		 	$fltype=$_FILES['txtfl']['type'];
-		 	move_uploaded_file($flTmp,"assets/poto/".$flName); 
+		 	move_uploaded_file($flTmp,"assets/img/".$flName); 
 			$avauser=$flName;
 			 
 		 }

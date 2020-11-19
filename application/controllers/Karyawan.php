@@ -58,7 +58,7 @@ class Karyawan extends CI_Controller
 									);
 	
 	//save
-	var $saveFormTitle="Tambah Loker";
+	var $saveFormTitle="Tambah Karyawan";
 	var $saveFormTableHeader=array(
 									"Id Karyawan",
                                     "Nama Karyawan",
@@ -66,7 +66,7 @@ class Karyawan extends CI_Controller
 									);
 	
 	//update
-	var $editFormTitle="Ubah Data Loker";
+	var $editFormTitle="Ubah Data Karyawan";
 	
 	/*	
 		========================================================== General Function =========================================================

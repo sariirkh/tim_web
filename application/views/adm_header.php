@@ -232,7 +232,15 @@
             <a href="<?= base_url('Laporan/laporan') ?>" class="nav-link">
               <i class="nav-icon fas fa-user text-white"></i>
               <p>
-                Laporan ATK
+                Report Masuk
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('Laporankeluar/laporan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-user text-white"></i>
+              <p>
+                Report Keluar
               </p>
             </a>
           </li>

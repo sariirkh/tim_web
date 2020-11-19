@@ -44,8 +44,8 @@ class Loker extends CI_Controller
 	
 	//auto generate id
 	//sesuaikan panjangnya length di database
-	var $defaultId="A1";
-	var $prefix="A";
+	var $defaultId="C1";
+	var $prefix="C";
 	var $suffix="1";	
 	
 	//view
