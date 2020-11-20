@@ -227,21 +227,61 @@
         <div class="content-wrapper"><br>
         <form action="<?php echo base_url(); ?>Pelaporan/pelaporan" method="POST" class="row">
             <div class="col-md-2" style="margin-left:10px; margin-right:10px">
-                <input class="form-control" name="tglawal" type="date">
+                <input class="form-control" name="tglawal" type="date" value="<?php echo isset($_POST['tglawal']) ?  $_POST['tglawal'] : date('YYYY-mm-dd') ?>">
             </div>
             <div style="margin-right: 7px; margin-top: 8px">sampai</div>
             <div class="col-md-2">
-                <input class="form-control" name="tglakhir" type="date">
+                <input class="form-control" name="tglakhir" type="date" value="<?php echo isset($_POST['tglakhir']) ? $_POST['tglakhir'] : date('YYYY-mm-dd') ?>">
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <select class="form-control" name="jk" id="jk" required>
                     <option value="null">Semua</option>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
+                    </select>
+            </div>
+            <div class="col-md-1">
+                <select class="form-control" name="lulusan" id="lulusan" required>
+                    <option value="null">Semua</option>
+                    <option value="SD">SD</option>
+                    <option value="SMP">SMP</option>
+                    <option value="SMA/MA">SMA/MA</option>
+                    <option value="SMK">SMK</option>
+                    <option value="D1">D1</option>
+                    <option value="D2">D2</option>
+                    <option value="D3">D3</option>
+                    <option value="D4">D4</option>
+                    <option value="S1">S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
                 </select>
+                </div>
+            <div class="col-md-1">
+                <select class="form-control" name="Data Career" id="Data Career" required>
+                    <option value="null">Semua</option>
+                    <option value="CR01">CR01</option>
+                    <option value="CR02">CR02</option>
+                    </select>
+             </div>
+            <div class="col-md-1">
+                <select class="form-control" name="Tahapan" id="Tahapan" required>
+                    <option value="null">Semua</option>
+                    <option value="Mendaftar">Mendaftar</option>
+                    <option value="Interview 1">Interview 1</option>
+                    <option value="Interview 2">Interview 2</option>
+                    <option value="Tes Excel">Tes Excel</option>
+                    <option value="Tes Tulis">Tes Tulis</option>
+                    <option value="Tes Psikotes">Tes Psikotes</option>
+                    <option value="Tes Interview 3">Interview 3</option>
+                    <option value="Diterima">Diterima</option>
+                    <option value="Gagal">Gagal</option>
+                    </select>
             </div>
             <input style="margin-right: 10px;" name="submit" type="submit" value="Filter" class="btn btn-info" />
             <a class="btn btn-info" href="<?php echo base_url(); ?>Pelaporan/pelaporan">Reset</a>
+            <div class="col-md-2">
+            <a class="btn btn-success" href="<? echo base_url(); ?>Pelaporan/pelaporan">Print</a>
+            </div>
         </form>
             <div class="table-responsive" style="margin-left:10px; margin-right:20px"><br>
                  <table id="userTable" class="table table-striped table-hover table-bordered  table-custom">
@@ -252,10 +292,12 @@
                             <th>Tanggal Daftar</th>
                             <th>Nama</th>
                             <th>Jenis Kelamin</th>
-                            <th>Foto</th>
+                            <th>Pendidikan Terakhir</th>
                             <th>Status Lowongan</th>
+                            <th>Loker</th>
                             <th>Tahapan</th>
                             <th>Notes</th>
+                            <th>Foto</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -269,17 +311,20 @@
                         <td><?= $a->TglDaftar_pelamar  ?></td>
                         <td><?= $a->nama_pelamar  ?></td>
                         <td ><?= $a->jk_pelamar  ?></td>
-                        <td align="center"><img src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" width='70' height='80'>
+                        <td><?= $a->pdkterakhir_pelamar ?></td>
                         <td><?= $a->statuslowongan_pelamar ?></td>
+                        <td ><?= $a->title_cr  ?></td>
                         <td><?= $a->tahapan_pelamar ?></td>
                         <td><?= $a->notes_pelamar ?></td>
+                        <td align="center"><img src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" width='70' height='80'>
                         <td align="center">
                             <a class="btn btn-info" href="<?= base_url('Pelaporan/detail/'.$a->id_pelamar);  ?>">Detail</a>
-                             <a class="btn btn-success" href="<?= base_url('Pelaporan/detailc/'.$a->id_pelamar);  ?>">Print</a>
+                             <a class="btn btn-success" href="<?= base_url('Pelaporan/cetak/'.$a->id_pelamar);  ?>">Print</a>
                         </td>
                         </tr>
                         <?php } ?>
                     </tbody>
+                    
                 </table>
             </div>
         </div>
