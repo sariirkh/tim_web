@@ -7,7 +7,6 @@ class Calendartracking extends CI_Controller
 	{
 		parent::__construct();
         $this->load->library('Commonfunction','','fn');
-        $this->load->model('M_Calendartracking');
 				
 		//if(!isset($this->session->userdata['name']))		
 		//	redirect("login","refresh");
@@ -20,37 +19,34 @@ class Calendartracking extends CI_Controller
 		//init modal
 		
 		$this->fn->getheader();	
-		
-		
-		// $data_calendar = $this->M_Calendartracking->getAll();
-		// $calendar = array();
-		// foreach ($data_calendar as $key => $val) 
-		// {
-		// 	$calendar[] = array(
-		// 		'id_lokasi' 	=> intval($val->id_lokasi), 
-		// 		'id_kendaraan' => $val->id_kendaraan,
-		// 		// 'nama_kendaraan' => $val->nama_kendaraan, 
-		// 		// 'nomor_kendaraan' => $val->nomor_kendaraan, 
-		// 		'nama_lokasi' => trim($val->nama_lokasi), 
-		// 		// 'start' => date_format( date_create($val->start_date) ,"Y-m-d H:i:s"),
-		// 		// 'end' 	=> date_format( date_create($val->end_date) ,"Y-m-d H:i:s"),
-		// 		// 'color' => $val->color,
-		// 	);
-		// }
-
-		// $data = array();
-		// $data['get_data']			= json_encode($calendar);
-		//, $data);
-	
-
-
 		$this->load->view('Admcalendartracking');
         $this->fn->getfooter();
      	
     }
     
-   
+	public function getKegiatan()
+	{
+		//init modal
+		$this->load->database();
+		$this->load->model('Mmain');
+		
+		$kalenderQuery = " tb_lokasi a
+							INNER JOIN tb_kendaraan b ON a.id_kendaraan = b.id_kendaraan ";
+		$kalenderField = "  a.nama_lokasi as nm,a.tanggal as tgl, CONCAT(nama_kendaraan,' ',nomor_kendaraan) as ken";
+		
+		$returnValue="";
+		$renderTemp=$this->Mmain->qRead($kalenderQuery,$kalenderField,"");	
+		foreach($renderTemp->result() as $row)
+		{
+			$returnValue .= $row->nm . "||" .$row->tgl . "||" . $row->ken . "++";
+		}
+		
+		echo $returnValue;
+	}
+
+
     
 }
 ?>
 
+	

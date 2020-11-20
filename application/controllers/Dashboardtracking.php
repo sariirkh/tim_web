@@ -15,6 +15,27 @@ class Dashboardtracking extends CI_Controller
 	/*	
 		====================================================== Variable Declaration =========================================================
 	*/
+
+	public function ambilMarker(){
+		
+		$this->load->database();
+		$this->load->model('Mmain');
+		$retVal = "";
+		
+		$markerList = $this->Mmain->qRead("	tb_riwayat a 
+											INNER JOIN tb_lokasi b ON a.id_lokasi = b.id_lokasi ",
+											"b.nama_lokasi as nm,a.lat, a.lng, a.status ", "");
+		if($markerList->num_rows() > 0 )
+		{
+			foreach($markerList->result() as $row)
+			{
+				$retVal .= $row->nm . "~" . $row->lat . "~" . $row->lng  . "~" . $row->status . "|" ;
+			}
+		}
+
+		echo $retVal;	
+	}
+
 	public function index()
 	{
 		//init modal
@@ -24,7 +45,8 @@ class Dashboardtracking extends CI_Controller
         $data['lokasi'] = $this->M_Dashboardtracking->jum_request();
         $data['riwayat'] = $this->M_Dashboardtracking->jum_update();
 		$data['pengguna_kendaraan'] = $this->M_Dashboardtracking->jum_pengguna();
-		$data['tempat'] = $this->M_Dashboardtracking->getHistory()->result();
+		$data['tempat'] = $this->M_Dashboardtracking->getHistoryLokasi()->result();
+		$data['marker'] = $this->M_Dashboardtracking->getHistoryKendaraan()->result_array();
 		$this->load->view('Admdashboardtracking', $data);
         $this->fn->getfooter();
         
@@ -41,10 +63,11 @@ class Dashboardtracking extends CI_Controller
 		$this->load->model('Mmain');
 		//$tgl=date("Y-m-d") WHERE r_tanggal='$tgl';
 		$retVal= "";
-		
+		$tgl = date("Y-m-d");
 		$render = $this->Mmain->qRead("
 								tb_lokasi a 
 								INNER JOIN tb_kendaraan b ON a.id_kendaraan = b.id_kendaraan 
+								WHERE tanggal = '$tgl'
 								GROUP BY b.nama_kendaraan
 								ORDER BY a.tanggal DESC
 								",
