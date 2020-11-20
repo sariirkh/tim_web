@@ -20,7 +20,7 @@ class Barangkeluar extends CI_Controller
 	var $viewLink="Barangkeluar";
 	// var $viewLink2="Users";
 	//sub menu atau header
-	var $breadcrumbTitle="Daftar Barang ATK Keluar";
+	var $breadcrumbTitle="Daftar ATK Keluar";
 	//var $breadcrumbTitle2="User Access";
 	// buat tampilan view data
 	var $viewPage="Admviewpage";
@@ -40,12 +40,13 @@ class Barangkeluar extends CI_Controller
 						a.id_barang_keluar,
 						a.tanggal_keluar,
 						b.jam,
-						concat(c.id_barang, c.nama_barang),
+						c.nama_barang,
 					    b.jumlah_keluar,
-						d.nama_karyawan,
+						concat(d.id_karyawan, d.nama_karyawan),
+						a.catatan,
 						a.bukti_terima,
-						a.ttd,
-						a.catatan
+						a.ttd
+						
 						"; //leave blank to show all field
 						
 	var $primaryKey="id_barang_keluar";
@@ -54,12 +55,12 @@ class Barangkeluar extends CI_Controller
 	
 	//auto generate id
 	//sesuaikan panjangnya length di database
-	var $defaultId="TBK0001";
+	var $defaultId="TBK0020";
 	var $prefix="TBK";
-	var $suffix="0001";	
+	var $suffix="0020";	
 	
 	//view
-	var $viewFormTitle="Daftar Barang ATK Keluar";
+	var $viewFormTitle="Daftar ATK Keluar";
 	var $viewFormTableHeader=array(
 									"No Transaksi",
 									"Tanggal Keluar",
@@ -67,13 +68,12 @@ class Barangkeluar extends CI_Controller
 									"Nama Barang",
 									"Jumlah",
 									"Nama Karyawan",
-									"Bukti Terima",
-									"TTD",
-									"Catatan"
+									"Catatan",
+									"TTD"									
 									);
 	
 	//save
-	var $saveFormTitle="Tambah Barang ATK Keluar";
+	var $saveFormTitle="Tambah ATK Keluar";
 	var $saveFormTableHeader=array(
 									"No Transaksi",
 									"Tanggal Keluar",
@@ -81,13 +81,12 @@ class Barangkeluar extends CI_Controller
 									"Nama Barang",
 									"Jumlah",
 									"Nama Karyawan",
-									"Bukti Terima",
-									"TTD",
-									"Catatan"
+									"Catatan",
+									"TTD"
 									);
 	
 	//update
-	var $editFormTitle="Ubah Data Barang Keluar";
+	var $editFormTitle="Ubah Data ATK Keluar";
 	
 	
 	/*	
@@ -143,6 +142,7 @@ class Barangkeluar extends CI_Controller
 		$renderTemp=$this->Mmain->qRead($this->tableQuery.$this->ordQuery,$this->fieldQuery,"");
 		foreach($renderTemp->result() as $row)
 		{
+			$row->bukti_terima="<img src='".base_url()."assets/foto_ttd/".$row->bukti_terima."' height='auto' width='100px' >";
 
 		}
 		$output['render']=$renderTemp;
@@ -198,7 +198,13 @@ class Barangkeluar extends CI_Controller
 					$txtVal[]= $col;
 				}
 			}
-			
+
+			//menambahakan foto
+			/*
+			$imgTemp="<h5><i>Click browse to change image</i></h5>
+			<img src='".base_url()."/assets/poto/".$txtVal[7]."' height='200px' width='auto'>
+			<input type='hidden' name='txtfl' value='".$txtVal[7]."'>";
+			*/
 		}
 		else
 		{	
@@ -210,14 +216,15 @@ class Barangkeluar extends CI_Controller
 				//generate id
 				$txtVal[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
 				$txtVal[1] = date("Y-m-d");
-				$txtVal[2] = date("H:i:s");
+				$txtVal[2] = date("H:i:s", time()+(60*60*6));
+				
 	
 		}
 		
 		// $cboacc=$this->fn->createCbofromDb("tb_acc","id_acc as id,nm_acc as nm","",$txtVal[58],"","txtUser[]");
 		//Combobox gabungan
-		$cboID=$this->fn->createCbofromDb("tb_barang","id_barang as id, concat(id_barang ,' - ',nama_barang) as nm","",$txtVal[3],"","txt[]");
-		$cboKaryawan=$this->fn->createCbofromDb("tb_karyawan","id_karyawan as id, concat(id_karyawan ,'- ',nama_karyawan) as nm","",$txtVal[5],"","txt[]");
+		$cboID=$this->fn->createCbofromDb("tb_barang","id_barang as id, nama_barang as nm","",$txtVal[3],"id='cboBarang'","txt[]");
+		$cboKaryawan=$this->fn->createCbofromDb("tb_karyawan","id_karyawan as id, nama_karyawan as nm","",$txtVal[5],"","txt[]");
 		
 		
 		$output['formTxt']=array(
@@ -225,13 +232,14 @@ class Barangkeluar extends CI_Controller
 								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off  readonly id='txtTanggalMasuk' name=txt[] value='".$txtVal[1]."' required placeholder='Max. karakter' maxlength='70'>",
 								"<input type='text' class='form-control tp' 'name=txt[] autocomplete=off  readonly id='txtJam' name=txt[] value='".$txtVal[2]."' required placeholder='Max. karakter' maxlength='70'>",
 								$cboID,
-								"<input type='text' class='form-control' autocomplete=off id='txtJumlahBarang' name=txt[] value='".$txtVal[4]."' required placeholder=' ' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtJumlahKeluar' name=txt[] value='".$txtVal[4]."' required placeholder=' ' maxlength='70'>",
 								$cboKaryawan,
-								$imgTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfl >",
+								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[6]."' required placeholder='Ex: Nava cantik etc.' maxlength='20'>",
+								//$imgTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfl >",
 								"<input type='hidden' class='form-control' id='txtsignpad' name=txtTtd   required >
 									<br>
-									<canvas id='signature-pad' class='signature-pad' width=auto height=200 style='border:1px solid lightgrey'></canvas>",
-								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[8]."' required placeholder='Ex: Nava cantik etc.' maxlength='20'>"
+									<canvas id='signature-pad' class='signature-pad' width=auto height=200 style='border:1px solid lightgrey'></canvas>"
+								
 								
 								);
 		
@@ -247,6 +255,7 @@ class Barangkeluar extends CI_Controller
 		//retrieve values
 		$savValTemp=$this->input->post('txt');
 		$ttd=$this->input->post('txtTtd');
+		//$imgTemp=$this->input->post('txtfl');
 		
 		//save to database
 		$this->load->database();
@@ -257,25 +266,75 @@ class Barangkeluar extends CI_Controller
 		
 		$stoklama = $this->Mmain->qRead("tb_barang WHERE id_barang = '".$savValTemp[3]."' ","stok_barang","")->row()->stok_barang;
 		$stokbaru = $stoklama - $savValTemp[4];
+
+		//menyimpan ttd sebagai gambar di local
+		$simpanTtd="";
+		if($ttd <> "")  
+		{
+			$splited = explode(',', substr( $ttd , 5 ) , 2);
+			$simpanTtd="sign_".date("YmdHis")."_".$savValTemp[0].".png";
+			$mime=$splited[0];
+			$data=$splited[1];
+			file_put_contents("assets/foto_ttd/".$ttd[1],base64_decode($data));
+		}
+		$savValTemp[7] = $simpanTtd; 
+
+
+		//barang keluar di sesuaikan arraynya dengan di form barang keluar
+		$bahanSimpanKeluar = Array(
+										$savValTemp[0], //id brg keluar
+										$savValTemp[1], //tgl keluar	
+										$savValTemp[5], //id karyawan															
+										$savValTemp[6], //catatan
+										$savValTemp[7], //ttd
+									);
+		$this->Mmain->qIns($this->mainTable,$bahanSimpanKeluar);
+					
+		//detail keluar sama di atas
+		$bahanSimpanKeluarDetail = Array(
+			$savValTemp[0],		//id brg keluar
+			$savValTemp[3],		//id brg
+			$savValTemp[4],		//jumlah keluar
+			$savValTemp[2],		//jam
+		);
+
+		$this->Mmain->qIns("tb_detailkeluar",$bahanSimpanKeluarDetail);
+
+		//echo $stokbaru;
+		// $this->Mmain->qUpdPart("tb_barang", //tabel yang mau dirubah
+		// 						"id_barang", //primary key
+		// 						$savValTemp[3], //array primary key yg ke berapa
+		// 						Array("stok_barang"), //kolom yg mau dirubah
+		// 						Array($stokbaru)); //kondisi baru
+		
+		//menampilkan foto
+		/* $avauser="";
+		if(!empty($_FILES['txtfl']['name']))
+			{
+				$flName=$_FILES['txtfl']['name'];
+				$flTmp=$_FILES['txtfl']['tmp_name'];
+				$fltype=$_FILES['txtfl']['type'];
+				move_uploaded_file($flTmp,"assets/poto/".$flName);
+				$avauser=$flName;
+			}
+					else
+				{
+					$avauser="def.jpg";
+				}
+			*/
+
+			//echo $ttd;
+		
+		//$this->Mmain->qIns($this->mainTable,$savValTemp);
+
 		//echo $stokbaru;
 		$this->Mmain->qUpdPart("tb_barang", //tabel yang mau dirubah
 								"id_barang", //primary key
 								$savValTemp[3], //array primary key yg ke berapa
 								Array("stok_barang"), //kolom yg mau dirubah
 								Array($stokbaru)); //kondisi baru
-		
-		//menyimpan ttd sebagai gambar di local
-		
-		if($ttd[1] <> "")  
-		{
-			$splited = explode(',', substr( $ttd[1] , 5 ) , 2);
-			$ttd[1]="sign_".date("YmdHis")."_".$ttd[0].".png";
-			$mime=$splited[0];
-			$data=$splited[1];
-			file_put_contents("assets/images/".$ttd[1],base64_decode($data));
-		}
-		$savValTemp[] = $ttd[1]; 
-		$this->Mmain->qIns($this->mainTable,$savValTemp);
+
+
 		
 		$this->session->set_flashdata('successNotification', '1');
 		//redirect to form
@@ -304,28 +363,23 @@ class Barangkeluar extends CI_Controller
 		//save to database
 		$this->load->database();
 		$this->load->model('Mmain');
-		// $avauser="";
-		// if(!empty($_FILES['txtfl']['name']))
-		// {
-		// 	$flName=$_FILES['txtfl']['name'];
-		// 	$flTmp=$_FILES['txtfl']['tmp_name'];
-		// 	$fltype=$_FILES['txtfl']['type'];
-		// 	move_uploaded_file($flTmp,"assets/admin/img/avatar/thumb/".$flName);
-		// 	$avauser=$flName;
-		// }
-		// else
-		// {
-		// 	$avauser=$this->input->post('txtimg');
-		// }
+
+		//update ttd
+		$simpanTtd="";
+		if($ttd <> "")  
+		{
+			$splited = explode(',', substr( $ttd , 5 ) , 2);
+			$simpanTtd="sign_".date("YmdHis")."_".$savValTemp[0].".png";
+			$mime=$splited[0];
+			$data=$splited[1];
+			file_put_contents("assets/foto_ttd/".$ttd[1],base64_decode($data));
+		}
+		else
+		{
+			$simpanTtd=$this->input->post('txtTtd');
+		}
 		
-		
-		
-		
-		// $savValTemp[] = $savValUserTemp[0];
-		
-		
-		// //foreach($savValTemp as $i => $row) echo ($i+1)." ".$row."<br>";
-		// //foreach($savValUserTemp as $i => $row) echo ($i+1)." ".$row."<br>";
+	
 		
 		$this->Mmain->qUpd($this->mainTable,$this->mainPk,$savValTemp[0],$savValTemp);
 		
@@ -333,7 +387,19 @@ class Barangkeluar extends CI_Controller
 		//redirect to form
 		redirect($this->viewLink,'refresh');		
 	}
-	
+
+	public function ambilstok($id)
+	{
+		
+		$this->load->database();
+		$this->load->model('Mmain');
+
+		$brg = $this->Mmain->qRead("tb_barang WHERE id_barang = '".$id."' ","stok_barang","");
+		echo $brg->row()->stok_barang;
+
+	}
+
+
 	
 }
 

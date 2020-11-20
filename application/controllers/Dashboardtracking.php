@@ -39,14 +39,16 @@ class Dashboardtracking extends CI_Controller
 		
 		$this->load->database();
 		$this->load->model('Mmain');
+		//$tgl=date("Y-m-d") WHERE r_tanggal='$tgl';
 		$retVal= "";
 		
 		$render = $this->Mmain->qRead("
 								tb_lokasi a 
 								INNER JOIN tb_kendaraan b ON a.id_kendaraan = b.id_kendaraan 
-								GROUP BY b.jenis_kendaraan
+								GROUP BY b.nama_kendaraan
+								ORDER BY a.tanggal DESC
 								",
-							"b.jenis_kendaraan as nama,COUNT(b.jenis_kendaraan) as jum");
+							"b.nama_kendaraan as nama,COUNT(b.nama_kendaraan) as jum");
 
 		if($render->num_rows() > 0 )
 		{
@@ -55,6 +57,92 @@ class Dashboardtracking extends CI_Controller
 		}
 
 			echo $retVal;
+	}
+
+	public function getJumlahperBulan()
+	{
+		
+		
+		//init modal
+		$this->load->database();		
+		$this->load->model('Mmain');
+	
+		//echo $id;
+		//echo $year;
+		$dataTemp=$this->Mmain->qRead(	"
+											tb_lokasi a
+												
+												WHERE YEAR(tanggal)= YEAR(CURDATE())
+												GROUP BY substr(tanggal,1,7) 
+												ORDER BY MONTH(tanggal)
+										",
+										"
+											CASE 
+												WHEN MONTH(tanggal) ='01' THEN 'Januari'
+												WHEN MONTH(tanggal) ='02' THEN 'Februari'
+												WHEN MONTH(tanggal) ='03' THEN 'Maret'
+												WHEN MONTH(tanggal) ='04' THEN 'April'
+												WHEN MONTH(tanggal) ='05' THEN 'Mei'
+												WHEN MONTH(tanggal) ='06' THEN 'Juni'
+												WHEN MONTH(tanggal) ='07' THEN 'Juli'
+												WHEN MONTH(tanggal) ='08' THEN 'Agustus'
+												WHEN MONTH(tanggal) ='09' THEN 'September'
+												WHEN MONTH(tanggal) ='10' THEN 'Oktober'
+												WHEN MONTH(tanggal) ='11' THEN 'November'
+												WHEN MONTH(tanggal) ='12' THEN 'Desember'
+											END as bln,
+											COUNT(substr(tanggal,1,7) ) as tot
+										","");
+		$val="";
+		$f1="";
+		$dt=null;
+		$tot=null;
+		$bulan=Array(
+					"Januari",
+					"Februari",
+					"Maret",
+					"April",
+					"Mei",
+					"Juni",
+					"Juli",
+					"Agustus",
+					"September",
+					"Oktober",
+					"November",
+					"Desember"
+					);
+					
+		$retVal1="";
+		foreach($dataTemp->result() as $row)
+		{
+			$dt[]=$row->bln;
+			$tot[]=$row->tot;
+		}
+		
+		$j=0;
+		for($i=0;$i<12;$i++)
+		{
+			$totbln=0;
+			if(count($dt)>$j)
+			{
+				if($dt[$j]==$bulan[$i])
+				{
+					$totbln=$tot[$j];
+					$j++;
+					
+				}
+			}
+			$retVal1.=$bulan[$i]."++".$totbln."||";
+		}
+		
+		$retVal1=substr($retVal1,0,strlen($retVal1)-2);
+		
+		//echo implode("<br>",$dt);
+		//echo $retVal2;
+		$retVal=$retVal1;
+		echo $retVal;
+		
+		
 	}
    
 	// public function history(){

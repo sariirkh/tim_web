@@ -36,12 +36,8 @@ class Barang extends CI_Controller
 	var $fieldQuery="
 						id_barang,
 						nama_barang,
-						stok_barang,
-						satuan,
-						jenis,
-						id_loker,
-						0 as aksi
-						"; //leave blank to show all field
+						stok_barang						
+						"; //leave blank to show all field  ... 0 as aksi
 						
 	var $primaryKey="id_barang";
 	//var $detKey="nik";
@@ -49,20 +45,17 @@ class Barang extends CI_Controller
 	
 	//auto generate id
 	//sesuaikan panjangnya length di database
-	var $defaultId="BRG0001";
-	var $prefix="BRG";
-	var $suffix="0001";	
+	var $defaultId="GA00001";
+	var $prefix="GA";
+	var $suffix="00001";	
 	
 	//view
 	var $viewFormTitle="Data Barang";
 	var $viewFormTableHeader=array(
 									"Id Barang",
 									"Nama Barang",
-									"Stok",
-									"Satuan",
-									"Jenis",
-									"Loker",
-									"Aksi"
+									"Stok"
+									//"Aksi"
 									);
 	
 	//save
@@ -70,10 +63,7 @@ class Barang extends CI_Controller
 	var $saveFormTableHeader=array(
 									"Id Barang",
 									"Nama Barang",
-									"Stok",
-									"Satuan",
-									"Jenis",
-									"Loker"
+									"Stok"
 									);
 	
 	//update
@@ -201,18 +191,13 @@ class Barang extends CI_Controller
 				
 	
 		}
-		
-		$cboSatuan=$this->fn->createCbo(array('Pcs','Box','Unit'),array('Pcs','Box','Unit'),$txtVal[3]);
-		$cboJenis=$this->fn->createCbo(array('Stok awal','Stok akhir'),array('Stok awal','Stok akhir'),$txtVal[3]);
+		$cboLoker=$this->fn->createCbofromDb("tb_loker","id_loker as id, concat(id_loker ,' - ',nama_loker) as nm","",$txtVal[3],"","txt[]");
 		
 		$output['formTxt']=array(
-								"<input type='text' class='form-control' id='txtIdBarang' name=txt[] value='".$txtVal[0]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtNamaBarang' name=txt[] value='".$txtVal[1]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtStokBarang' name=txt[] value='".$txtVal[2]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								$cboSatuan,
-								$cboJenis,
-								"<input type='text' class='form-control' id='txtIdLoker' name=txt[] value='".$txtVal[5]."' required placeholder='Max. 70 karakter' maxlength='70'>"
-								
+								"<input type='text' class='form-control' id='txtIdBarang' name=txt[] value='".$txtVal[0]."' required readonly placeholder='' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtNamaBarang' name=txt[] value='".$txtVal[1]."' required placeholder='' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtStokBarang' name=txt[] value='".$txtVal[2]."' required placeholder='Masukan nilai 0' maxlength='70'>",
+								$cboLoker
 							);
 		
 		
