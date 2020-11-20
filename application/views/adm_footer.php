@@ -1810,7 +1810,7 @@ $(".btn-mt").on("click",function(e){
 
 	});
 
-
+</script>
 
 </body>
 </html>
