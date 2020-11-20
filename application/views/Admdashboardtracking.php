@@ -93,7 +93,7 @@
             <!-- MAP & BOX PANE -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">History Kendaraan</h3>
+                <h3 class="card-title">History Lokasi Kendaraan</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -107,62 +107,68 @@
               <!-- /.card-header -->
               <div class="card-body p-0">
                 <div class="d-md-flex">
-                  <link rel="stylesheet" href="<?= base_url(); ?>/assets/leaflet/leaflet.css" />
-                  <script src="<?= base_url(); ?>/assets/leaflet/leaflet.js"></script>
-                  
-                  <style>
-                  #map { height: 500px;
-                      width: 100%; 
-                      }
-                      .address { cursor:pointer }
-                  .address:hover { color:#AA0000;text-decoration:underline }
-                  </style>
-                  <div id="map"></div>
+                <link rel="stylesheet" href="<?= base_url(); ?>/assets/leaflet/leaflet.css" />
+                <script src="<?= base_url(); ?>/assets/leaflet/leaflet.js"></script>
+                
+                <style>
+                #map { height: 550px;
+                    width: 100%; 
+                    }
+                    .address { cursor:pointer }
+                .address:hover { color:#AA0000;text-decoration:underline }
+                </style>
+                <div id="map"></div>
 
-                  
-                  <script>
-                      //lat, long
-                      var map = L.map('map').setView([-8.203184,113.571038], 13);
+                
+                <script>
+                    //lat, long
+                    var map = L.map('map').setView([-8.203184,113.571038], 13);
 
-                      
-                      L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png', {
-                          attribution: '© OpenStreetMap contributors',
-                            maxZoom: 17,
-                            minZoom: 9   
-                      }).addTo(map);
-                  
-                      // bike lanes
-                      L.tileLayer('http://tiles.mapc.org/trailmap-onroad/{z}/{x}/{y}.png', {
-                          maxZoom: 17,
-                          minZoom: 9
-                      }).addTo(map);
-                  
-                      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                          attribution: '© OpenStreetMap contributors',
-                            maxZoom: 17,
-                            minZoom: 9   
-                      }).addTo(map);
-                      
-                      
-                      // needed token
-                      ACCESS_TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
-                      ACCESS_TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
-                      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + ACCESS_TOKEN, {
-                          attribution: 'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                          id: 'mapbox.streets'
-                      }).addTo(map); 
+                    
+                    L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors',
+                        maxZoom: 17,
+                        minZoom: 9   
+                    }).addTo(map);
+                
+                    // bike lanes
+                    L.tileLayer('http://tiles.mapc.org/trailmap-onroad/{z}/{x}/{y}.png', {
+                        maxZoom: 17,
+                        minZoom: 9
+                    }).addTo(map);
+                
+                    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors',
+                        maxZoom: 17,
+                        minZoom: 9   
+                    }).addTo(map);
+                    
+                    
+                    // needed token
+                    ACCESS_TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
+                    ACCESS_TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
+                    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + ACCESS_TOKEN, {
+                        attribution: 'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                        id: 'mapbox.streets'
+                    }).addTo(map); 
 
-                      //buat titik lokasi
-                      // var marker = L.marker([-8.203184,113.571038]).addTo(map);
-                      // marker.bindPopup('<b>PT. Mangli Djaya Raya</b><br>JL Mayjend DI Panjaitan No.99, Krajan, Petung, Kec. Bangsalsari, Kabupaten Jember, Jawa Timur 68154');
+                    //buat titik lokasi
+                    // var marker = L.marker([-8.203184,113.571038]).addTo(map);
+                    // marker.bindPopup('<b>PT. Mangli Djaya Raya</b><br>JL Mayjend DI Panjaitan No.99, Krajan, Petung, Kec. Bangsalsari, Kabupaten Jember, Jawa Timur 68154');
+                    
+                    <?php foreach ($marker as $key =>  $value) { ?>
+                    L.marker([<?= $value['lat'] ?>, <?= $value['lng'] ?>])
+                    .bindPopup("<h6>Kendaraan : <?= $value['nama_kendaraan']?> <br>  Lokasi : <?= $value['nama_lokasi'] ?></h6>")
+                    .addTo(map);
+                    <?php } ?>
 
-                      L.marker([-8.203184,113.571038]).addTo(map)
-                      .bindPopup("<b>PT. Mangli Djaya Raya</b><br>JL Mayjend DI Panjaitan No.99, Krajan, Petung, Kec. Bangsalsari, Kabupaten Jember, Jawa Timur 68154</b>")
-                      .openPopup();
+                    // L.marker([-8.203184,113.571038]).addTo(map)
+                    // .bindPopup("<b>PT. Mangli Djaya Raya</b><br>JL Mayjend DI Panjaitan No.99, Krajan, Petung, Kec. Bangsalsari, Kabupaten Jember, Jawa Timur 68154</b>")
+                    // .openPopup();
 
-                      var popup = L.popup();
+                    var popup = L.popup();
                     function onMapClick(e) {
-                      popup
+                        popup
                         .setLatLng(e.latlng)
                         .setContent("You clicked the map at " + e.latlng.toString())
                         .openOn(mymap);
@@ -170,17 +176,16 @@
                     mymap.on('click', onMapClick);
 
                     map.on('draw:created', function (e) {
-                              layer = e.layer;
-                              var lat = layer.getLatLng().lat;
-                              var lng = layer.getLatLng().lng;
+                                layer = e.layer;
+                                var lat = layer.getLatLng().lat;
+                                var lng = layer.getLatLng().lng;
 
-                              if (e.layerType === '-8.203184,113.571038') {
-                                  //layer.bindPopup('A popup!');
-                              }
-                          });
+                                if (e.layerType === '-8.203184,113.571038') {
+                                    //layer.bindPopup('A popup!');
+                                }
+                            });
                     
-                  </script>
-
+                    </script>
                 </div><!-- /.d-md-flex -->
               </div>
               <!-- /.card-body -->
@@ -197,7 +202,7 @@
      <!-- PIE CHART -->
      <div class="card card-danger">
               <div class="card-header">
-                <h3 class="card-title">Kendaraan yang dipakai</h3>
+                <h3 class="card-title">Kendaraan yang dipakai hari ini</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -207,7 +212,7 @@
               </div>
               <div class="card-body">
               <div>
-              <h5 align="center"> Kendaraan terakhir yang dipakai </h5>  
+              <h5 align="center"> Kendaraan yang dipakai hari ini</h5>  
               </div>
                 <canvas id="pieChartJenis" style="height:230px; min-height:230px"></canvas>
               </div>
@@ -224,7 +229,7 @@
        <div class="col-6">
       <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title">History Lokasi Terakhir</h3>
+                <h3 class="card-title">10 History Lokasi Terakhir</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                   </button>
