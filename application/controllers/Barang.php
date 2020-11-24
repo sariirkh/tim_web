@@ -196,7 +196,7 @@ class Barang extends CI_Controller
 				
 	
 		}
-		$cboLoker=$this->fn->createCbofromDb("tb_loker","id_loker as id, concat(id_loker ,' - ',nama_loker) as nm","",$txtVal[5],"","txt[]");
+		$cboLoker=$this->fn->createCbofromDb("tb_loker","id_loker as id, concat(id_loker ,' - ',nama_loker) as nm","",$txtVal[3],"","txt[]");
 		
 		$cboSatuan=$this->fn->createCbo(array('Pcs','Box','Unit'),array('Pcs','Box','Unit'),$txtVal[3]);
 		$cboJenis=$this->fn->createCbo(array('Stok awal','Stok akhir'),array('Stok awal','Stok akhir'),$txtVal[3]);
