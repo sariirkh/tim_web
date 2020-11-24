@@ -60,8 +60,6 @@
 	
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/admin/css/datepicker.css" type="text/css"> 
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/clockpicker.css" type="text/css"> 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
-  
 	<!--
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -220,6 +218,32 @@
 			}
 			
 			?>
+
+          <li class="nav-item">
+            <a href="<?= base_url('Pelaporan/pelaporan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-user text-white"></i>
+              <p>
+                Laporan
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="<?= base_url('Laporan/laporan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-user text-white"></i>
+              <p>
+                Report Masuk
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('Laporankeluar/laporan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-user text-white"></i>
+              <p>
+                Report Keluar
+              </p>
+            </a>
+          </li>
 			
 			
           <li class="nav-item">
