@@ -250,7 +250,7 @@
             </div>
             <div class="col-md-2">
                 <select class="form-control" name="nama_barang" id="-nama_barang" required>
-                    <option value="null">Baterai AA</option>
+                    <option value="null">Semua</option>
                     <option value="Penggaris">Penggaris</option>
                     <option value="Map coklat">Map coklat</option>
                 </select>

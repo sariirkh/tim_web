@@ -74,16 +74,16 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                         <td><?= $a->catatan  ?></td>
                         <td><img src="<?= base_url('assets/img/'.$a->bukti_terima) ?>" width='60' height='70'></td>
                         </tr>
-                       
+                        <?php } ?>
+                        <tr>
+                            <td class="border-0 font-weight-bold" colspan="6" style="text-align: right;">Total Stok:</td>
+                            <td class="font-weight-bold"><?php echo '<span class="nominal">'.$brgmasuk.'</span>';?></td>
+                        </tr>
                     </tbody>
 
-                  </th>
                   </tr>
                   </tr>
 	
-
-<?php } ?>
-
 <script>
         window.print();
     </script>
