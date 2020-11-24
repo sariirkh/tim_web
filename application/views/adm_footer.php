@@ -65,20 +65,6 @@ foreach($setting ->result() as $row)
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 
-<!-- css calendar -->
-<link rel="stylesheet" href="<?php echo base_url();?>assets/landing/plugins/fullcalendar/main.min.css">
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/landing/plugins/fullcalendar-interaction/main.min.css">
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/landing/plugins/fullcalendar-daygrid/main.min.css">
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/landing/plugins/fullcalendar-timegrid/main.min.css">
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/landing/plugins/fullcalendar-bootstrap/main.min.css">
-
-<!-- JQcalendar -->
-<script src="<?php echo base_url();?>assets/landing/plugins/moment/moment.min.js"></script>
-<script src="<?php echo base_url();?>assets/landing/plugins/fullcalendar/main.min.js"></script>
-<script src="<?php echo base_url();?>assets/landing/plugins/fullcalendar-daygrid/main.min.js"></script>
-<script src="<?php echo base_url();?>assets/landing/plugins/fullcalendar-timegrid/main.min.js"></script>
-<script src="<?php echo base_url();?>assets/landing/plugins/fullcalendar-interaction/main.min.js"></script>
-<script src="<?php echo base_url();?>assets/landing/plugins/fullcalendar-bootstrap/main.min.js"></script>
 
 <!-- JQVMap -->
 <script src="<?php echo base_url();?>assets/landing/plugins/jqvmap/jquery.vmap.min.js"></script>
@@ -131,6 +117,89 @@ function validateFileType(){
 		alert("Only jpg/jpeg and png files are allowed!");
 	}   
 }	  
+</script>
+
+<!-- script calendar tracking -->
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+<script type="text/javascript">
+// alert();
+try
+{
+	var kegiatan = [];
+	
+// kegiatan[0] = { "title"  : 'event1', "start"  : '2019-02-01' , "end" : "2019-02-05"};
+// kegiatan[1] = { "title"  : 'event2', "start"  : '2019-02-03'};
+	
+	
+	$.ajax({
+	url : "<?= site_url();?>Calendartracking/getKegiatan",
+	async : false,
+	success : function(s){
+		//alert(s);
+		if(s != "")
+		{
+			var dt = s.split("++");
+			
+			for(var i=0;i<dt.length;i++)
+			{
+				if(dt[i] != "")
+				{
+					var detail = dt[i].split("||");
+					//alert(detail);
+						kegiatan[i] = { "title"  : detail[0],
+										"start"  : detail[1] , 
+										"end" : detail[1] ,
+										"description" : detail[2]};
+					
+				}
+			}
+		}
+		
+	}
+	});
+	
+	$('#calendar').fullCalendar({
+		weekNumbers:true,
+	selectable: true,
+	header: {
+		left: 'prev,next today',
+		center: 'title',
+		right: 'month,agendaWeek,agendaDay'
+	},
+	dayClick: function(date) {
+		//alert('clicked ' + date.format());
+	},
+	select: function(startDate, endDate) {
+		//alert('selected ' + startDate.format() + ' to ' + endDate.format());
+	},
+	eventRender: function(eventObj, $el) {
+		$el.popover({
+		title: eventObj.title,
+		content: eventObj.description,
+		trigger: 'click',
+		placement: 'top',
+		container: 'body'
+		});
+	},
+		events: kegiatan
+	});
+	
+}
+catch(e)
+{
+	alert(e.message);
+}
+</script>
+
+<script type="text/javascript">
+// 1 detik = 1000
+window.setTimeout("waktu()",1000);  
+function waktu() {   
+var tanggal = new Date();  
+setTimeout("waktu()",1000);  
+document.getElementById("jam").innerHTML = tanggal.getHours()+":"+tanggal.getMinutes()+":"+tanggal.getSeconds();
+}
 </script>
 
 <script type="text/javascript">
@@ -445,6 +514,8 @@ autoclose: true,
 });
 </script>
 
+
+
 <script src="<?php echo base_url();?>assets/admin/fileinput/js/fileinput.js" type="text/javascript"></script>
 <script type="text/javascript">
   
@@ -703,7 +774,7 @@ $.ajax({
 }
 </script>
 
-<script>
+<!-- <script>
   $(function () {
 
     /* initialize the external events
@@ -870,7 +941,7 @@ $.ajax({
       $('#new-event').val('')
     })
   })
-</script>
+</script> -->
 
 
 <script type="text/javascript">
@@ -1811,6 +1882,7 @@ $(".btn-mt").on("click",function(e){
 	});
 
 </script>
+
 
 </body>
 </html>
