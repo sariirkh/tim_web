@@ -31,18 +31,19 @@ class Barang extends CI_Controller
 	//query
 	var $ordQuery=" ORDER BY id_barang DESC ";
 	var $tableQuery="
-						tb_barang AS a INNER JOIN tb_loker AS b ON a.id_loker=b.id_loker
+						tb_barang
 						";
 	var $fieldQuery="
-						a.id_barang,
-						a.nama_barang,
-						a.stok_barang,
-						b.id_loker					
+						id_barang,
+						nama_barang,
+						stok_barang,
+						id_loker
+						
 						"; //leave blank to show all field  ... 0 as aksi
 						
 	var $primaryKey="id_barang";
 	//var $detKey="nik";
-	var $updateKey="a.id_barang";
+	var $updateKey="id_barang";
 	
 	//auto generate id
 	//sesuaikan panjangnya length di database
@@ -67,6 +68,7 @@ class Barang extends CI_Controller
 									"Nama Barang",
 									"Stok",
 									"Loker"
+
 									);
 	
 	//update
@@ -194,12 +196,15 @@ class Barang extends CI_Controller
 				
 	
 		}
-		$cboLoker=$this->fn->createCbofromDb("tb_loker","id_loker as id, concat(id_loker ,' - ',nama_loker) as nm","",$txtVal[3],"","txt[]");
+		$cboLoker=$this->fn->createCbofromDb("tb_loker","id_loker as id, concat(id_loker ,' - ',nama_loker) as nm","",$txtVal[5],"","txt[]");
+		
+		$cboSatuan=$this->fn->createCbo(array('Pcs','Box','Unit'),array('Pcs','Box','Unit'),$txtVal[3]);
+		$cboJenis=$this->fn->createCbo(array('Stok awal','Stok akhir'),array('Stok awal','Stok akhir'),$txtVal[3]);
 		
 		$output['formTxt']=array(
 								"<input type='text' class='form-control' id='txtIdBarang' name=txt[] value='".$txtVal[0]."' required readonly placeholder='' maxlength='70'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtNamaBarang' name=txt[] value='".$txtVal[1]."' required placeholder='' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtStokBarang' name=txt[] value='".$txtVal[2]."' required placeholder='Masukan nilai 0' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtStokBarang' name=txt[] value='".$txtVal[2]."' required placeholder='-' maxlength='70'>",
 								$cboLoker
 							);
 		
