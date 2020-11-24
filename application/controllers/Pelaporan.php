@@ -5,13 +5,16 @@ class pelaporan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+		$this->load->library('Commonfunction','','fn');
         $this->load->model("M_laporan");
         $this->load->database();
     }
 
     function index()
     {
+		// $this->fn->getheader();
         $this->load->view('excel_import');
+        // $this->fn->getfooter();
     }
     public function pelaporan()
     {

@@ -62,7 +62,7 @@ foreach($setting ->result() as $row)
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.0.0/js/dataTables.rowGroup.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/scroll/2.2.0/js/dataTables.scroll.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 
 
@@ -117,6 +117,89 @@ function validateFileType(){
 		alert("Only jpg/jpeg and png files are allowed!");
 	}   
 }	  
+</script>
+
+<!-- script calendar tracking -->
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+<script type="text/javascript">
+// alert();
+try
+{
+	var kegiatan = [];
+	
+// kegiatan[0] = { "title"  : 'event1', "start"  : '2019-02-01' , "end" : "2019-02-05"};
+// kegiatan[1] = { "title"  : 'event2', "start"  : '2019-02-03'};
+	
+	
+	$.ajax({
+	url : "<?= site_url();?>Calendartracking/getKegiatan",
+	async : false,
+	success : function(s){
+		//alert(s);
+		if(s != "")
+		{
+			var dt = s.split("++");
+			
+			for(var i=0;i<dt.length;i++)
+			{
+				if(dt[i] != "")
+				{
+					var detail = dt[i].split("||");
+					//alert(detail);
+						kegiatan[i] = { "title"  : detail[0],
+										"start"  : detail[1] , 
+										"end" : detail[1] ,
+										"description" : detail[2]};
+					
+				}
+			}
+		}
+		
+	}
+	});
+	
+	$('#calendar').fullCalendar({
+		weekNumbers:true,
+	selectable: true,
+	header: {
+		left: 'prev,next today',
+		center: 'title',
+		right: 'month,agendaWeek,agendaDay'
+	},
+	dayClick: function(date) {
+		//alert('clicked ' + date.format());
+	},
+	select: function(startDate, endDate) {
+		//alert('selected ' + startDate.format() + ' to ' + endDate.format());
+	},
+	eventRender: function(eventObj, $el) {
+		$el.popover({
+		title: eventObj.title,
+		content: eventObj.description,
+		trigger: 'click',
+		placement: 'top',
+		container: 'body'
+		});
+	},
+		events: kegiatan
+	});
+	
+}
+catch(e)
+{
+	alert(e.message);
+}
+</script>
+
+<script type="text/javascript">
+// 1 detik = 1000
+window.setTimeout("waktu()",1000);  
+function waktu() {   
+var tanggal = new Date();  
+setTimeout("waktu()",1000);  
+document.getElementById("jam").innerHTML = tanggal.getHours()+":"+tanggal.getMinutes()+":"+tanggal.getSeconds();
+}
 </script>
 
 <script type="text/javascript">
@@ -188,7 +271,26 @@ function validateFileType(){
 								}
 							]
 						},
-		"pageLength": 50
+		"pageLength": 50,
+		"responsive": 		{
+								details: {
+								display: $.fn.dataTable.Responsive.display.childRowImmediate,
+									renderer: function ( api, rowIdx, columns ) {
+										var data = $.map( columns, function ( col, i ) {
+											return col.hidden ?
+												'<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
+													'<td>'+col.title+':'+'</td> '+
+													'<td>'+col.data+'</td>'+
+												'</tr>' :
+												'';
+										} ).join('');
+						 
+										return data ?
+											$('<table/>').append( data ) :
+											false;
+									}
+								}
+							}
 	});
 	
 	if(!document.getElementById("isApproved")  )
@@ -391,92 +493,6 @@ function validateFileType(){
 	//show tooltip
 	$('[data-toggle="tooltip"]').tooltip(); 
 </script>
-
-
-<!-- script calendar tracking -->
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-<script type="text/javascript">
-// alert();
-try
-{
-	var kegiatan = [];
-	
-// kegiatan[0] = { "title"  : 'event1', "start"  : '2019-02-01' , "end" : "2019-02-05"};
-// kegiatan[1] = { "title"  : 'event2', "start"  : '2019-02-03'};
-	
-	
-	$.ajax({
-	url : "<?= site_url();?>Calendartracking/getKegiatan",
-	async : false,
-	success : function(s){
-		//alert(s);
-		if(s != "")
-		{
-			var dt = s.split("++");
-			
-			for(var i=0;i<dt.length;i++)
-			{
-				if(dt[i] != "")
-				{
-					var detail = dt[i].split("||");
-					//alert(detail);
-						kegiatan[i] = { "title"  : detail[0],
-										"start"  : detail[1] , 
-										"end" : detail[1] ,
-										"description" : detail[2]};
-					
-				}
-			}
-		}
-		
-	}
-	});
-	
-	$('#calendar').fullCalendar({
-		weekNumbers:true,
-	selectable: true,
-	header: {
-		left: 'prev,next today',
-		center: 'title',
-		right: 'month,agendaWeek,agendaDay'
-	},
-	dayClick: function(date) {
-		//alert('clicked ' + date.format());
-	},
-	select: function(startDate, endDate) {
-		//alert('selected ' + startDate.format() + ' to ' + endDate.format());
-	},
-	eventRender: function(eventObj, $el) {
-		$el.popover({
-		title: eventObj.title,
-		content: eventObj.description,
-		trigger: 'click',
-		placement: 'top',
-		container: 'body'
-		});
-	},
-		events: kegiatan
-	});
-	
-}
-catch(e)
-{
-	alert(e.message);
-}
-</script>
-
-<script type="text/javascript">
-// 1 detik = 1000
-window.setTimeout("waktu()",1000);  
-function waktu() {   
-var tanggal = new Date();  
-setTimeout("waktu()",1000);  
-document.getElementById("jam").innerHTML = tanggal.getHours()+":"+tanggal.getMinutes()+":"+tanggal.getSeconds();
-}
-</script>
-
-
 
 <script src="<?php echo base_url();?>assets/admin/select2/select2.full.js"></script>
 
@@ -1865,593 +1881,6 @@ $(".btn-mt").on("click",function(e){
 
 	});
 
-</script>
-
-<script type="text/javascript">
-
-if($("#pieChartJenisKelamin"))
-  pieChartJenisKelamin();
-
-function pieChartJenisKelamin()
-{
-  //alert();
- // alert();
-
-//-------------
-//- PIE CHART -
-//-------------
-// Get context with jQuery - using jQuery's .get() method.
-
-	  //alert();
-
-	$.ajax({
-	url:"<?= site_url()?>HomePelamar/getJenisKelamin",
-	success:function(s)
-	{
-		//alert(s);
-		var pieValue=new Array();	
-		var pieColor = new Array();
-		var colorPallette=new Array(
-								"#af460f",
-								"#fe8761",
-								"#fed39f",
-								"#d3f4ff",
-								"#52de97",
-								"#c9b6e4",
-								"#ede59a",
-								"#bbded6",
-								"#ff6464",
-								"#916dd5",
-								"#2c786c"
-								);
-		var pieLabel=new Array();
-		
-		var dataAll=s.split("||");
-	
-		
-		
-		for(var i=0;i<dataAll.length;i++)
-		{
-			
-			var dt=dataAll[i].split("++");
-			pieLabel[i]=dt[0];
-			pieValue[i]=dt[1];
-			pieColor[i]=colorPallette[i];
-		}
-		
-		
-	var pieOptions = {
-	legend: {
-		display:false
-	},tooltips: {
-		display:true
-	},
-	plugins:{
-	  labels: [
-	  {
-		render: 'percentage',
-		fontColor: "black",
-		precision: 1
-	  },
-	  {
-		render: 'label',
-		fontColor: "black",
-		position: 'outside',
-	outsidePadding: 10
-	  }
-	  ]
-	}
-	};
-
-	var pie = document.getElementById('pieChartJenisKelamin').getContext('2d');
-	var myChart = new Chart(pie, {
-		type: 'doughnut',
-		data: {
-			datasets: [{
-				data: pieValue,
-			backgroundColor: pieColor,
-			
-			}],
-			labels: pieLabel
-		},
-		options: pieOptions
-	});
-	/*
-	  
-	$("#pieChart").click( 
-		function(evt){
-			var activePoints = myChart.getElementsAtEvent(evt)[0];
-			var leaveType = activePoints._view.label;
-			var url = "<?= site_url();?>Vacation?type=" + leaveType.replace(/ /g,"_")+"&year="+year;
-			location.href=url;
-			//console.log(activePoints._view.label);
-		}
-	); 
-		*/
-		
-	},
-	error: function(xhr, status, error) {
-	//var err = eval("(" + xhr.responseText + ")");
-	console.log(xhr.responseText);
-	}
-	});
-}
-//-----------------
-//- END PIE CHART -
-//-----------------
-
-</script>
-
-<script type="text/javascript">
-
-if($("#pieChartLulusan"))
-  pieChartLulusan();
-
-function pieChartLulusan()
-{
-  //alert();
- // alert();
-
-//-------------
-//- PIE CHART -
-//-------------
-// Get context with jQuery - using jQuery's .get() method.
-
-	  //alert();
-
-	$.ajax({
-	url:"<?= site_url()?>HomePelamar/getLulusan",
-	success:function(s)
-	{
-		//alert(s);
-		var pieValue=new Array();	
-		var pieColor = new Array();
-		var colorPallette=new Array(
-								"#af460f",
-								"#fe8761",
-								"#fed39f",
-								"#d3f4ff",
-								"#52de97",
-								"#c9b6e4",
-								"#ede59a",
-								"#bbded6",
-								"#ff6464",
-								"#916dd5",
-								"#2c786c"
-								);
-		var pieLabel=new Array();
-		
-		var dataAll=s.split("||");
-	
-		
-		
-		for(var i=0;i<dataAll.length;i++)
-		{
-			
-			var dt=dataAll[i].split("++");
-			pieLabel[i]=dt[0];
-			pieValue[i]=dt[1];
-			pieColor[i]=colorPallette[i];
-		}
-		
-		
-	var pieOptions = {
-	legend: {
-		display:false
-	},tooltips: {
-		display:true
-	},
-	plugins:{
-	  labels: [
-	  {
-		render: 'percentage',
-		fontColor: "black",
-		precision: 1
-	  },
-	  {
-		render: 'label',
-		fontColor: "black",
-		position: 'outside',
-	outsidePadding: 10
-	  }
-	  ]
-	}
-	};
-
-	var pie = document.getElementById('pieChartLulusan').getContext('2d');
-	var myChart = new Chart(pie, {
-		type: 'doughnut',
-		data: {
-			datasets: [{
-				data: pieValue,
-			backgroundColor: pieColor,
-			
-			}],
-			labels: pieLabel
-		},
-		options: pieOptions
-	});
-	/*
-	  
-	$("#pieChart").click( 
-		function(evt){
-			var activePoints = myChart.getElementsAtEvent(evt)[0];
-			var leaveType = activePoints._view.label;
-			var url = "<?= site_url();?>Vacation?type=" + leaveType.replace(/ /g,"_")+"&year="+year;
-			location.href=url;
-			//console.log(activePoints._view.label);
-		}
-	); 
-		*/
-		
-	},
-	error: function(xhr, status, error) {
-	//var err = eval("(" + xhr.responseText + ")");
-	console.log(xhr.responseText);
-	}
-	});
-}
-//-----------------
-//- END PIE CHART -
-//-----------------
-
-</script>
-
-<script type="text/javascript">
-
-if($("#pieChartLulusan"))
-  pieChartLulusan();
-
-function pieChartLulusan()
-{
-  //alert();
- // alert();
-
-//-------------
-//- PIE CHART -
-//-------------
-// Get context with jQuery - using jQuery's .get() method.
-
-	  //alert();
-
-	$.ajax({
-	url:"<?= site_url()?>HomePelamar/getLulusan",
-	success:function(s)
-	{
-		//alert(s);
-		var pieValue=new Array();	
-		var pieColor = new Array();
-		var colorPallette=new Array(
-								"#af460f",
-								"#fe8761",
-								"#fed39f",
-								"#d3f4ff",
-								"#52de97",
-								"#c9b6e4",
-								"#ede59a",
-								"#bbded6",
-								"#ff6464",
-								"#916dd5",
-								"#2c786c"
-								);
-		var pieLabel=new Array();
-		
-		var dataAll=s.split("||");
-	
-		
-		
-		for(var i=0;i<dataAll.length;i++)
-		{
-			
-			var dt=dataAll[i].split("++");
-			pieLabel[i]=dt[0];
-			pieValue[i]=dt[1];
-			pieColor[i]=colorPallette[i];
-		}
-		
-		
-	var pieOptions = {
-	legend: {
-		display:false
-	},tooltips: {
-		display:true
-	},
-	plugins:{
-	  labels: [
-	  {
-		render: 'percentage',
-		fontColor: "black",
-		precision: 1
-	  },
-	  {
-		render: 'label',
-		fontColor: "black",
-		position: 'outside',
-	outsidePadding: 10
-	  }
-	  ]
-	}
-	};
-
-	var pie = document.getElementById('pieChartLulusan').getContext('2d');
-	var myChart = new Chart(pie, {
-		type: 'doughnut',
-		data: {
-			datasets: [{
-				data: pieValue,
-			backgroundColor: pieColor,
-			
-			}],
-			labels: pieLabel
-		},
-		options: pieOptions
-	});
-	/*
-	  
-	$("#pieChart").click( 
-		function(evt){
-			var activePoints = myChart.getElementsAtEvent(evt)[0];
-			var leaveType = activePoints._view.label;
-			var url = "<?= site_url();?>Vacation?type=" + leaveType.replace(/ /g,"_")+"&year="+year;
-			location.href=url;
-			//console.log(activePoints._view.label);
-		}
-	); 
-		*/
-		
-	},
-	error: function(xhr, status, error) {
-	//var err = eval("(" + xhr.responseText + ")");
-	console.log(xhr.responseText);
-	}
-	});
-}
-//-----------------
-//- END PIE CHART -
-//-----------------
-
-</script>
-
-<script type="text/javascript">
-
-if($("#pieChartKota"))
-  pieChartKota();
-
-function pieChartKota()
-{
-  //alert();
- // alert();
-
-//-------------
-//- PIE CHART -
-//-------------
-// Get context with jQuery - using jQuery's .get() method.
-
-	  //alert();
-
-	$.ajax({
-	url:"<?= site_url()?>HomePelamar/getKota",
-	success:function(s)
-	{
-		//alert(s);
-		var pieValue=new Array();	
-		var pieColor = new Array();
-		var colorPallette=new Array(
-								"#af460f",
-								"#fe8761",
-								"#fed39f",
-								"#d3f4ff",
-								"#52de97",
-								"#c9b6e4",
-								"#ede59a",
-								"#bbded6",
-								"#ff6464",
-								"#916dd5",
-								"#2c786c"
-								);
-		var pieLabel=new Array();
-		
-		var dataAll=s.split("||");
-	
-		
-		
-		for(var i=0;i<dataAll.length;i++)
-		{
-			
-			var dt=dataAll[i].split("++");
-			pieLabel[i]=dt[0];
-			pieValue[i]=dt[1];
-			pieColor[i]=colorPallette[i];
-		}
-		
-		
-	var pieOptions = {
-	legend: {
-		display:false
-	},tooltips: {
-		display:true
-	},
-	plugins:{
-	  labels: [
-	  {
-		render: 'percentage',
-		fontColor: "black",
-		precision: 1
-	  },
-	  {
-		render: 'label',
-		fontColor: "black",
-		position: 'outside',
-	outsidePadding: 10
-	  }
-	  ]
-	}
-	};
-
-	var pie = document.getElementById('pieChartKota').getContext('2d');
-	var myChart = new Chart(pie, {
-		type: 'doughnut',
-		data: {
-			datasets: [{
-				data: pieValue,
-			backgroundColor: pieColor,
-			
-			}],
-			labels: pieLabel
-		},
-		options: pieOptions
-	});
-	/*
-	  
-	$("#pieChart").click( 
-		function(evt){
-			var activePoints = myChart.getElementsAtEvent(evt)[0];
-			var leaveType = activePoints._view.label;
-			var url = "<?= site_url();?>Vacation?type=" + leaveType.replace(/ /g,"_")+"&year="+year;
-			location.href=url;
-			//console.log(activePoints._view.label);
-		}
-	); 
-		*/
-		
-	},
-	error: function(xhr, status, error) {
-	//var err = eval("(" + xhr.responseText + ")");
-	console.log(xhr.responseText);
-	}
-	});
-}
-//-----------------
-//- END PIE CHART -
-//-----------------
-
-</script>
-
-<script type="text/javascript">
-//alert("as");
-if( $("#barChart") )
-  salesChar2t();
- 
-function salesChar2t()
-{
-  //alert("asd");
-'use strict';
-//-----------------------
-//- MONTHLY ABSENCE CHART -
-//-----------------------
-
-// Get context with jQuery - using jQuery's .get() method.
-//var salesChartCanvas = $("#barChart").get(0).getContext("2d");
-// This will get the first returned node in the jQuery collection.
-//var salesChart = new Chart(salesChartCanvas);
-
-$.ajax({
-	url:"<?= site_url()?>HomePelamar/getJumlahperBulan",
-	success:function(s)
-	{
-
-		//alert(s);
-		var label=new Array();
-		var data1=new Array();
-		//var dataAll=s.split("##");
-		
-		var dataReturn=s.split("||");
-		//last year
-		for(var i=0;i<dataReturn.length;i++)
-		{
-			
-			var dt=dataReturn[i].split("++");
-			label[i]=dt[0];
-			data1[i]=dt[1];
-		}
-		
-		//alert(data1);
-		//change label name
-		var ctx = document.getElementById('barChart').getContext('2d');
-		var myChart = new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: label,
-				datasets: [{
-					label: 'Jumlah',
-					data: data1,
-					backgroundColor: [
-						'rgba(255, 99, 132, 0.2)',
-						'rgba(54, 162, 235, 0.2)',
-						'rgba(255, 206, 86, 0.2)',
-						'rgba(75, 192, 192, 0.2)',
-						'rgba(153, 102, 255, 0.2)',
-						'rgba(255, 159, 64, 0.2)',
-						'rgba(255, 159, 64, 0.2)',
-						'rgba(255, 159, 64, 0.2)',
-						'rgba(255, 159, 64, 0.2)',
-						'rgba(255, 159, 64, 0.2)'
-						
-					],
-					borderColor: [
-						'rgba(255, 99, 132, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)'
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true
-						}
-					}]
-				}
-			}
-		});
-		
-	},
-	error : function(a,b,c)
-	{
-		alert(c);
-	}
-});
-}
-
-//---------------------------
-//- END MONTHLY SALES CHART -
-//---------------------------
-
-</script>
-
-<script type="text/javascript">
-//var coba = $("#txtTglLahirPelamar").val();
-
-//$("#txtUmurPelamar").val(coba);
-
-//skrip saat blur
-$("#txtUmurPelamar").on("focus",function(){
-	var tanggal = $("#txtTglLahirPelamar").val();
-	var tahun = tanggal.substr(0,4);
-	var tglSekarang = new Date();
-	var tahunSekarang = tglSekarang.getFullYear();
-
-	var umur = tahunSekarang - tahun;
-	//skrip saat blur
-	$("#txtUmurPelamar").val(umur);
-
-});
-
-</script>
-<script type="text/javascript">
-		$(document).ready(function () {
-		$('#dtHorizontalVerticalExample').DataTable({
-		"scrollX": true,
-		"scrollY": 300,
-		});
-
-		//$('.dataTables_length').addClass('bs-select');
-		});
 </script>
 
 
