@@ -54,7 +54,7 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                   <tr>
                   <td>Tanggal Lahir</td>
                   <th> : </th>
-                  <td><?= $a->tgllahir_pelamar?></td>
+                  <td><?=date ('d F Y', strtotime ($a->tgllahir_pelamar)); ?></td>
                   </tr>
                   <tr>
                   <td>Umur</td>

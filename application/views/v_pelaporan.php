@@ -132,9 +132,7 @@
                     <div class="image">
                        <img src="https://localhost/pt_mdr/assets/admin/img/avatar/thumb/def.jpg" class="user-image img-circle elevation-2" alt="User Image">
                     </div>
-                    <!-- 
-		<div class = "profile-user-img-tiny img-fluid img-circle" style="background-image:url('<?= base_url(); ?>assets/admin/img/avatar/thumb/<?= $ses['picUser']; ?>');">&nbsp;</div>
-		-->
+        
                     <div class="info">
                         <a href="<?= site_url(); ?>Profile" class="d-block">Intern</a>
                     </div>
@@ -257,14 +255,14 @@
                 </select>
                 </div>
             <div class="col-md-1">
-                <select class="form-control" name="Data Career" id="Data Career" required>
+                <select class="form-control" name="loker" id="loker" required>
                     <option value="null">Semua</option>
                     <option value="CR01">CR01</option>
                     <option value="CR02">CR02</option>
                     </select>
              </div>
             <div class="col-md-1">
-                <select class="form-control" name="Tahapan" id="Tahapan" required>
+                <select class="form-control" name="tahapan" id="tahapan" required>
                     <option value="null">Semua</option>
                     <option value="Mendaftar">Mendaftar</option>
                     <option value="Interview 1">Interview 1</option>
@@ -280,13 +278,16 @@
             <input style="margin-right: 10px;" name="submit" type="submit" value="Filter" class="btn btn-info" />
             <a class="btn btn-info" href="<?php echo base_url(); ?>Pelaporan/pelaporan">Reset</a>
             <div class="col-md-2">
-            <a class="btn btn-success" href="<? echo base_url(); ?>Pelaporan/pelaporan">Print</a>
+            <a class="btn btn-success" href="<?= base_url(); ?>Pelaporan/print">Print</a>
             </div>
         </form>
+
+        <form action="" method="POST">
             <div class="table-responsive" style="margin-left:10px; margin-right:20px"><br>
                  <table id="userTable" class="table table-striped table-hover table-bordered  table-custom">
                     <thead>
                         <tr align="center">
+                            <th>#</th>
                             <th>No</th>
                             <th> Id Pelamar</th>
                             <th>Tanggal Daftar</th>
@@ -306,9 +307,10 @@
                         <?php $no=1;
                         foreach($pelamar as $a) { ?>
                         <tr align="center">
+                        <td><input type="checkbox"></td>
                         <td><?= $no++; ?></td>
                         <td><?= $a->id_pelamar  ?></td>
-                        <td><?= $a->TglDaftar_pelamar  ?></td>
+                        <td><?=$a->TglDaftar_pelamar ?></td>
                         <td><?= $a->nama_pelamar  ?></td>
                         <td ><?= $a->jk_pelamar  ?></td>
                         <td><?= $a->pdkterakhir_pelamar ?></td>
@@ -322,7 +324,9 @@
                              <a class="btn btn-success" href="<?= base_url('Pelaporan/cetak/'.$a->id_pelamar);  ?>">Print</a>
                         </td>
                         </tr>
-                        <?php } ?>
+                    </form>
+                        <?php
+                        } ?>
                     </tbody>
                     
                 </table>

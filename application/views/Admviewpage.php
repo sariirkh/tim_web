@@ -1,4 +1,4 @@
-<section class="content-header">
+	 <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -96,7 +96,8 @@
               </div>
                 
                 <div class="card-body">
-				<table class="table table-hover table-striped  <?= $dt; ?>" id="tblView" width="100%">
+			
+				<table class="table table-hover table-striped  datatable" id="tblView" width="100%">
 				
 				<?php
 					if(!empty($render))
@@ -172,9 +173,6 @@
 										$editLink=$saveLink;
 									}
 								?>
-
-										
-								
 								<a data-toggle="tooltip" title="Edit Data" href="<?= site_url();?><?= $editLink;?>/<?= $pid;?>">
 									<i class="fa fa-cogs fa-fw text-purple"></i>
 								</a>
@@ -189,8 +187,6 @@
 								<a data-toggle="modal" data-target="#confirm-delete" title="Delete Data" href="#" name="<?= $pid;?>" class="deleteBtn">
 									<i class="fa fa-trash fa-fw text-red"></i>
 								</a>
-
-								
 								<?php
 								}
 								?>
@@ -205,6 +201,7 @@
 								<?php
 								}
 								?>
+								
 								
 								
 								<?php
