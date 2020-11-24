@@ -55,7 +55,7 @@ class M_Dashboardbarang extends CI_Model{
 
     public function jum_karyawan(){   
         $query = $this->db->get('tb_karyawan');
-        $this->db->where('pengguna_kendaraan');
+        $this->db->where('id_karyawan');
         if($query->num_rows()>0)
         {
             return $query->num_rows();
@@ -64,6 +64,11 @@ class M_Dashboardbarang extends CI_Model{
         {
             return 0;
         }
+    }
+
+    public function getHistory(){
+        $query = $this->db->query("SELECT id_barang, nama_barang, id_loker FROM tb_barang JOIN tb_loker USING(id_loker) ORDER BY id_barang DESC");
+        return $query;
     }
 
    
