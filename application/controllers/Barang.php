@@ -31,17 +31,18 @@ class Barang extends CI_Controller
 	//query
 	var $ordQuery=" ORDER BY id_barang DESC ";
 	var $tableQuery="
-						tb_barang
+						tb_barang AS a INNER JOIN tb_loker AS b ON a.id_loker=b.id_loker
 						";
 	var $fieldQuery="
-						id_barang,
-						nama_barang,
-						stok_barang						
+						a.id_barang,
+						a.nama_barang,
+						a.stok_barang,
+						b.id_loker					
 						"; //leave blank to show all field  ... 0 as aksi
 						
 	var $primaryKey="id_barang";
 	//var $detKey="nik";
-	var $updateKey="id_barang";
+	var $updateKey="a.id_barang";
 	
 	//auto generate id
 	//sesuaikan panjangnya length di database
@@ -54,7 +55,8 @@ class Barang extends CI_Controller
 	var $viewFormTableHeader=array(
 									"Id Barang",
 									"Nama Barang",
-									"Stok"
+									"Stok",
+									"Loker"
 									//"Aksi"
 									);
 	
@@ -63,7 +65,8 @@ class Barang extends CI_Controller
 	var $saveFormTableHeader=array(
 									"Id Barang",
 									"Nama Barang",
-									"Stok"
+									"Stok",
+									"Loker"
 									);
 	
 	//update
