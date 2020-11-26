@@ -154,6 +154,6 @@ class login extends CI_Controller {
 	public function logout()
 	{
 			session_destroy();
-			redirect('admin_web', 'refresh');
+			redirect('main', 'refresh');
 	}
 }
