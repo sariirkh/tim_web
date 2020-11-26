@@ -18,7 +18,7 @@ class login extends CI_Controller {
 		}
 		else
 		{
-			redirect('admin', 'refresh');
+			redirect('admin_web', 'refresh');
 			
 		}
 	}
@@ -138,7 +138,7 @@ class login extends CI_Controller {
 			//$this->fn->getFormGroup($userdata[2]);
 					//echo  implode("<br>",$userdata);
 					//echo  $userdata[5];
-			redirect('admin', 'refresh');
+			redirect('admin_web', 'refresh');
 		}
 		else
 		{
@@ -154,6 +154,6 @@ class login extends CI_Controller {
 	public function logout()
 	{
 			session_destroy();
-			redirect('main', 'refresh');
+			redirect('admin_web', 'refresh');
 	}
 }
