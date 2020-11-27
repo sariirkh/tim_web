@@ -49,10 +49,8 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                             <th>Jam</th>
                             <th>Id barang</th>
                             <th>Nama barang</th>
+                            <th>Nama Karyawan</th>                            
                             <th>Jumlah</th>
-                            <th>Nama Karyawan</th>
-                            <th>Catatan</th>
-                            <th>TTD</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,14 +63,16 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                         <td><?= $a->jam  ?></td>
                         <td><?= $a->id_barang ?></td>
                         <td><?= $a->nama_barang ?></td>
+                        <td><?= $a->nama_karyawan  ?></td>
                         <td><?= $a->jumlah_keluar  ?></td>
-                        <td><?= $a->id_karyawan  ?></td>
-                        <td><?= $a->catatan  ?></td>
-                        <td><img src="<?= base_url('assets/foto_ttd/'.$a->ttd) ?>" width='60' height='70'></td>
-                                               
+                        
+                        </tr>
+                        <?php } ?>
+                        <tr>
+                            <td class="border-0 font-weight-bold" colspan="7" style="text-align: right;">Total Stok:</td>
+                            <td class="font-weight-bold"><?php echo '<span class="nominal">'.$brgkeluar.'</span>';?></td>
+                        </tr>                       
                     </tbody>
-<?php } ?>
-
 <script>
         
     </script>

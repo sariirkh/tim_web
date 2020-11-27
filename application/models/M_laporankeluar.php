@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_laporanku extends CI_Model
+class M_laporankeluar extends CI_Model
 {
 
 
@@ -200,7 +200,7 @@ class M_laporanku extends CI_Model
         return $response;
     }
 
-    function getlaporan($postData = null)
+    function getlaporankeluar($postData = null)
     {
 
         $response = array();
@@ -218,36 +218,36 @@ class M_laporanku extends CI_Model
         // $searchSuplier = $postData['searchSuplier'];
         // $searchNama = $postData['searchNama'];
         $bulan = $postData['bulan'];
-        $jenis = $postData['jenis'];
+        //$jenis = $postData['jenis'];
 
 
         ## Total number of records without filtering
         $this->db->select('count(*) as allcount');
-        $records  = $this->db->get('barang_masuk')->result(); //nama tabel
+        $records  = $this->db->get('barang_keluar')->result(); //nama tabel
         $totalRecords = $records[0]->allcount;
 
         ## Total number of record with filtering
         $this->db->select('count(*) as allcount');
         if ($bulan != '' || $jenis != '')
-            $this->db->where('jenis', $jenis);
-        $this->db->where('MONTH(tanggal_masuk)', $bulan);
-        $records  = $this->db->get('barang_masuk')->result(); //nama tabel
+          //  $this->db->where('jk_pelamar', $jk);
+        $this->db->where('MONTH(tanggal_keluar)', $bulan);
+        $records  = $this->db->get('barang_keluar')->result(); //nama tabel
         $totalRecordwithFilter = $records[0]->allcount;
 
         ## Fetch records
         $this->db->select('*');
         if ($bulan != '' || $jenis != '')
-            $this->db->where('jenis', $jenis);
-        $this->db->where('MONTH(tanggal_masuk)', $bulan);
-        $this->db->order_by('barang_masuk.id_barang_masuk');
+           // $this->db->where('jenis', $jk);
+        $this->db->where('MONTH(tanggal_keluar)', $bulan);
+        $this->db->order_by('barang_keluar.id_barang_keluar');
         $this->db->limit($rowperpage, $start);
-        $records  = $this->db->get('barang_masuk')->result();
+        $records  = $this->db->get('barang_keluar')->result();
 
 
         $this->db->select('*');
-        $this->db->order_by('barang_masuk.id_barang_masuk');
+        $this->db->order_by('barang_keluar.id_barang_keluar');
         $this->db->limit($rowperpage, $start);
-        $records2  = $this->db->get('barang_masuk')->result();
+        $records2  = $this->db->get('barang_keluar')->result();
 
         
 

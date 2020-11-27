@@ -1,45 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <?php $this->load->view('components/css') ?>
-
-    <style type="text/css">
-        .table th {
-           text-align: center;   
+<!-- saved from url=(0068)https://sim-online.polije.ac.id/cKHS.php?valTahun=2019&valSemester=1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><style type="text/css">
+<!--
+.style1 {font-size: large}
+-->
+</style>
+  <title></title>
+	</head><body><form>
+	<table width="910" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tbody><tr> <br><br>
+      <td width="15%"><div align="left">
+        <h2 align="center"><img src="<?= base_url() ?>assets/admin/img/mdr-logo.png" width="133" height="124"></h2>
+      </div></td>
+      <td width="85%"><div align="center" class="style1"><strong>PT. MANGLI DJAYA RAYA</strong><br>
+    JL.Mayjen. D.I Panjaitan No. 99, Petung, Bangsalsari, Jawa Timur, Indonesia<br>
+    PO BOX 164 Telp (0331) 486656  Jember 68154<br>
+Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
+    </tr>
+    <tr> 
+      <td colspan="2"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><hr noshade=""></td>
+    </tr>
+    <tr>
+      <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody><tr><br>
+          <td colspan="2"><div align="center" class="style1"><strong>LAPORAN </strong></div></td>
+        </tr></table>
+        <style type="text/css">
+        .container {
+            border: 0px solid #000;
+            width: 1%;
+        }
+        .margin {
+            margin: 0px 80px 0px 0px;
+            border: 0px solid #000;
         }
     </style>
-</head>
+    
+
+				<table border="1" cellpadding="10" cellspacing="0">
 
 <body>
     
-    <div class="container mt-5">
-        <div class="font-weight-bold mb-4 h5"><center>LAPORAN KEUANGAN</center></div>
+        <div class="font-weight-bold mb-4 h5"><center>BARANG ATK KESELURUHAN</center></div>
 
         <div class="mb-2">
             Tanggal : <span class="font-weight-bold">
 
             <?php
 
-            if (!empty($tanggalawal) OR !empty($tanggalakhir)) {
-                if ($tanggalawal == $tanggalakhir) {
-                    echo $controller->tgl_indo($tanggalawal);
+            if (!empty($tglawal) OR !empty($tglakhir)) {
+                if ($tglawal == $tglakhir) {
+                    echo $controller->$tglawal;
                 }else{
-                    if (!empty($tanggalawal)) {
-                        echo $controller->tgl_indo($tanggalawal);
-                    }elseif (empty($tanggalawal)) {
+                    if (!empty($tglawal)) {
+                        echo $controller->$tanggalawal;
+                    }elseif (empty($tglawal)) {
                         echo "~";
                     }
                     
                     echo '</span> s/d <span class="font-weight-bold">';
 
-                    if (!empty($tanggalakhir)) {
-                        echo $controller->tgl_indo($tanggalakhir);
-                    }elseif (empty($tanggalakhir)) {
+                    if (!empty($tglakhir)) {
+                        echo $controller->$tanggalakhir;
+                    }elseif (empty($tgllakhir)) {
                         echo "~";
                     }
                 }
-            }elseif (empty($tanggalawal) AND empty($tanggalakhir)) {
+            }elseif (empty($tglawal) AND empty($tglakhir)) {
                 echo "~";
             }
             
@@ -49,20 +79,20 @@
             
         </div>
 
-        <table class="table table-bordered">
+        <table border="1" cellpadding="10" cellspacing="0">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Jenis Transaksi</th>
-                    <th>Tanggal</th>
-                    <th>Nama Transaksi</th>
-                    <th>Dana Masuk</th>
-                    <th>Dana Keluar</th>
+                    <th>Tanggal Masuk</th>
+                    <th>Tanggal Keluar</th>
+                    <th>Nama Barang</th>
+                    <th>Jumlah Masuk</th>
+                    <th>Jumlah Keluar</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                if (empty($transaksi)) {
+                if (empty($barang)) {
                 ?>
                 <tr>
                     <td colspan="6" class="font-weight-bold" align="center">TIDAK ADA DATA TRANSAKSI</td>
@@ -73,59 +103,31 @@
 
                 <?php
                 $no = 1;
-                foreach ($transaksi as $t) {
+                foreach ($barang as $a) {
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td>
-                        <?php
-                        if ($t->status == 1) {
-                            echo "Pembayaran";
-                        }elseif ($t->status == 2) {
-                            echo "Pengeluaran";
-                        }
-                        ?>
-                    </td>
-                    <td><?php echo $controller->tgl_indo($t->pembayaran_tanggalbayar) ?></td>
-                    <td>
-                        <?php
-                        if ($t->status == 1) {
-                            echo $t->pesertadidik_nama;
-                        }elseif ($t->status == 2) {
-                            echo $t->kategoripengeluaran_nama;
-                        }
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        if ($t->status == 1) {
-                            echo 'Rp. <span class="nominal">'.$t->pembayaran_nominalbayar.'</span>';
-                        }
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        if ($t->status == 2) {
-                            echo 'Rp. <span class="nominal">'.$t->pengeluaran_nominal.'</span>';
-                        }
-                        ?>
-                    </td>
+                    <td><?php echo $a->tanggal_masuk ?></td>                
+                    <td><?php echo $a->tanggal_keluar ?></td>
+                    <td><?php echo $a->nama_barang ?></td>
+                    <td><?php echo $a->jumlah_masuk ?></td>
+                    <td><?php echo $a->jumlah_keluar?></td>
                 </tr>
                 <?php } ?>
                 <tr>
                     <td class="border-0 font-weight-bold" colspan="4" style="text-align: right;">Total :</td>
-                    <td><?php echo 'Rp. <span class="nominal">'.$danamasuk.'</span>';?></td>
-                    <td><?php echo 'Rp. <span class="nominal">'.$danakeluar.'</span>';?></td>
+                    <td><?php echo $brgmasuk ?></td>
+                    <td><?php echo $brgkeluar ?></td>
                 </tr>
 
                 <tr>
-                    <td class="border-0 font-weight-bold" colspan="4" style="text-align: right;">Total Dana Akhir :</td>
+                    <td class="border-0 font-weight-bold" colspan="4" style="text-align: right;">Total Stok Akhir :</td>
                     <td class="font-weight-bold" colspan="2">
                         <?php
-                        if ($totaldana < 0) {
-                            echo '- Rp. <span class="nominal">'.$totaldana.'</span>';
-                        }elseif ($totaldana >= 0) {
-                            echo 'Rp. <span class="nominal">'.$totaldana.'</span>';
+                        if ($totalbrg < 0) {
+                            echo '- Stok. <span class="nominal">'.$totalbrg.'</span>';
+                        }elseif ($totalbrg >= 0) {
+                            echo '<span class="nominal">'.$totalbrg.'</span>';
                         }
                         ?>
                     </td>
@@ -134,9 +136,7 @@
         </table>
     </div>
     
-    <?php $this->load->view('components/js') ?>
-
-    <script type="text/javascript">
+       <script type="text/javascript">
 
         $( document ).ready(function() {
             $('.nominal').mask('000.000.000.000.000', {reverse: true});

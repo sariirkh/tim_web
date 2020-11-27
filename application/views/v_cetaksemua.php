@@ -73,21 +73,18 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
             </span>
             
         </div>
+        <br>
 
-				<table border="1" cellpadding="10" cellspacing="0">
+				<table align="center" border="1" cellpadding="10" cellspacing="0">
                 <tbody>
                 <thead>
                         <tr>
-                            <th>No</th>
-                            <th>No Transaksi</th>
-                            <th>Tanggal Masuk</th>
-                            <th>Jam</th>
-                            <th>Id barang</th>
+                        <th>No</th>
+                            <th>ID barang</th>
                             <th>Nama barang</th>
-                            <th>Satuan</th>
-                            <th>Jenis</th>                            
-                            <th>Jumlah</th>
-                            
+                            <th>Masuk</th>
+                            <th>Keluar</th>
+                            <th>Stok</th>
                         </tr>
                     </thead>
                     
@@ -96,19 +93,16 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                         foreach($barang as $a) { ?>
                         <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= $a->id_barang_masuk  ?></td>
-                        <td><?= $a->tanggal_masuk  ?></td>
-                        <td><?= $a->jam  ?></td>
                         <td><?= $a->id_barang ?></td>
                         <td><?= $a->nama_barang ?></td>
-                        <td><?= $a->satuan  ?></td>
-                        <td><?= $a->jenis  ?></td>                        
-                        <td><?= $a->jumlah_masuk  ?></td>
+                        <td><?= $a->masuk ?></td>
+                        <td><?= $a->keluar ?></td>
+                        <td><?= $a->sisa ?></td>
                         </tr>
                         <?php } ?>
                         <tr>
-                            <td class="border-0 font-weight-bold" colspan="8" style="text-align: right;">Total Stok:</td>
-                            <td class="font-weight-bold"><?php echo '<span class="nominal">'.$brgmasuk.'</span>';?></td>
+                            <td class="border-0 font-weight-bold" colspan="5" style="text-align: right;">Total Stok:</td>
+                            <td class="font-weight-bold"><?php echo '<span class="nominal">'.$totalbrg.'</span>';?></td>
                         </tr>
                     </tbody>
 

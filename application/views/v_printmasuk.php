@@ -53,10 +53,10 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
 
             if (!empty($tglawal) OR !empty($tglakhir)) {
                 if ($tglawal == $tglakhir) {
-                    echo $controller->tgl_indo($tanggalawal);
+                    echo $this->$tglawal;
                 }else{
                     if (!empty($tglawal)) {
-                        echo $controller->tgl_indo($tglawal);
+                        echo $this->$tglawal;
                     }elseif (empty($tglawal)) {
                         echo "~";
                     }
@@ -64,7 +64,7 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                     echo '</span> s/d <span class="font-weight-bold">';
 
                     if (!empty($tglakhir)) {
-                        echo $controller->tgl_indo($tglakhir);
+                        echo $this->$tglakhir;
                     }elseif (empty($tglakhir)) {
                         echo "~";
                     }
@@ -96,7 +96,7 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                 </thead>
             <tbody>
                 <?php
-                if (empty($transaksi)) {
+                if (empty($barang)) {
                 ?>
                 <tr>
                     <td colspan="6" class="font-weight-bold" align="center">TIDAK ADA DATA TRANSAKSI</td>
@@ -107,11 +107,11 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
 
                 <?php
                 $no = 1;
-                foreach ($transaksi as $a) {
+                foreach ($barang as $a) {
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $controller->tgl_indo($a->tanggal_masuk) ?></td>
+                    <td><?php echo $a->tanggal_masuk ?></td>
                     <td><?php echo $a->jam?></td>
                     <td><?php echo $a->id_barang_masuk?></td>
                     <td><?php echo $a->id_barang?></td>

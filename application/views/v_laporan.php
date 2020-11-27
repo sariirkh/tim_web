@@ -203,7 +203,7 @@
 
                         <li class="nav-item">
                             <a href="<?= base_url('Laporan/laporan') ?>" class="nav-link">
-                            <i class="nav-icon fas fa-user text-white"></i>
+                            <i class="nav-icon fas fa-file-alt text-white"></i>
                                 <p>
                                     Report Masuk
                                 </p>
@@ -211,9 +211,17 @@
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('Laporankeluar/laporan') ?>" class="nav-link">
-                            <i class="nav-icon fas fa-user text-white"></i>
+                            <i class="nav-icon fas fa-file-alt text-white"></i>
                                 <p>
                                     Report Keluar
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Laporansemua/laporan') ?>" class="nav-link">
+                            <i class="nav-icon fas fa-file-alt text-white"></i>
+                                <p>
+                                    Rekap Barang
                                 </p>
                             </a>
                         </li>
@@ -250,9 +258,9 @@
             </div>
             <div class="col-md-2">
                 <select class="form-control" name="nama_barang" id="-nama_barang" required>
-                    <option value="null">Semua</option>
-                    <option value="Penggaris">Penggaris</option>
-                    <option value="Map coklat">Map coklat</option>
+                <option value="null">Semua</option>
+                    <option value="GA00001">GA00001</option>
+                    <option value="Amplop coklat besar">Amplop coklat besar</option>  
                 </select>
             </div>
             <input style="margin-right: 10px;" name="submit" type="submit" value="Filter" class="btn btn-info" />
@@ -267,10 +275,10 @@
                         <tr>
                             <th>No</th>
                             <th>No Transaksi</th>
-                            <th>ID barang</th>
-                            <th>Nama barang</th>
                             <th>Tanggal Masuk</th>
                             <th>Jam</th>
+                            <th>ID barang</th>
+                            <th>Nama barang</th>
                             <th>Jumlah</th>
                             <th>Satuan</th>
                             <th>Jenis</th>
@@ -285,10 +293,10 @@
                         <tr>
                         <td><?= $no++; ?></td>
                         <td><?= $a->id_barang_masuk  ?></td>
-                        <td><?= $a->id_barang ?></td>
-                        <td><?= $a->nama_barang ?></td>
                         <td><?= $a->tanggal_masuk  ?></td>
                         <td><?= $a->jam  ?></td>
+                        <td><?= $a->id_barang ?></td>
+                        <td><?= $a->nama_barang ?></td>
                         <td><?= $a->jumlah_masuk  ?></td>
                         <td><?= $a->satuan  ?></td>
                         <td><?= $a->jenis  ?></td>

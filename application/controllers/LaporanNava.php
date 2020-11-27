@@ -285,16 +285,16 @@ class LaporanNava extends CI_Controller
 
 			if (!empty($tgllawal) AND !empty($tgllakhir)) {
 				$where = array(
-					'tanggal_masuk >=' => $tanggalawal,
-					'tanggal_masuk <=' => $tanggalakhir
+					'tanggal_masuk >=' => $tgllawal,
+					'tanggal_masuk <=' => $tglakhir
 				);
 			}elseif (!empty($tglawal) AND empty($tglakhir)) {
 				$where = array(
-					'tanggal_masuk >=' => $tanggalawal
+					'tanggal_masuk >=' => $tglawal
 				);
 			}elseif (empty($tglawal) AND !empty($tglakhir)) {
 				$where = array(
-					'tanggal_masuk <=' => $tanggalakhir
+					'tanggal_masuk <=' => $tglakhir
 				);
 			}else{
 				$where = array();
@@ -302,38 +302,41 @@ class LaporanNava extends CI_Controller
 
 			if ($sort == 'semua') {
 				$this->db->order_by("tanggal_masuk", "ASC");
-				$data['transaksi'] = $this->db->select('*')
+				$data['barang'] = $this->db->select('*')
 			    							   ->from('tb_barangmasuk')
 			    							   ->join('tb_detailmasuk', 'tb_detailmasuk.id_barang_masuk = tb_barangmasuk.id_barang_masuk','inner')
-			    							   ->join('tb_barang', 'tb_barang.id_barang = tb_detailmasuk.id_barang','inner')
-			    							   ->where($where)
+			    							   ->join('tb_barang', 'tb_barang.id_barang = tb_detailmasuk.id_barang','tb_barang.id_barang=tb_barangkeluar.id_barang','inner')
+											   ->join('tb_barangkeluar','tb_barangkeluar.id_kosong = tb_barangkeluar.id_kosong','inner')
+											   ->join('tb_detailkeluar', 'tb_detailkeluar.id_barang_keluar = tb_barangkeluar.id_barang_keluar','inner')
+			    							   ->join('tb_karyawan','tb_karyawan.id_karyawan = tb_barangkeluar.id_karyawan','inner')
+											   ->where($where)
 			    							   ->get()
 			    							   ->result();
 
-			    $hitungdanamasuk = 0;
+			    $hitungbrgmasuk = 0;
 
-			    foreach ($data['transaksi'] as $dm) {
-			  		$hitungdanamasuk += (double) $dm->pembayaran_nominalbayar;
+			    foreach ($data['barang'] as $dm) {
+			  		$hitungbrgmasuk += (double) $dm->jumlah_masuk;
 			  	}
 
-			  	$hitungdanakeluar = 0;
+			  	$hitungbrgkeluar = 0;
 
-			    foreach ($data['transaksi'] as $dm) {
-			  		$hitungdanakeluar += (double) $dm->pengeluaran_nominal;
+			    foreach ($data['barang'] as $dm) {
+			  		$hitungbrgkeluar += (double) $dm->jumlah_keluar;
 			  	}
 
-			  	$data['danamasuk'] = $hitungdanamasuk;
+			  	$data['brgmasuk'] = $hitungbrgmasuk;
 
-			  	$data['danakeluar'] = $hitungdanakeluar;
+			  	$data['brgkeluar'] = $hitungbrgkeluar;
 
-			  	$data['totaldana'] = $hitungdanamasuk - $hitungdanakeluar;
+			  	$data['totalbrg'] = $hitungbrgmasuk - $hitungbrgkeluar;
 
 				$data['controller'] = $this;
 
 				$data['tgllawal'] = $tglawal;
 				$data['tglakhir'] = $tglakhir;
 
-				$this->load->view('laporan-cetak-all',$data);
+				$this->load->view('v_printsemua',$data);
 
 			}elseif ($sort == 'pemasukanATK') {
 				$wherestatus = array(
@@ -341,7 +344,7 @@ class LaporanNava extends CI_Controller
 				);
 
 				$this->db->order_by("tanggal_masuk", "ASC");
-				$data['transaksi'] = $this->db->select('*')
+				$data['barang'] = $this->db->select('*')
 			    							   ->from('tb_barangmasuk')
 			    							   ->join('tb_detailmasuk', 'tb_detailmasuk.id_barang_masuk = tb_barangmasuk.id_barang_masuk','inner')
 											   ->join('tb_barang', 'tb_barang.id_barang = tb_detailmasuk.id_barang','inner')
@@ -352,13 +355,13 @@ class LaporanNava extends CI_Controller
 
 			    $hitungbrgmasuk = 0;
 
-			    foreach ($data['transaksi'] as $dm) {
+			    foreach ($data['barang'] as $dm) {
 			  		$hitungbrgmasuk += (double) $dm->jumlah_masuk;
 			  	}
 
 			  	$hitungbrgkeluar = 0;
 
-			    foreach ($data['transaksi'] as $dm) {
+			    foreach ($data['barang'] as $dm) {
 			  		$hitungbrgkeluar += (double) $dm->jumlah_masuk;
 			  	}
 
@@ -371,7 +374,7 @@ class LaporanNava extends CI_Controller
 				$data['controller'] = $this;
 
 				$data['tglawal'] = $tglawal;
-				$data['tgllakhir'] = $tglakhir;
+				$data['tglakhir'] = $tglakhir;
 
 				$this->load->view('v_printmasuk',$data);
 
@@ -381,7 +384,7 @@ class LaporanNava extends CI_Controller
 				);
 				
 				$this->db->order_by("tanggal_keluar", "ASC");
-				$data['transaksi'] = $this->db->select('*')
+				$data['barang'] = $this->db->select('*')
 			    							   ->from('tb_barangkeluar')
 			    							   ->join('tb_detailkeluar', 'tb_detailkeluar.id_barang_keluar = tb_barangkeluar.id_barang_keluar','inner')
 			    							   ->join('tb_barang', 'tb_barang.id_barang = tb_detailkeluar.id_barang','inner')
@@ -393,13 +396,13 @@ class LaporanNava extends CI_Controller
 
 			    $hitungbrgmasuk = 0;
 
-			    foreach ($data['transaksi'] as $dm) {
+			    foreach ($data['barang'] as $dm) {
 			  		$hitungbrgmasuk += (double) $dm->jumlah_keluar;
 			  	}
 
 			  	$hitungbrgkeluar = 0;
 
-			    foreach ($data['transaksi'] as $dm) {
+			    foreach ($data['barang'] as $dm) {
 			  		$hitungbrgkeluar += (double) $dm->jumlah_keluar;
 			  	}
 

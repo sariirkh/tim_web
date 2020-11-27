@@ -241,7 +241,7 @@
         </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-        <form action="<?php echo base_url(); ?>Laporankeluar/laporan" method="POST" class="row">
+        <form action="<?php echo base_url(); ?>Laporansemua/laporan" method="POST" class="row">
             <div class="col-md-2">
                 <input class="form-control" name="tglawal" type="date" value="<?php echo isset($_POST['tglawal']) ? $_POST['tglawal'] : date('YYYY-mm-dd') ?>"> 
             </div>
@@ -250,32 +250,35 @@
                 <input class="form-control" name="tglakhir" type="date" value="<?php echo isset($_POST['tglakhir']) ? $_POST['tglakhir'] : date('YYYY-mm-dd') ?>">
             </div>
             <div class="col-md-2">
-                <select class="form-control" name="nama_barang" id="-nama_barang" required>
+                <select class="form-control" name="jenis" id="-jenis" required>
                     <option value="null">Semua</option>
-                    <option value="Amplop uk.110x230">Amplop uk.110x230</option>
-                    <option value="Amplop coklat besar">Amplop Coklat besar</option>
+                    <option value="Stok awal">Stok awal</option>
+                    <option value="Stok akhir">Stok akhir</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" name="nama_barang" id="-nama_barang" required>
+                <option value="null">Semua</option>
+                    <option value="GA00001">GA00001</option>
+                    <option value="Amplop coklat besar">Amplop coklat besar</option>  
                 </select>
             </div>
             <input style="margin-right: 10px;" name="submit" type="submit" value="Filter" class="btn btn-info" />
-            <a class="btn btn-info" href="<?php echo base_url(); ?>Laporankeluar/laporan">Reset</a>
+            <a class="btn btn-info" href="<?php echo base_url(); ?>Laporansemua/laporan">Reset</a>
             <div class="col-md-2">
-            <a class="btn btn-success" href="<?php echo base_url(); ?>Laporankeluar/cetakKeluar">Print</a>
+            <a class="btn btn-success" href="<?php echo base_url(); ?>Laporansemua/cetakRekap">Print</a>
             </div>
         </form>
             <div class="table-responsive">
-            <table id="userTable" class="table table-striped table-hover table-bordered  table-custom">
+                 <table id="userTable" class="table table-striped table-hover table-bordered  table-custom">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>No Transaksi</th>                            
-                            <th>Tanggal Keluar</th>
-                            <th>Jam</th>
-                            <th>Id barang</th>
+                            <th>ID barang</th>
                             <th>Nama barang</th>
-                            <th>Jumlah</th>
-                            <th>Nama Karyawan</th>
-                            <th>Catatan</th>
-                            <th>TTD</th>
+                            <th>Masuk</th>
+                            <th>Keluar</th>
+                            <th>Stok</th>
                         </tr>
                     </thead>
                     
@@ -284,15 +287,11 @@
                         foreach($barang as $a) { ?>
                         <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= $a->id_barang_keluar  ?></td>
-                        <td><?= $a->tanggal_keluar ?></td>
-                        <td><?= $a->jam  ?></td>
                         <td><?= $a->id_barang ?></td>
                         <td><?= $a->nama_barang ?></td>
-                        <td><?= $a->jumlah_keluar  ?></td>
-                        <td><?= $a->nama_karyawan  ?></td>
-                        <td><?= $a->catatan  ?></td>
-                        <td><img src="<?= base_url('assets/foto_ttd/'.$a->ttd) ?>" width='50' height='60'></td>
+                        <td><?= $a->masuk ?></td>
+                        <td><?= $a->keluar ?></td>
+                        <td><?= $a->sisa ?></td>
                         </tr>
                         <?php } ?>
                     </tbody>
@@ -1458,10 +1457,6 @@
             })
         })
     </script>
-
-
-
-
 
 </body>
 

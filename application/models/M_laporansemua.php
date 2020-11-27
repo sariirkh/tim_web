@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_laporanku extends CI_Model
+class M_laporansemua extends CI_Model
 {
 
 
