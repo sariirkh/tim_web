@@ -231,7 +231,7 @@
 
           <li class="nav-item">
             <a href="<?= base_url('Laporan/laporan') ?>" class="nav-link">
-              <i class="nav-icon fas fa-user text-white"></i>
+              <i class="nav-icon fas fa-file-alt text-white"></i>
               <p>
                 Report Masuk
               </p>
@@ -239,9 +239,17 @@
           </li>
           <li class="nav-item">
             <a href="<?= base_url('Laporankeluar/laporan') ?>" class="nav-link">
-              <i class="nav-icon fas fa-user text-white"></i>
+              <i class="nav-icon fas fa-file-alt text-white"></i>
               <p>
                 Report Keluar
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('Laporansemua/laporan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-file-alt text-white"></i>
+              <p>
+                Rekap Barang
               </p>
             </a>
           </li>
