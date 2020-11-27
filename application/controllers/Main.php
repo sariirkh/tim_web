@@ -101,7 +101,7 @@ class Main extends CI_Controller {
 		//$this->fn->addViewCount("Website");
 		//$this->load->view('header',$output);
 		*/
-		redirect("Admin","refresh");
+		redirect("Admin_web","refresh");
 	}
 		
 }
