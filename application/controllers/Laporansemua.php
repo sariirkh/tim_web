@@ -28,13 +28,15 @@ class Laporansemua extends CI_Controller
         // if($jenis <> "null")
         //     $filterQuery .= " AND b.jenis='". $jenis . "' ";
 
-        if($namabarang <> "null")
-            $filterQuery .= " AND brg.nama_barang='" . $namabarang . "' ";
+        //if($namabarang <> "null")
+        //    $filterQuery .= " AND brg.nama_barang='" . $namabarang . "' ";
 
       // echo $filterQuery;
         $data['barang'] = $this->db->query("SELECT 
-        brg.id_barang, 
+        brg.id_barang,
+        brg.tipe_barang,
         brg.nama_barang,
+        brg.des_barang,
         
         CASE 
             WHEN msk.jum IS NULL THEN 0 ELSE msk.jum
@@ -85,8 +87,10 @@ class Laporansemua extends CI_Controller
         $tglakhir = $this->input->post("tglakhir");
         $id = $this->uri->segment(3);
         $data['barang'] = $this->db->query("SELECT 
-        brg.id_barang, 
+        brg.id_barang,
+        brg.tipe_barang,
         brg.nama_barang,
+        brg.des_barang,
         
         CASE 
             WHEN msk.jum IS NULL THEN 0 ELSE msk.jum

@@ -306,9 +306,7 @@ class LaporanNava extends CI_Controller
 			    							   ->from('tb_barangmasuk')
 			    							   ->join('tb_detailmasuk', 'tb_detailmasuk.id_barang_masuk = tb_barangmasuk.id_barang_masuk','inner')
 			    							   ->join('tb_barang', 'tb_barang.id_barang = tb_detailmasuk.id_barang','tb_barang.id_barang=tb_barangkeluar.id_barang','inner')
-											   ->join('tb_barangkeluar','tb_barangkeluar.id_kosong = tb_barangkeluar.id_kosong','inner')
-											   ->join('tb_detailkeluar', 'tb_detailkeluar.id_barang_keluar = tb_barangkeluar.id_barang_keluar','inner')
-			    							   ->join('tb_karyawan','tb_karyawan.id_karyawan = tb_barangkeluar.id_karyawan','inner')
+											   
 											   ->where($where)
 			    							   ->get()
 			    							   ->result();

@@ -25,6 +25,7 @@ class DashboardBarang extends CI_Controller
         $data['barangkeluar'] = $this->M_Dashboardbarang->jum_barangkeluar();
 		$data['karyawan'] = $this->M_Dashboardbarang->jum_karyawan();
 		$data['riwayat'] =$this->M_Dashboardbarang->getHistory()->result();
+		$data['riwayatkeluar'] =$this->M_Dashboardbarang->getHistoryKeluar()->result();
 		$this->load->view('AdmdashboardBarang', $data);
         $this->fn->getfooter();
         
@@ -35,20 +36,18 @@ class DashboardBarang extends CI_Controller
 	}
 	
 
-	public function getKeluar()
+	public function getAllproduct()
 	{
-
-		
 		$this->load->database();
 		$this->load->model('Mmain');
 		$retVal= "";
 		
 		$render = $this->Mmain->qRead("
-								tb_barang
-								id_barang
-								GROUP BY nama_barang
+								tb_barang AS a
+								JOIN tb_loker AS b ON a.id_loker=b.id_loker
+								GROUP BY tipe_barang
 								",
-							"nama_barang as nama,COUNT(nama_barang) as jum");
+							"tipe_barang as nama,COUNT(tipe_barang) as jum");
 
 		if($render->num_rows() > 0 )
 		{
@@ -62,8 +61,6 @@ class DashboardBarang extends CI_Controller
 	
 	public function getBarangkeluar()
 	{
-
-		
 		$this->load->database();
 		$this->load->model('Mmain');
 		$retVal= "";
@@ -73,9 +70,9 @@ class DashboardBarang extends CI_Controller
 								JOIN tb_detailkeluar AS b ON a.id_barang_keluar = b.id_barang_keluar
 								JOIN tb_barang AS c ON b.id_barang = c.id_barang
 								JOIN tb_karyawan AS d ON a.id_karyawan = d.id_karyawan
-								GROUP BY c.nama_barang
+								GROUP BY c.des_barang
 								",
-							"c.nama_barang as nama,COUNT(c.nama_barang) as jum");
+							"c.des_barang as nama,COUNT(c.des_barang) as jum");
 
 		if($render->num_rows() > 0 )
 		{
@@ -89,8 +86,6 @@ class DashboardBarang extends CI_Controller
 
 	public function getBarangmasuk()
 	{
-
-		
 		$this->load->database();
 		$this->load->model('Mmain');
 		$retVal= "";
@@ -99,9 +94,9 @@ class DashboardBarang extends CI_Controller
 								tb_barangmasuk AS a
 								JOIN tb_detailmasuk AS b ON a.id_barang_masuk = b.id_barang_masuk
 								JOIN tb_barang AS c ON b.id_barang = c.id_barang
-								GROUP BY c.nama_barang
+								GROUP BY c.des_barang
 								",
-							"c.nama_barang as nama,COUNT(c.nama_barang) as jum");
+							"c.des_barang as nama,COUNT(c.des_barang) as jum");
 
 		if($render->num_rows() > 0 )
 		{
@@ -114,8 +109,6 @@ class DashboardBarang extends CI_Controller
     
     public function getJumlahperBulan()
 	{
-		
-		
 		//init modal
 		$this->load->database();		
 		$this->load->model('Mmain');

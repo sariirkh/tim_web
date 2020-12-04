@@ -241,30 +241,10 @@
         </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+        <div class="card-body">
+        <h3> Laporan Rekap Barang ATK </h3>
         <form action="<?php echo base_url(); ?>Laporansemua/laporan" method="POST" class="row">
-            <div class="col-md-2">
-                <input class="form-control" name="tglawal" type="date" value="<?php echo isset($_POST['tglawal']) ? $_POST['tglawal'] : date('YYYY-mm-dd') ?>"> 
-            </div>
-            <div style="margin-top: 7px;">sampai</div>
-            <div class="col-md-2">
-                <input class="form-control" name="tglakhir" type="date" value="<?php echo isset($_POST['tglakhir']) ? $_POST['tglakhir'] : date('YYYY-mm-dd') ?>">
-            </div>
-            <div class="col-md-2">
-                <select class="form-control" name="jenis" id="-jenis" required>
-                    <option value="null">Semua</option>
-                    <option value="Stok awal">Stok awal</option>
-                    <option value="Stok akhir">Stok akhir</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select class="form-control" name="nama_barang" id="-nama_barang" required>
-                <option value="null">Semua</option>
-                    <option value="GA00001">GA00001</option>
-                    <option value="Amplop coklat besar">Amplop coklat besar</option>  
-                </select>
-            </div>
-            <input style="margin-right: 10px;" name="submit" type="submit" value="Filter" class="btn btn-info" />
-            <a class="btn btn-info" href="<?php echo base_url(); ?>Laporansemua/laporan">Reset</a>
+            
             <div class="col-md-2">
             <a class="btn btn-success" href="<?php echo base_url(); ?>Laporansemua/cetakRekap">Print</a>
             </div>
@@ -274,11 +254,13 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>ID barang</th>
-                            <th>Nama barang</th>
-                            <th>Masuk</th>
-                            <th>Keluar</th>
-                            <th>Stok</th>
+                            <th>Id Product</th>
+                            <th>Type Product</th>
+                            <th>Name Product</th>
+                            <th>Description Product</th>
+                            <th>In</th>
+                            <th>Out</th>
+                            <th>Stock</th>
                         </tr>
                     </thead>
                     
@@ -288,7 +270,9 @@
                         <tr>
                         <td><?= $no++; ?></td>
                         <td><?= $a->id_barang ?></td>
+                        <td><?= $a->tipe_barang ?></td>
                         <td><?= $a->nama_barang ?></td>
+                        <td><?= $a->des_barang ?></td>
                         <td><?= $a->masuk ?></td>
                         <td><?= $a->keluar ?></td>
                         <td><?= $a->sisa ?></td>
@@ -297,6 +281,7 @@
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">

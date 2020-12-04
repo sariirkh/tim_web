@@ -44,13 +44,15 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>No Transaksi</th>                            
-                            <th>Tanggal Keluar</th>
-                            <th>Jam</th>
-                            <th>Id barang</th>
-                            <th>Nama barang</th>
-                            <th>Nama Karyawan</th>                            
-                            <th>Jumlah</th>
+                            <th>Id Transaction</th>
+                            <th>Date</th>
+                            <th>Clock</th>
+                            <th>Id Product</th>
+                            <th>Type Product</th>
+                            <th>Name Product</th>
+                            <th>Description Product</th>
+                            <th>Employee Name</th>                            
+                            <th>Quantity</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,14 +64,16 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                         <td><?= $a->tanggal_keluar ?></td>
                         <td><?= $a->jam  ?></td>
                         <td><?= $a->id_barang ?></td>
+                        <td><?= $a->tipe_barang ?></td>
                         <td><?= $a->nama_barang ?></td>
+                        <td><?= $a->des_barang ?></td>
                         <td><?= $a->nama_karyawan  ?></td>
                         <td><?= $a->jumlah_keluar  ?></td>
                         
                         </tr>
                         <?php } ?>
                         <tr>
-                            <td class="border-0 font-weight-bold" colspan="7" style="text-align: right;">Total Stok:</td>
+                            <td class="border-0 font-weight-bold" colspan="9" style="text-align: right;">Total Stock:</td>
                             <td class="font-weight-bold"><?php echo '<span class="nominal">'.$brgkeluar.'</span>';?></td>
                         </tr>                       
                     </tbody>

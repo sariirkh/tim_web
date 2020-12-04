@@ -82,11 +82,7 @@
           </div>
           <!-- ./col -->
         </div>
-
-        
-             <!-- PIE CHART PERTAMA -->
-              <!-- Small boxes (Stat box) -->
-              
+            
 
           <!-- PIE CHART KEDUA -->
           <!-- Small boxes (Stat box) -->
@@ -132,8 +128,30 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
-          </div>
-           
+          </div>    
+
+          <!-- PIE CHART ALL PRODUCT -->
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+              <div class="col-12">
+              <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Pie Chart - All Products</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="pieChartAllproduct" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+              
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>     
 
           <!-- SALES CHART -->
             
@@ -181,7 +199,7 @@
        <div class="col-6">
       <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title">Riwayat Barang Terakhir Ditambah</h3>
+                <h3 class="card-title">Riwayat Masuk</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                   </button>
@@ -194,9 +212,11 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">No</th>
-                      <th>Id Barang</th>
-                      <th>Nama Barang</th>
-                      <th>Id Loker</th>
+                      <th>Id Transaction</th>
+                      <th>Id Product</th>
+                      <th>Type Product</th>
+                      <th>Description</th>
+                      <th>Quantity</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -205,9 +225,56 @@
                   ?>
                   <tr>
                     <td><?php echo $no++;?></td>
-                    <td><?php echo $a->id_barang?>
-                    <td><?php echo $a->nama_barang?></td>
-                    <td><?php echo $a->id_loker?></td>
+                    <td><?php echo $a->id_barang_masuk?>
+                    <td><?php echo $a->id_barang?></td>
+                    <td><?php echo $a->tipe_barang?></td>
+                    <td><?php echo $a->des_barang?></td>
+                    <td><?php echo $a->jumlah_masuk?></td>
+                  </tr>
+                      <?php }?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            </div>
+
+             <!-- PRODUCT LIST -->
+            
+       <div class="col-6">
+      <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Riwayat Keluar</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">No</th>
+                      <th>Id Transaction</th>
+                      <th>Id Product</th>
+                      <th>Type Product</th>
+                      <th>Description</th>
+                      <th>Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php $no =1;
+                  foreach($riwayatkeluar as $a){
+                  ?>
+                  <tr>
+                    <td><?php echo $no++;?></td>
+                    <td><?php echo $a->id_barang_keluar?>
+                    <td><?php echo $a->id_barang?></td>
+                    <td><?php echo $a->tipe_barang?></td>
+                    <td><?php echo $a->des_barang?></td>
+                    <td><?php echo $a->jumlah_keluar?></td>
                   </tr>
                       <?php }?>
                   </tbody>

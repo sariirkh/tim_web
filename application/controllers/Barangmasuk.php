@@ -37,13 +37,12 @@ class Barangmasuk extends CI_Controller
 						";
 	var $fieldQuery="
 						a.id_barang_masuk,
-						c.nama_barang,
+						c.des_barang,
 						a.tanggal_masuk,
 						b.jam,
 					    b.jumlah_masuk,
 						b.satuan,
 						b.jenis,
-						a.catatan,
 						a.bukti_terima
 						"; //leave blank to show all field
 						
@@ -67,7 +66,7 @@ class Barangmasuk extends CI_Controller
                                     "Jumlah",
 									"Satuan",
 									"Jenis",																
-									"Catatan",
+									//"Catatan",
 									"Bukti Barang"
 									);
 	
@@ -81,7 +80,7 @@ class Barangmasuk extends CI_Controller
 									"Jumlah",
 									"Satuan",
 									"Jenis",																	
-									"Catatan",
+									//"Catatan",
 									"Bukti Barang"
 									);
 	
@@ -198,8 +197,8 @@ class Barangmasuk extends CI_Controller
 
 			//menambahakan foto
 			$imgTemp="<h5><i>Click browse to change image</i></h5>
-			<img src='".base_url()."/assets/poto/".$txtVal[8]."' height='200px' width='auto'>
-			<input type='hidden' name='txtfl' value='".$txtVal[8]."'>";
+			<img src='".base_url()."/assets/poto/".$txtVal[7]."' height='200px' width='auto'>
+			<input type='hidden' name='txtfl' value='".$txtVal[7]."'>";
 			
 		}
 		else
@@ -213,13 +212,13 @@ class Barangmasuk extends CI_Controller
 				$txtVal[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
 				$txtVal[2] = date("Y-m-d");
 				$txtVal[3] = date("H:i:s", time()+(60*60*6));
-				$imgTemp="<input type='hidden' name='txt[]' value='".$txtVal[8]."'>";
+				$imgTemp="<input type='hidden' name='txt[]' value='".$txtVal[7]."'>";
 	
 		}
 		
 		// $cboacc=$this->fn->createCbofromDb("tb_acc","id_acc as id,nm_acc as nm","",$txtVal[58],"","txtUser[]");
 		// Combobox gabungan
-		$cboID=$this->fn->createCbofromDb("tb_barang","id_barang as id,nama_barang as nm","",$txtVal[1],"","txt[]");
+		$cboID=$this->fn->createCbofromDb("tb_barang","id_barang as id,des_barang as nm","",$txtVal[1],"","txt[]");
 		
 		// combobox statis
 		$cboSatuan=$this->fn->createCbo(array('Pcs','Box','Unit'),array('Pcs','Box','Unit'),$txtVal[5]);
@@ -233,7 +232,7 @@ class Barangmasuk extends CI_Controller
 								"<input type='text' class='form-control' autocomplete=off id='txtJumlahMasuk' name=txt[] value='".$txtVal[4]."' required placeholder='' maxlength='70'>",
 								$cboSatuan,
 								$cboJenis,
-								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[7]."' required placeholder='Ex: Masuk senin etc.' maxlength='20'>",
+								//"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[7]."' required placeholder='Ex: Masuk senin etc.' maxlength='20'>",
 								$imgTemp."<input type='file' class='form-control fileupload' id='txtid23' name=txtfl >"
 									
 							);
@@ -275,7 +274,7 @@ class Barangmasuk extends CI_Controller
 				{
 						$avauser="def.jpg";
 				}
-		$savValTemp[8]=$avauser;
+		$savValTemp[7]=$avauser;
 		//$this->Mmain->qIns($this->mainTable,$savValTemp);
 		
 
@@ -283,8 +282,8 @@ class Barangmasuk extends CI_Controller
 		$bahanSimpanMasuk = Array(
 										$savValTemp[0], //id brg masuk
 										$savValTemp[2], //tgl masuk																	
-										$savValTemp[7], //catatan										
-										$savValTemp[8], //bukti foto
+										//$savValTemp[7], //catatan										
+										$savValTemp[7] //bukti foto sebelumnya 8
 									);
 		$this->Mmain->qIns($this->mainTable,$bahanSimpanMasuk);
 									

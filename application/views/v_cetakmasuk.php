@@ -78,16 +78,17 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                 <tbody>
                 <thead>
                         <tr>
-                            <th>No</th>
-                            <th>No Transaksi</th>
-                            <th>Tanggal Masuk</th>
-                            <th>Jam</th>
-                            <th>Id barang</th>
-                            <th>Nama barang</th>
-                            <th>Satuan</th>
-                            <th>Jenis</th>                            
-                            <th>Jumlah</th>
-                            
+                        <th>No</th>
+                            <th>Id Transaction</th>
+                            <th>Date</th>
+                            <th>Clock</th>
+                            <th>Id Product</th>
+                            <th>Type Product</th>
+                            <th>Name Product</th>
+                            <th>Description Product</th>
+                            <th>Unit</th>
+                            <th>Type</th>
+                            <th>Quantity</th>
                         </tr>
                     </thead>
                     
@@ -100,14 +101,16 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                         <td><?= $a->tanggal_masuk  ?></td>
                         <td><?= $a->jam  ?></td>
                         <td><?= $a->id_barang ?></td>
+                        <td><?= $a->tipe_barang ?></td>
                         <td><?= $a->nama_barang ?></td>
+                        <td><?= $a->des_barang ?></td>
                         <td><?= $a->satuan  ?></td>
                         <td><?= $a->jenis  ?></td>                        
                         <td><?= $a->jumlah_masuk  ?></td>
                         </tr>
                         <?php } ?>
                         <tr>
-                            <td class="border-0 font-weight-bold" colspan="8" style="text-align: right;">Total Stok:</td>
+                            <td class="border-0 font-weight-bold" colspan="10" style="text-align: right;">Total Stock:</td>
                             <td class="font-weight-bold"><?php echo '<span class="nominal">'.$brgmasuk.'</span>';?></td>
                         </tr>
                     </tbody>

@@ -31,44 +31,52 @@ class Barang extends CI_Controller
 	//query
 	var $ordQuery=" ORDER BY id_barang DESC ";
 	var $tableQuery="
-						tb_barang
+						tb_barang AS a INNER JOIN tb_loker AS b WHERE a.id_loker=b.id_loker
 						";
 	var $fieldQuery="
-						id_barang,
-						nama_barang,
-						stok_barang,
-						id_loker
+						a.id_barang,
+						a.addt_barang,
+						a.tipe_barang,
+						a.nama_barang,
+						a.des_barang,
+						a.stok_barang,
+						b.nama_loker
 						
 						"; //leave blank to show all field  ... 0 as aksi
 						
 	var $primaryKey="id_barang";
 	//var $detKey="nik";
-	var $updateKey="id_barang";
+	var $updateKey="a.id_barang";
 	
 	//auto generate id
 	//sesuaikan panjangnya length di database
-	var $defaultId="GA00001";
-	var $prefix="GA";
-	var $suffix="00001";	
+	// var $defaultId="GS-20110001";
+	// var $prefix="GS-";
+	// var $suffix="200110001";	
 	
 	//view
 	var $viewFormTitle="Data Barang";
 	var $viewFormTableHeader=array(
-									"Id Barang",
-									"Nama Barang",
-									"Stok",
-									"Loker"
+									"Product Code",
+									"Additional Code",
+									"Product Type",
+									"Product Name",
+									"Product Description",
+									"Stock",
+									"Locker"
 									//"Aksi"
 									);
 	
 	//save
 	var $saveFormTitle="Tambah Barang";
 	var $saveFormTableHeader=array(
-									"Id Barang",
-									"Nama Barang",
-									"Stok",
-									"Loker"
-
+									"Product Code",
+									"Additional Code",
+									"Product Type",
+									"Product Name",
+									"Product Description",
+									"Stock",
+									"Locker"
 									);
 	
 	//update
@@ -192,19 +200,19 @@ class Barang extends CI_Controller
 				}	
 				
 				//generate id
-				$txtVal[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
+				//$txtVal[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
 				
 	
 		}
-		$cboLoker=$this->fn->createCbofromDb("tb_loker","id_loker as id, concat(id_loker ,' - ',nama_loker) as nm","",$txtVal[3],"","txt[]");
-		
-		$cboSatuan=$this->fn->createCbo(array('Pcs','Box','Unit'),array('Pcs','Box','Unit'),$txtVal[3]);
-		$cboJenis=$this->fn->createCbo(array('Stok awal','Stok akhir'),array('Stok awal','Stok akhir'),$txtVal[3]);
+		$cboLoker=$this->fn->createCbofromDb("tb_loker","id_loker as id, concat(nama_loker ,' - ',id_loker) as nm","",$txtVal[6],"","txt[]");
 		
 		$output['formTxt']=array(
-								"<input type='text' class='form-control' id='txtIdBarang' name=txt[] value='".$txtVal[0]."' required readonly placeholder='' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtNamaBarang' name=txt[] value='".$txtVal[1]."' required placeholder='' maxlength='70'>",
-								"<input type='text' class='form-control' autocomplete=off id='txtStokBarang' name=txt[] value='".$txtVal[2]."' required placeholder='-' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtIdBarang' name=txt[] value='".$txtVal[0]."' required placeholder='' maxlength='11'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtAddtBarang' name=txt[] value='".$txtVal[1]."' required placeholder='' maxlength='11'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtTipeBarang' name=txt[] value='".$txtVal[2]."' required placeholder='' maxlength='50'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtNamaBarang' name=txt[] value='".$txtVal[3]."' required placeholder='' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtDesBarang' name=txt[] value='".$txtVal[4]."' required placeholder='' maxlength='70'>",
+								"<input type='text' class='form-control' autocomplete=off id='txtStokBarang' name=txt[] value='".$txtVal[5]."' required placeholder='-' maxlength='11'>",
 								$cboLoker
 							);
 		

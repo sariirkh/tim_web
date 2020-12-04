@@ -29,8 +29,9 @@ class M_Dashboardbarang extends CI_Model{
         }
     }
 
-    public function jum_barangmasuk(){   
-        $query = $this->db->get('tb_barangmasuk');
+    public function jum_barangmasuk(){
+        $tgl = date("Y-m-d");   
+        $query = $this->db->get("tb_barangmasuk WHERE tanggal_masuk = '$tgl'");
         if($query->num_rows()>0)
         {
             return $query->num_rows();
@@ -42,7 +43,8 @@ class M_Dashboardbarang extends CI_Model{
     }
 
     public function jum_barangkeluar(){   
-        $query = $this->db->get('tb_barangkeluar');
+        $tgl = date("Y-m-d");   
+        $query = $this->db->get("tb_barangkeluar WHERE tanggal_keluar = '$tgl'");
         if($query->num_rows()>0)
         {
             return $query->num_rows();
@@ -67,7 +69,12 @@ class M_Dashboardbarang extends CI_Model{
     }
 
     public function getHistory(){
-        $query = $this->db->query("SELECT id_barang, nama_barang, id_loker FROM tb_barang JOIN tb_loker USING(id_loker) ORDER BY id_barang DESC");
+        $query = $this->db->query("SELECT id_barang_masuk, id_barang, tipe_barang, nama_barang, des_barang, jumlah_masuk FROM tb_detailmasuk JOIN tb_barangmasuk USING(id_barang_masuk) JOIN tb_barang USING(id_barang) ORDER BY id_barang_masuk DESC LIMIT 5");
+        return $query;
+    }
+
+    public function getHistoryKeluar(){
+        $query = $this->db->query("SELECT id_barang_keluar, id_barang, tipe_barang, nama_barang, des_barang, jumlah_keluar FROM tb_detailkeluar JOIN tb_barangkeluar USING(id_barang_keluar) JOIN tb_barang USING(id_barang) ORDER BY id_barang_keluar DESC LIMIT 5");
         return $query;
     }
 

@@ -241,6 +241,7 @@
         </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+        <div class="card-body">
         <form action="<?php echo base_url(); ?>Laporankeluar/laporan" method="POST" class="row">
             <div class="col-md-2">
                 <input class="form-control" name="tglawal" type="date" value="<?php echo isset($_POST['tglawal']) ? $_POST['tglawal'] : date('YYYY-mm-dd') ?>"> 
@@ -252,8 +253,16 @@
             <div class="col-md-2">
                 <select class="form-control" name="nama_barang" id="-nama_barang" required>
                     <option value="null">Semua</option>
-                    <option value="Amplop uk.110x230">Amplop uk.110x230</option>
+                    <option value="Amplop uk. 110x230">Amplop uk.110x230</option>
+                    <option value="Amplop uk. 114 x 162">Amplop uk. 114 x 162</option>
+                    <option value="Amplop uk. 152 x 90">Amplop uk. 152 x 90</option>
+                    <option value="Map Amplop coklat sedang">Map Amplop coklat sedang</option>
                     <option value="Amplop coklat besar">Amplop Coklat besar</option>
+                    <option value="Baterai 9 Volt">Baterai 9 Volt</option>
+                    <option value="Baterai lithium 3 Volt">Baterai lithium 3 Volt</option>
+                    <option value="Baterai AA">Baterai AA</option>
+                    <option value="Baterai AAA">Baterai AAA</option>
+                    <option value="Tanda terima">Tanda terima</option>
                 </select>
             </div>
             <input style="margin-right: 10px;" name="submit" type="submit" value="Filter" class="btn btn-info" />
@@ -267,15 +276,17 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>No Transaksi</th>                            
-                            <th>Tanggal Keluar</th>
-                            <th>Jam</th>
-                            <th>Id barang</th>
-                            <th>Nama barang</th>
-                            <th>Jumlah</th>
-                            <th>Nama Karyawan</th>
-                            <th>Catatan</th>
-                            <th>TTD</th>
+                            <th>Id Transaction</th>
+                            <th>Date</th>
+                            <th>Clock</th>
+                            <th>Id Product</th>
+                            <th>Type Product</th>
+                            <th>Name Product</th>
+                            <th>Description Product</th>
+                            <th>Quantity</th>
+                            <th>Employee Name</th>
+                            <th>Note</th>
+                            <th>Signature Digital</th>
                         </tr>
                     </thead>
                     
@@ -288,7 +299,9 @@
                         <td><?= $a->tanggal_keluar ?></td>
                         <td><?= $a->jam  ?></td>
                         <td><?= $a->id_barang ?></td>
+                        <td><?= $a->tipe_barang ?></td>
                         <td><?= $a->nama_barang ?></td>
+                        <td><?= $a->des_barang ?></td>
                         <td><?= $a->jumlah_keluar  ?></td>
                         <td><?= $a->nama_karyawan  ?></td>
                         <td><?= $a->catatan  ?></td>
@@ -298,6 +311,7 @@
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">

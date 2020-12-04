@@ -79,12 +79,14 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                 <tbody>
                 <thead>
                         <tr>
-                        <th>No</th>
-                            <th>ID barang</th>
-                            <th>Nama barang</th>
-                            <th>Masuk</th>
-                            <th>Keluar</th>
-                            <th>Stok</th>
+                            <th>No</th>
+                            <th>Id Product</th>
+                            <th>Type Product</th>
+                            <th>Name Product</th>
+                            <th>Description Product</th>
+                            <th>In</th>
+                            <th>Out</th>
+                            <th>Stock</th>
                         </tr>
                     </thead>
                     
@@ -94,14 +96,16 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                         <tr>
                         <td><?= $no++; ?></td>
                         <td><?= $a->id_barang ?></td>
+                        <td><?= $a->tipe_barang ?></td>
                         <td><?= $a->nama_barang ?></td>
+                        <td><?= $a->des_barang ?></td>
                         <td><?= $a->masuk ?></td>
                         <td><?= $a->keluar ?></td>
                         <td><?= $a->sisa ?></td>
                         </tr>
                         <?php } ?>
                         <tr>
-                            <td class="border-0 font-weight-bold" colspan="5" style="text-align: right;">Total Stok:</td>
+                            <td class="border-0 font-weight-bold" colspan="7" style="text-align: right;">Total Stock:</td>
                             <td class="font-weight-bold"><?php echo '<span class="nominal">'.$totalbrg.'</span>';?></td>
                         </tr>
                     </tbody>
