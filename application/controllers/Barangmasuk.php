@@ -370,7 +370,7 @@ class Barangmasuk extends CI_Controller
 		redirect($this->viewLink,'refresh');		
 	}
 	
-	
+	//bismillah
 }
 
 ?>
