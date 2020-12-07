@@ -379,7 +379,8 @@ class Pelamar extends CI_Controller
 		$savValTemp[]=$avauser;
 		//echo implode("<br>",$savValTemp);
 		//foreach($savValTemp as $i=>$dt) echo ($i) . " " . $dt."<br>";
-
+		$savValTemp[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
+			
 		$this->Mmain->qIns($this->mainTable,$savValTemp);
 		
 		$this->session->set_flashdata('successNotification', '1');
