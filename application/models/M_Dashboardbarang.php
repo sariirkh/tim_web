@@ -30,8 +30,7 @@ class M_Dashboardbarang extends CI_Model{
     }
 
     public function jum_barangmasuk(){
-        $tgl = date("Y-m-d");   
-        $query = $this->db->get("tb_barangmasuk WHERE tanggal_masuk = '$tgl'");
+        $query = $this->db->get('tb_barangmasuk');
         if($query->num_rows()>0)
         {
             return $query->num_rows();
@@ -40,11 +39,11 @@ class M_Dashboardbarang extends CI_Model{
         {
             return 0;
         }
+
     }
 
     public function jum_barangkeluar(){   
-        $tgl = date("Y-m-d");   
-        $query = $this->db->get("tb_barangkeluar WHERE tanggal_keluar = '$tgl'");
+        $query = $this->db->get('tb_barangkeluar');
         if($query->num_rows()>0)
         {
             return $query->num_rows();
@@ -53,6 +52,7 @@ class M_Dashboardbarang extends CI_Model{
         {
             return 0;
         }
+
     }
 
     public function jum_karyawan(){   

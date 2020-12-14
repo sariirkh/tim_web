@@ -14,7 +14,18 @@
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
-    
+
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+            <input class="form-control" name="tglawal" type="date" value="<?php echo isset($_POST['tglawal']) ? $_POST['tglawal'] : date('YYYY-mm-dd') ?>"> 
+        </div>
+      <div style="margin-top: 7px;">sampai</div>
+        <div class="col-md-3">
+            <input class="form-control" name="tglakhir" type="date" value="<?php echo isset($_POST['tglakhir']) ? $_POST['tglakhir'] : date('YYYY-mm-dd') ?>">
+        </div>
+      </div>
+      </div>
     <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">

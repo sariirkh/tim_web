@@ -45,9 +45,9 @@ class Karyawan extends CI_Controller
 	
 	//auto generate id
 	//sesuaikan panjangnya length di database
-	var $defaultId="K01";
-	var $prefix="K";
-	var $suffix="01";	
+	// var $defaultId="K01";
+	// var $prefix="K";
+	// var $suffix="01";	
 	
 	//view
 	var $viewFormTitle="Data Karyawan";
@@ -184,7 +184,7 @@ class Karyawan extends CI_Controller
 				}	
 				
 				//generate id
-				$txtVal[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
+				//$txtVal[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
 				
 	
 		}
@@ -194,9 +194,9 @@ class Karyawan extends CI_Controller
 		
 		
 		$output['formTxt']=array(
-								"<input type='text' class='form-control' id='txtIdKaryawan' name=txt[] value='".$txtVal[0]."' required readonly placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' id='txtNamaKaryawan' name=txt[] value='".$txtVal[1]."' required placeholder='Max. 70 karakter' maxlength='70'>",
-								"<input type='text' class='form-control' id='txtDivisi' name=txt[] value='".$txtVal[2]."' required placeholder='Max. 70 karakter' maxlength='70'>"
+								"<input type='text' class='form-control' id='txtIdKaryawan' name=txt[] value='".$txtVal[0]."' required placeholder='Ex: K01' maxlength='70'>",
+								"<input type='text' class='form-control' id='txtNamaKaryawan' name=txt[] value='".$txtVal[1]."' required placeholder='Max. 30 karakter' maxlength='70'>",
+								"<input type='text' class='form-control' id='txtDivisi' name=txt[] value='".$txtVal[2]."' required placeholder='Max. 50 karakter' maxlength='70'>"
 								
 							);
 		

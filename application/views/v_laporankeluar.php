@@ -253,16 +253,57 @@
             <div class="col-md-2">
                 <select class="form-control" name="nama_barang" id="-nama_barang" required>
                     <option value="null">Semua</option>
-                    <option value="Amplop uk. 110x230">Amplop uk.110x230</option>
-                    <option value="Amplop uk. 114 x 162">Amplop uk. 114 x 162</option>
-                    <option value="Amplop uk. 152 x 90">Amplop uk. 152 x 90</option>
-                    <option value="Map Amplop coklat sedang">Map Amplop coklat sedang</option>
-                    <option value="Amplop coklat besar">Amplop Coklat besar</option>
-                    <option value="Baterai 9 Volt">Baterai 9 Volt</option>
-                    <option value="Baterai lithium 3 Volt">Baterai lithium 3 Volt</option>
-                    <option value="Baterai AA">Baterai AA</option>
-                    <option value="Baterai AAA">Baterai AAA</option>
-                    <option value="Tanda terima">Tanda terima</option>
+                    <option value="Amplop">Amplop</option>
+                    <option value="Baterai">Baterai</option>
+                    <option value="Buku">Buku</option>
+                    <option value="Clips">Clips</option>
+                    <option value="Tip-x">Tip-x</option>
+                    <option value="Cutter">Cutter</option>
+                    <option value="Ear Plug">Ear Plug</option>
+                    <option value="Gunting">Gunting</option>
+                    <option value="Higlighter">Higlighter</option>
+                    <option value="Puncher">Puncher</option> 
+                    <option value="Refill Stapler">Refill Stapler</option> 
+                    <option value="Kapur">Kapur</option> 
+                    <option value="Kertas">Kertas</option> 
+                    <option value="Stiker Label">Stiker Label</option> 
+                    <option value="Lem">Lem</option> 
+                    <option value="Refill Lem">Refill Lem</option> 
+                    <option value="Mading Magnet">Mading Magnet</option> 
+                    <option value="Map">Map</option> 
+                    <option value="Penggaris">Penggaris</option> 
+                    <option value="Penghapus">Penghapus</option> 
+                    <option value="Pensil">Pensil</option> 
+                    <option value="Refill Typewriter">Refill Typewriter</option> 
+                    <option value="Plastik">Plastik</option> 
+                    <option value="Gembok">Gembok</option> 
+                    <option value="Name Tag">Name Tage</option> 
+                    <option value="Sarung Tangan">Sarung Tangan</option> 
+                    <option value="Celurit">Celurit</option> 
+                    <option value="ID Card Tag">ID Card Tag</option> 
+                    <option value="Ako">Ako</option> 
+                    <option value="Tali">Tali</option> 
+                    <option value="Pita Printer">Pita Printer</option> 
+                    <option value="Bolpoin">Bolpoin</option> 
+                    <option value="Rautan">Rautan</option> 
+                    <option value="Refill Cutter">Refill Cutter</option> 
+                    <option value="Refill Pensil">Refill Pensil</option> 
+                    <option value="Refill Spidol">Refill Spidol</option> 
+                    <option value="Refill Stamp">Refill Stamp</option> 
+                    <option value="Spidol">Spidol</option> 
+                    <option value="Stapler">Stapler</option>
+                    <option value="Sign">Sign</option>
+                    <option value="Stamp">Stamp</option>
+                    <option value="Sticky Note">Sticky Note</option>
+                    <option value="Tape">Tape</option>
+                    <option value="Tape Dispenser">Tape Dispenser</option>
+                    <option value="Materai">Materai</option>
+                    <option value="Push Pin">Push Pin</option>
+                    <option value="Penjepit">Penjepit</option>
+                    <option value="Pembatas Ordner">Pembatas Ordner</option>
+                    <option value="Meja">Meja</option>
+                    <option value="Kursi">Kursi</option>
+
                 </select>
             </div>
             <input style="margin-right: 10px;" name="submit" type="submit" value="Filter" class="btn btn-info" />
@@ -278,7 +319,7 @@
                             <th>No</th>
                             <th>Id Transaction</th>
                             <th>Date</th>
-                            <th>Clock</th>
+                            <th>Time</th>
                             <th>Id Product</th>
                             <th>Type Product</th>
                             <th>Name Product</th>
@@ -286,7 +327,7 @@
                             <th>Quantity</th>
                             <th>Employee Name</th>
                             <th>Note</th>
-                            <th>Signature Digital</th>
+                            <th>Signature</th>
                         </tr>
                     </thead>
                     

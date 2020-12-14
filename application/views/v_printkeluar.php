@@ -95,7 +95,7 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
                 </thead>
             <tbody>
                 <?php
-                if (empty($transaksi)) {
+                if (empty($barang)) {
                 ?>
                 <tr>
                     <td colspan="6" class="font-weight-bold" align="center">TIDAK ADA DATA TRANSAKSI</td>
@@ -106,7 +106,7 @@ Website : http://www.ptmdr.co.id Email : info@ptmdr.co.id </div></td>
 
                 <?php
                 $no = 1;
-                foreach ($transaksi as $a) {
+                foreach ($barang as $a) {
                 ?>
                 <tr>
                     <td><?php echo $no++ ?></td>

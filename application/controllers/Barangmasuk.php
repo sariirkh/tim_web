@@ -60,28 +60,28 @@ class Barangmasuk extends CI_Controller
 	var $viewFormTitle="Data ATK Masuk";
 	var $viewFormTableHeader=array(
 									"No Transaksi",
-									"Nama Barang",
-									"Tanggal Masuk",
-									"Jam",
-                                    "Jumlah",
-									"Satuan",
-									"Jenis",																
+									"Product Description",
+									"Date",
+									"Tim",
+                                    "Quantity",
+									"Unit",
+									"Order Type",																
 									//"Catatan",
-									"Bukti Barang"
+									"Picture"
 									);
 	
 	//save
 	var $saveFormTitle="Tambah ATK Masuk";
 	var $saveFormTableHeader=array(
 									"No Transaksi",							
-									"Nama barang",
-									"Tanggal Masuk",
-									"Jam",
-									"Jumlah",
-									"Satuan",
-									"Jenis",																	
+									"Product Description",
+									"Date",
+									"Time",
+									"Quantity",
+									"Unit",
+									"Order Type",																	
 									//"Catatan",
-									"Bukti Barang"
+									"Picture"
 									);
 	
 	//update
@@ -370,7 +370,7 @@ class Barangmasuk extends CI_Controller
 		redirect($this->viewLink,'refresh');		
 	}
 	
-	//bismillah
+	
 }
 
 ?>
