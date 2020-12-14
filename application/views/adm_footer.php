@@ -1576,6 +1576,265 @@ function pieChartMasuk()
 
 </script>
 
+<script type="text/javascript">
+
+  	if($("#pieChartAllproduct"))
+	  pieChartAllproduct();
+  
+  	function pieChartAllproduct()
+  {
+	  //alert();
+	 // alert();
+	
+	//-------------
+	//- PIE CHART ALL PRODUCTS -
+	//-------------
+	// Get context with jQuery - using jQuery's .get() method.
+	
+  		//alert();
+
+		$.ajax({
+		url:"<?= site_url()?>DashboardBarang/getAllproduct",
+		success:function(s)
+		{
+			//alert(s);
+			var pieValue=new Array();	
+			var pieColor = new Array();
+			var colorPallette=new Array(
+									"#af460f",
+									"#fe8761",
+									"#fed39f",
+									"#d3f4ff",
+									"#52de97",
+									"#c9b6e4",
+									"#ede59a",
+									"#bbded6",
+									"#ff6464",
+									"#916dd5",
+									"#2c786c",
+									'#808080',
+									"#af460f",
+									"#fe8761",
+									"#fed39f",
+									"#d3f4ff",
+									"#52de97",
+									"#c9b6e4",
+									"#ede59a",
+									"#bbded6",
+									"#ff6464",
+									"#916dd5",
+									"#2c786c",
+									'#808080',
+									"#af460f",
+									"#fe8761",
+									"#fed39f",
+									"#d3f4ff",
+									"#52de97",
+									"#c9b6e4",
+									"#ede59a",
+									"#bbded6",
+									"#ff6464",
+									"#916dd5",
+									"#2c786c",
+									'#808080',
+									"#af460f",
+									"#fe8761",
+									"#fed39f",
+									"#d3f4ff",
+									"#52de97",
+									"#c9b6e4",
+									"#ede59a",
+									"#bbded6",
+									"#ff6464",
+									"#916dd5",
+									"#2c786c",
+									'#808080',
+									"#af460f",
+									"#fe8761",
+									"#fed39f",
+									"#d3f4ff",
+									"#52de97",
+									"#c9b6e4",
+									"#ede59a",
+									"#bbded6",
+									"#ff6464",
+									"#916dd5",
+									"#2c786c",
+									'#808080',
+									);
+			var pieLabel=new Array();
+			
+			var dataAll=s.split("||");
+		
+			
+			
+			for(var i=0;i<dataAll.length;i++)
+			{
+				
+				var dt=dataAll[i].split("++");
+				pieLabel[i]=dt[0];
+				pieValue[i]=dt[1];
+				pieColor[i]=colorPallette[i];
+			}
+			
+			
+		var pieOptions = {
+		legend: {
+			display:false
+		},tooltips: {
+			display:true
+		},
+		plugins:{
+		  labels: [
+		  {
+			render: 'percentage',
+			fontColor: "black",
+			precision: 1
+		  },
+		  {
+			render: 'label',
+			fontColor: "black",
+			position: 'outside',
+        outsidePadding: 10
+		  }
+		  ]
+		}
+		};
+
+		var pie = document.getElementById('pieChartAllproduct').getContext('2d');
+		var myChart = new Chart(pie, {
+			type: 'doughnut',
+			data: {
+				datasets: [{
+					data: pieValue,
+				backgroundColor: pieColor,
+				
+				}],
+				labels: pieLabel
+			},
+			options: pieOptions
+		});
+		/*
+		  
+		$("#pieChart").click( 
+			function(evt){
+				var activePoints = myChart.getElementsAtEvent(evt)[0];
+				var leaveType = activePoints._view.label;
+				var url = "<?= site_url();?>Vacation?type=" + leaveType.replace(/ /g,"_")+"&year="+year;
+				location.href=url;
+				//console.log(activePoints._view.label);
+			}
+		); 
+			*/
+			
+		},
+		error: function(xhr, status, error) {
+		//var err = eval("(" + xhr.responseText + ")");
+		console.log(xhr.responseText);
+		}
+		});
+	}
+  //-----------------
+  //- END PIE CHART ALL PRODUCTS -
+  //-----------------
+
+    </script>
+
+<script type="text/javascript">
+		//alert("as");
+		if( $("#barChartATK") )
+		salesChar2t();
+		
+		function salesChar2t()
+		{
+		//alert("asd");
+		'use strict';
+		//-----------------------
+		//- MONTHLY ABSENCE CHART -
+		//-----------------------
+
+		// Get context with jQuery - using jQuery's .get() method.
+		//var salesChartCanvas = $("#barChart").get(0).getContext("2d");
+		// This will get the first returned node in the jQuery collection.
+		//var salesChart = new Chart(salesChartCanvas);
+
+		$.ajax({
+			url:"<?= site_url()?>DashboardBarang/getJumlahperBulan",
+			success:function(s)
+			{
+
+				//alert(s);
+				var label=new Array();
+				var data1=new Array();
+				//var dataAll=s.split("##");
+				
+				var dataReturn=s.split("||");
+				//last year
+				for(var i=0;i<dataReturn.length;i++)
+				{
+					
+					var dt=dataReturn[i].split("++");
+					label[i]=dt[0];
+					data1[i]=dt[1];
+				}
+				
+				//alert(data1);
+				//change label name
+				var ctx = document.getElementById('barChartATK').getContext('2d');
+				var myChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: label,
+						datasets: [{
+							label: 'Jumlah',
+							data: data1,
+							backgroundColor: [
+								'rgba(255, 99, 132, 0.2)',
+								'rgba(54, 162, 235, 0.2)',
+								'rgba(255, 206, 86, 0.2)',
+								'rgba(75, 192, 192, 0.2)',
+								'rgba(153, 102, 255, 0.2)',
+								'rgba(255, 159, 64, 0.2)'
+								
+								
+							],
+							borderColor: [
+								'rgba(255, 99, 132, 1)',
+								'rgba(54, 162, 235, 1)',
+								'rgba(255, 206, 86, 1)',
+								'rgba(75, 192, 192, 1)',
+								'rgba(153, 102, 255, 1)',
+								'rgba(255, 159, 64, 1)'
+							],
+							borderWidth: 1
+						}]
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true
+								}
+							}]
+						}
+					}
+				});
+				
+			},
+			error : function(a,b,c)
+			{
+				alert(c);
+			}
+		});
+		}
+
+		//---------------------------
+		//- END MONTHLY SALES CHART Barang-
+		//---------------------------
+
+		</script>
+	
+
 		<script type="text/javascript">
 		//alert("as");
 		if( $("#barChart") )
