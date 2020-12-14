@@ -298,7 +298,7 @@ class Pelamar extends CI_Controller
 	$cboAgama=$this->fn->createCbo(array('Islam','Kristen','Katholik','Hindu','Budha','Kong Hu Chu'),array('Islam','Kristen','Katholik','Hindu','Budha','Kong Hu Chu'),$txtVal[8]);	
 	$cboStatus=$this->fn->createCbo(array('Single','Married'),array('Single','Married'),$txtVal[10]);
 	$cboStatusLowongan=$this->fn->createCbo(array('Open'),array('Open'),$txtVal[19]);
-	$cboTahapan=$this->fn->createCbo(array('Mendaftar'),array('Mendaftar'),$txtVal[20]);
+	$cboTahapan=$this->fn->createCbo(array('Mendaftar','Gagal'),array('Mendaftar','Gagal'),$txtVal[20]);
 	$cboPendidikanTerakhir=$this->fn->createCbo(array('SD','SMP','SMA/MA','SMK','D1','D2','D3','D4','S1','S2','S3'),array('SD','SMP','SMA/MA','SMK','D1','D2','D3','D4','S1','S2','S3'),$txtVal[11]);
 
 	$cboLoker=$this->fn->createCbofromDb("tb_cr","id_cr as id, title_cr as nm","",$txtVal[18],"","txt[]");
@@ -379,7 +379,8 @@ class Pelamar extends CI_Controller
 		$savValTemp[]=$avauser;
 		//echo implode("<br>",$savValTemp);
 		//foreach($savValTemp as $i=>$dt) echo ($i) . " " . $dt."<br>";
-
+		$savValTemp[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
+			
 		$this->Mmain->qIns($this->mainTable,$savValTemp);
 		
 		$this->session->set_flashdata('successNotification', '1');

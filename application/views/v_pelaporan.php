@@ -46,18 +46,18 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/css/datepicker.css" type="text/css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/clockpicker.css" type="text/css">
 <!--
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-	
-	
-	 
+    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    
+    
+     
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/dist/css/AdminLTE.css" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/dist/css/skins/_all-skins.min.css" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/summernote/dist/summernote.css" type="text/css">
-	-->
+    -->
 
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/select2/select2.min.css" type="text/css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/fileinput/css/fileinput.css" type="text/css">
@@ -101,7 +101,7 @@
             <span class="float-right text-muted text-sm">3 mins</span>
           </a>
           <div class="dropdown-divider"></div>
-		  
+          
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
@@ -111,7 +111,7 @@
           <i class="fas fa-th-large"></i>
         </a>
       </li>
-	  -->
+      -->
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -201,9 +201,17 @@
 
                         <li class="nav-item">
                             <a href="<?= base_url('Pelaporan/pelaporan') ?>" class="nav-link">
-                            <i class="nav-icon fas fa-user text-white"></i>
+                            <i class="nav-icon fas fa-address-book text-white"></i>
                                 <p>
                                     Laporan Pelamar
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Cetak_data') ?>" class="nav-link">
+                            <i class="nav-icon fas fa-print text-white"></i>
+                                <p>
+                                    Cetak Data
                                 </p>
                             </a>
                         </li>
@@ -222,9 +230,11 @@
             <!-- /.sidebar -->
         </aside>
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper"><br>
+        <div class="content-wrapper">
+        <div class="card-body">
+        <h2> Report Data Pelamar</h2><br>
         <form action="<?php echo base_url(); ?>Pelaporan/pelaporan" method="POST" class="row">
-            <div class="col-md-2" style="margin-left:10px; margin-right:10px">
+            <div class="col-md-2">
                 <input class="form-control" name="tglawal" type="date" value="<?php echo isset($_POST['tglawal']) ?  $_POST['tglawal'] : date('YYYY-mm-dd') ?>">
             </div>
             <div style="margin-right: 7px; margin-top: 8px">sampai</div>
@@ -277,13 +287,10 @@
             </div>
             <input style="margin-right: 10px;" name="submit" type="submit" value="Filter" class="btn btn-info" />
             <a class="btn btn-info" href="<?php echo base_url(); ?>Pelaporan/pelaporan">Reset</a>
-            <div class="col-md-2">
-            <a class="btn btn-success" href="<?= base_url(); ?>Pelaporan/print">Print</a>
-            </div>
+            
         </form>
-
         <form action="" method="POST">
-            <div class="table-responsive" style="margin-left:10px; margin-right:20px"><br>
+            <div class="table-responsive"><br>
                  <table id="userTable" class="table table-striped table-hover table-bordered  table-custom">
                     <thead>
                         <tr align="center">
@@ -321,15 +328,16 @@
                         <td align="center"><img src="<?= base_url('assets/foto/'.$a->Foto_pelamar) ?>" width='70' height='80'>
                         <td align="center">
                             <a class="btn btn-info" href="<?= base_url('Pelaporan/detail/'.$a->id_pelamar);  ?>">Detail</a>
-                             <a class="btn btn-success" href="<?= base_url('Pelaporan/cetak/'.$a->id_pelamar);  ?>">Print</a>
+                             <a class="btn btn-success" target="_blank" href="<?= base_url('Pelaporan/cetak/'.$a->id_pelamar);  ?>">Print</a>
                         </td>
                         </tr>
                     </form>
                         <?php
                         } ?>
                     </tbody>
-                    
+
                 </table>
+            </div>
             </div>
         </div>
         <!-- /.content-wrapper -->

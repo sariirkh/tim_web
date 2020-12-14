@@ -5,16 +5,13 @@ class pelaporan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-		$this->load->library('Commonfunction','','fn');
         $this->load->model("M_laporan");
         $this->load->database();
     }
 
     function index()
     {
-		// $this->fn->getheader();
         $this->load->view('excel_import');
-        // $this->fn->getfooter();
     }
     public function pelaporan()
     {
@@ -41,7 +38,7 @@ class pelaporan extends CI_Controller
         if($tahapan <> 'null')
             $filterQuery .= " AND tahapan_pelamar='".$tahapan."' ";
         
-        $data['pelamar'] = $this->db->query("SELECT * FROM tb_pelamar JOIN tb_cr ON tb_pelamar.loker_pelamar=tb_cr.id_cr ". $filterQuery)->result();
+        $data['pelamar'] = $this->db->query("SELECT * FROM tb_pelamar AS a INNER JOIN tb_cr AS b ON a.loker_pelamar=b.id_cr ". $filterQuery)->result();
         $this->load->view("v_pelaporan", $data);
         
 
@@ -79,15 +76,10 @@ class pelaporan extends CI_Controller
     public function cetak()
     {
         $id = $this->uri->segment(3);
-        $data['pelamar'] = $this->db->query("SELECT * FROM tb_pelamar WHERE id_pelamar='$id'")->result();
+        $data['pelamar'] = $this->db->query("SELECT * FROM tb_pelamar AS a INNER JOIN tb_cr AS b ON a.loker_pelamar=b.id_cr WHERE id_pelamar='$id'")->result();
         $this->load->view("v_cetak", $data);
     }
-    public function Print()
-    {
-        $id = $this->uri->segment(3);
-        $data['pelamar'] = $this->db->query("SELECT * FROM tb_pelamar WHERE id_pelamar='$id'")->result();
-        $this->load->view("v_print", $data);
-    }
+    
     public function laporanbukubesar()
     {
 
