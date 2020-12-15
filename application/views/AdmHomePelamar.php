@@ -169,7 +169,7 @@
                 <!-- /.d-flex -->
 
                 <div class="position-relative mb-4">
-                  <canvas id="barChart" height="100"></canvas>
+                  <canvas id="barChartpelamar" height="100"></canvas>
                 </div>
 
              <div class="d-flex flex-row justify-content-end">

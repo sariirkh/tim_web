@@ -2603,7 +2603,7 @@ function pieChartKota()
 
 <script type="text/javascript">
 //alert("as");
-if( $("#barChart") )
+if( $("#barChartPelamar") )
   salesChar2t();
  
 function salesChar2t()
@@ -2641,7 +2641,7 @@ $.ajax({
 		
 		//alert(data1);
 		//change label name
-		var ctx = document.getElementById('barChart').getContext('2d');
+		var ctx = document.getElementById('barChartpelamar').getContext('2d');
 		var myChart = new Chart(ctx, {
 			type: 'bar',
 			data: {

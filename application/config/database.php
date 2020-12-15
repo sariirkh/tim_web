@@ -59,15 +59,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 
-$active_group = 'mdr';
+$active_group = 'tim_web';
 $query_builder = TRUE;
 
-$db['mdr'] = array(
+$db['tim_web'] = array(
 	// 'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'mdr',
+	'database' => 'tim_web',
 	'dbdriver' => 'mysqli',
 	// 'hostname' => '10.10.10.182',
 	// 'username' => 'web_backend',
