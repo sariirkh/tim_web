@@ -59,13 +59,13 @@ class Barangmasuk extends CI_Controller
 	//view
 	var $viewFormTitle="Data ATK Masuk";
 	var $viewFormTableHeader=array(
-									"No Transaksi",
-									"Product Description",
+									"Id Transaction",
+									"Description Product",
 									"Date",
-									"Tim",
+									"Time",
                                     "Quantity",
 									"Unit",
-									"Order Type",																
+									"Type Order",																
 									//"Catatan",
 									"Picture"
 									);
@@ -73,13 +73,13 @@ class Barangmasuk extends CI_Controller
 	//save
 	var $saveFormTitle="Tambah ATK Masuk";
 	var $saveFormTableHeader=array(
-									"No Transaksi",							
-									"Product Description",
+									"Id Transaction",
+									"Description Product",
 									"Date",
 									"Time",
 									"Quantity",
 									"Unit",
-									"Order Type",																	
+									"Type Order",																
 									//"Catatan",
 									"Picture"
 									);

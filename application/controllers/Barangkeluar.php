@@ -214,23 +214,22 @@ class Barangkeluar extends CI_Controller
 				
 				//generate id
 				$txtVal[0]=$this->Mmain->autoId($this->mainTable,$this->mainPk,$this->prefix,$this->defaultId,$this->suffix);	
-				$txtVal[2] = date("Y-m-d");
-				$txtVal[3] = date("H:i:s", time()+(60*60*6));
+				$txtVal[1] = date("Y-m-d");
+				$txtVal[2] = date("H:i:s", time()+(60*60*6));
 				
 	
 		}
 
 		// $cboacc=$this->fn->createCbofromDb("tb_acc","id_acc as id,nm_acc as nm","",$txtVal[58],"","txtUser[]");
 		//Combobox gabungan
-		$cboID=$this->fn->createCbofromDb("tb_barang","id_barang as id, des_barang as nm","",$txtVal[1],"id='cboBarang'","txt[]");
+		$cboID=$this->fn->createCbofromDb("tb_barang","id_barang as id, des_barang as nm","",$txtVal[3],"id='cboBarang'","txt[]");
 		$cboKaryawan=$this->fn->createCbofromDb("tb_karyawan","id_karyawan as id, nama_karyawan as nm","",$txtVal[5],"","txt[]");
-		$wherebrg = $this->Mmain->qRead("tb_barang","id_barang","stok_barang","");
 		
 		$output['formTxt']=array(
 								"<input type='text' class='form-control' id='txtIdBarangKeluar' name=txt[] value='".$txtVal[0]."' required readonly placeholder='Max. karakter' maxlength='70'>",
+								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off  readonly id='txtTanggalKeluar' name=txt[] value='".$txtVal[1]."' required placeholder='Max. karakter' maxlength='70'>",
+								"<input type='text' class='form-control tp' 'name=txt[] autocomplete=off  readonly id='txtJam' name=txt[] value='".$txtVal[2]."' required placeholder='Max. karakter' maxlength='70'>",
 								$cboID,
-								"<input type='text' class='form-control dtp' data-date-format='yyyy-mm-dd' autocomplete=off  readonly id='txtTanggalKeluar' name=txt[] value='".$txtVal[2]."' required placeholder='Max. karakter' maxlength='70'>",
-								"<input type='text' class='form-control tp' 'name=txt[] autocomplete=off  readonly id='txtJam' name=txt[] value='".$txtVal[3]."' required placeholder='Max. karakter' maxlength='70'>",
 								"<input type='text' class='form-control' autocomplete=off id='txtJumlahKeluar' name=txt[] value='".$txtVal[4]."' required placeholder='' maxlength='70'>",
 								$cboKaryawan,
 								"<input type='text' class='form-control' id='txtCatatan' name=txt[] value='".$txtVal[6]."' required placeholder='Ex: Untuk office etc.' maxlength='20'>",
@@ -262,10 +261,10 @@ class Barangkeluar extends CI_Controller
 		// $wherebrg = array('id_barang' => $id);
 		// $data['stoksisa'] = $this->db->get_where('tb_detailkeluar',$wherebrg)->result();
 
-		echo implode("<br>",$savValTemp); //show value tapi polos
+		//echo implode("<br>",$savValTemp); //show value tapi polos
 		//update stok keluar
 		
-		$stoklama = $this->Mmain->qRead("tb_barang WHERE id_barang = '".$savValTemp[1]."' ","stok_barang","")->row()->stok_barang;
+		$stoklama = $this->Mmain->qRead("tb_barang WHERE id_barang = '".$savValTemp[3]."' ","stok_barang","")->row()->stok_barang;
 		$stokbaru = $stoklama - $savValTemp[4];
 
 		//menyimpan ttd sebagai gambar di local
