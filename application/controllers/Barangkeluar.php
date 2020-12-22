@@ -62,9 +62,9 @@ class Barangkeluar extends CI_Controller
 	var $viewFormTitle="Daftar ATK Keluar";
 	var $viewFormTableHeader=array(
 									"Id Transaction",
-									"Product Description",
 									"Date",
 									"Time",
+									"Product Description",
 									"Quantity",
 									"Employee Name",
 									"Note",
@@ -75,9 +75,9 @@ class Barangkeluar extends CI_Controller
 	var $saveFormTitle="Tambah ATK Keluar";
 	var $saveFormTableHeader=array(
 									"Id Transaction",
-									"Product Description",
 									"Date",
 									"Time",
+									"Product Description",
 									"Quantity",
 									"Employee Name",
 									"Note",
